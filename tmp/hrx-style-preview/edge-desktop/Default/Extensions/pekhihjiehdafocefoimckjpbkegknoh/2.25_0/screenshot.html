@@ -1,0 +1,179 @@
+<html>
+<head>
+  <title>Site Palette 🎨</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1, user-scalable=0" name="viewport" />
+  <!-- dependencies -->
+  <script src="./vendor/jquery-3.3.1.min.js"></script>
+  <script src="./vendor/vibrant.js"></script>
+  <script src="./vendor/color-thief.js"></script>
+  <script src="./vendor/core.js"></script>
+  <script src="./vendor/colorcube.js"></script>
+  <script src="./vendor/name-color.js"></script>
+  <script src="./vendor/tinycolor.js"></script>
+  <script src="./vendor/mustache.min.js"></script>
+  <!-- engine -->
+  <script src="sitePalette.js" type="module"></script>
+  <!-- chrome wrapper -->
+  <link rel="stylesheet" href="screenshot.css">
+</head>
+<body>
+
+  <div id="progress" class="progress">
+    <div class="progress__message">
+      <span class="progress__icon icon-loading"></span> Building website palette
+    </div>
+  </div>
+
+  <div id="result" class="result">
+
+    <!-- Info -->
+    <section class="info">
+      <div class="info-header">
+        <div class="logo">
+          <img class="logo__image" src="./icons/app-icon.png" alt="Site Palette">
+          <a href="https://palette.site/palettes" target="_blank" class="info-header__palettes">My palettes</a>
+          <p class="info-header__palette-title" id="palette-title"> / twitter.com</p>
+        </div>
+        <div class="container__trial-info container__trial-info_hide">
+          <p class="container__trial-info-text"></p>
+          <div class="container__upgrade-loading" id="progress-upgrade">
+            <span class="progress__icon icon-loading"></span>
+          </div>
+          <a href="https://palette.site/profile" target="_blank" class="container__btn-upgrade">Manage</a>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview">
+
+        <!-- Browser -->
+        <div class="browser">
+          <div class="browser__bar">
+            <div class="browser__dots"></div>
+            <div class="browser__address">
+              <a class="browser__url" target="_blank" id="site-url" href="#">
+                <!-- urlencoded -->
+              </a>
+            </div>
+          </div>
+          <div class="browser__body">
+            <img id="target" src="./icons/app-icon.png" class="browser__image">
+            <!-- <img id="target" class="browser__image"> -->
+          </div>
+        </div>
+
+        <div id="profiler-done"></div>
+
+        <!-- Share -->
+        <div class="share">
+          <button id="share" class="share__button button js-get-share-link">
+            <span class="share__ready">
+              <i class="icon-share"></i>
+              <span class="share__text">Share this palette</span>
+            </span>
+            <span class="share__copied">
+              <i class="icon-share icon-share_copied"></i>
+              <span class="share__text">Link is copied!</span>
+            </span>
+            <!-- <span>Copy link to this palette</span> -->
+          </button>
+          <div class="share__result">
+            <!-- <a href="" id="share-result" target="_blank"></a>
+            <p id="share-result-err"></p> -->
+          </div>
+        </div>
+
+        <!-- Price cards if trial or plan expired -->
+        <div class="container__price-block container__price-block_small-mt">
+          <p class="container__price-title"></p>
+          <p class="container__price-subtitle"></p>
+          <div class="container__price-cards">
+            <div class="container__price-card container__price-card_active"  id="subs-card">
+              <p class="container__price-card-title">Subscription</p>
+              <div class="container__price-card-main">
+                <p class="container__price-card-subtitle">from</p>
+                <p class="container__price-info">$2.50/mo</p>
+                <p class="container__price-card-bill">billed annually</p>
+                <button class="container__price-card-btn container__price-card-btn_active" id="subs-btn">Subscribe</button>
+              </div>
+            </div>
+            <div class="container__price-card" id="purch-card">
+              <p class="container__price-card-title">Lifetime</p>
+              <div class="container__price-card-main">
+                <p class="container__price-info">$99</p>
+                <p class="container__price-card-bill">billed once</p>
+                <button class="container__price-card-btn" id="purch-btn">Purchase</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Made by -->
+      <div class="madeby">
+        Made by <a href="https://karmabot.chat/" target="_blank" class="madeby__url">Karma</a> team with ❤️
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section class="colors">
+      <div id="cube" class="colors-section"></div>
+      <div id="thief" class="colors-section"></div>
+      <div id="vibrant" class="colors-section"></div>
+      <div id="css" class="colors-section"></div>
+    </section>
+
+    <section>
+      <div class="madeby madeby--mobile">
+        Made by <a href="https://karmabot.chat/" target="_blank" class="madeby__url">Karma</a> team with ❤️
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
+
+<script id="template" type="x-tmpl-mustache">
+  <div class="colors-section__info">
+    <div class="colors-section__heading">
+      <h2 class="colors-section__title">{{ title }}</h2>
+      <div class="colors-section__summary">
+        <div class="colors-section__summary__text">{{ desc }}</div>
+        {{#github}}
+          <a class="colors-section__summary__github" href="{{ github }}" target="_blank">
+            <i class="icon-github"></i>
+          </a>
+        {{/github}}
+      </div>
+    </div>
+    <div class="colors-section__list">
+      {{ #colors }}
+        <div class="color" data-color="{{ hex }}">
+          <div class="color__brick js-color-copy {{ lightness }} {{ luminance }}" style="background-color: {{ hex }}"></div>
+          <div class="color__value js-color-copy">{{ hex }}</div>
+          <div class="color__name">{{ name }}</div>
+        </div>
+      {{ /colors }}
+    </div>
+  </div>
+  <ul class="colors-section__links">
+    <li class="colors-section__link colors-section__link--sketch">
+      <a class="download-link" href="{{links.svg}}" target="_blank">Svg</a>
+    </li>
+    <li class="colors-section__link colors-section__link--sketch">
+      <a class="download-link" href="{{links.sketch}}" target="_blank">Sketch Template</a>
+    </li>
+    <li class="colors-section__link colors-section__link--adobe">
+      <a class="download-link" href="{{links.adobe}}" target="_blank">Adobe Swatch</a>
+    </li>
+    <li class="colors-section__link colors-section__link--google">
+      <a class="external-link" href="{{links.google}}" target="_blank">Google Palette</a>
+    </li>
+    <li class="colors-section__link colors-section__link--coolors">
+      <a class="external-link" href="{{links.coolors}}" target="_blank" >Coolors</a>
+    </li>
+  </ul>
+</script>

@@ -1,0 +1,51 @@
+{
+   "action": {
+      "default_icon": "icon-34.png"
+   },
+   "background": {
+      "service_worker": "background.iife.js",
+      "type": "module"
+   },
+   "commands": {
+      "toggle-extension": {
+         "description": "Toggle extension popup",
+         "suggested_key": {
+            "default": "Ctrl+E",
+            "mac": "Command+E"
+         }
+      }
+   },
+   "content_scripts": [ {
+      "js": [ "content/index.iife.js" ],
+      "matches": [ "http://*/*", "https://*/*", "\u003Call_urls>" ]
+   }, {
+      "js": [ "content-ui/index.iife.js" ],
+      "matches": [ "http://*/*", "https://*/*", "\u003Call_urls>" ]
+   }, {
+      "css": [ "content.css" ],
+      "matches": [ "http://*/*", "https://*/*", "\u003Call_urls>" ]
+   }, {
+      "css": [ "tooltip.css" ],
+      "matches": [ "http://*/*", "https://*/*", "\u003Call_urls>" ]
+   } ],
+   "default_locale": "en",
+   "description": "__MSG_extensionDescription__",
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "icon-128.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArTPnVsmAvoOtSh/Q2gffR9tBzqHU9T3fdOQweLJ5kv0waZ6QHB9INnzLQ/8DvpLYYs17dBgEZaojOsmUN+jcL3zBRnmq7c+cfUENh+l8uMJbZLgWLUJ/RQLfUi1YnpSJNjSZd4wfKlfyuFBP1ia7hlGffDMOYYVoQlEA4jLW9lTBT/S4Md1sYSrF56Qnnoo3vYBUCEUhRGYgf+HfWy1eKAIUXTCg7KbQ/7aqBPNzORN+0nvVLNtnVZC/fi+vmHtW31c94T4s5IxIHW+12Ju+AzDn8748VxAPILoMDd8hAYsR/MzKT5omEd6lwrPfPovwSAgl87YRmK1KRMmoKFIzSwIDAQAB",
+   "manifest_version": 3,
+   "name": "__MSG_extensionName__",
+   "options_page": "options/index.html",
+   "permissions": [ "storage", "scripting", "tabs", "notifications" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "3.1.92",
+   "web_accessible_resources": [ {
+      "matches": [ "*://*/*" ],
+      "resources": [ "*.js", "*.css", "*.svg", "icon-128.png", "icon-34.png", "message.mp3", "logo.png" ]
+   }, {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "monaco-editor/**/*" ]
+   } ]
+}

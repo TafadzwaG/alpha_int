@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=document.createElement("script");t.dataset.extensionId=chrome.runtime.id,t.src=chrome.runtime.getURL("content/gDocsAnnotatedCanvas.js"),(document.head||document.documentElement).appendChild(t)})();

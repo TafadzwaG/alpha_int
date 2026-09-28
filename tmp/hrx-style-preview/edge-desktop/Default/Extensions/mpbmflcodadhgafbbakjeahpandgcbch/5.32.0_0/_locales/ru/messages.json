@@ -1,0 +1,1019 @@
+{
+   "cancel": {
+      "message": "Отмена"
+   },
+   "card_action_copy": {
+      "message": "Копировать в буфер"
+   },
+   "card_action_delete": {
+      "message": "Удалить"
+   },
+   "card_action_download": {
+      "message": "Скачать"
+   },
+   "card_action_duplicate": {
+      "message": "Дублировать"
+   },
+   "card_action_optimized": {
+      "message": "Оптимизировано"
+   },
+   "card_action_original": {
+      "message": "Оригинал"
+   },
+   "card_onboarding_context": {
+      "message": "Щелкните правой кнопкой мыши для контекстного меню"
+   },
+   "card_open": {
+      "message": "Открыть"
+   },
+   "card_tooltip_cors": {
+      "message": "Этот SVG ограничен междоменными ресурсами и не может быть изменен или экспортирован напрямую из SVG Gobbler"
+   },
+   "confirm_delete": {
+      "message": "Подтвердить удаление коллекции"
+   },
+   "confirm_delete_desc": {
+      "message": "Показать диалог подтверждения перед удалением коллекции"
+   },
+   "context_desc": {
+      "message": "Показать опцию запуска расширения в контекстном меню при щелчке правой кнопкой мыши на странице"
+   },
+   "context_title": {
+      "message": "Показать SVG Gobbler в контекстном меню"
+   },
+   "copy_base64_uri": {
+      "message": "Скопировать Data URI в Base64"
+   },
+   "copy_uri": {
+      "message": "Скопировать Data URI"
+   },
+   "details_are_you_sure": {
+      "message": "Вы уверены, что хотите уйти? Ваши изменения будут потеряны."
+   },
+   "details_background_color": {
+      "message": "Цвет фона"
+   },
+   "details_component_desc": {
+      "message": "Имя экспортируемого компонента"
+   },
+   "details_component_name": {
+      "message": "Имя компонента"
+   },
+   "details_data_uri": {
+      "message": "Data URI"
+   },
+   "details_default": {
+      "message": "Настройки по умолчанию"
+   },
+   "details_deselect_all": {
+      "message": "Снять выделение со всего"
+   },
+   "details_dimensions": {
+      "message": "Размеры"
+   },
+   "details_dimensions_desc": {
+      "message": "Сохранить атрибуты ширины и высоты из корневого тега SVG"
+   },
+   "details_download": {
+      "message": "Скачать"
+   },
+   "details_edit_svg": {
+      "message": "Редактировать SVG"
+   },
+   "details_floating_tooltip": {
+      "message": "Точность чисел с плавающей запятой. Будет передано каждому плагину, поддерживающему этот параметр."
+   },
+   "details_format": {
+      "message": "Формат"
+   },
+   "details_live": {
+      "message": "Это живой редактор, попробуйте изменить код"
+   },
+   "details_memo": {
+      "message": "Memo"
+   },
+   "details_memo_desc": {
+      "message": "Оборачивать экспортируемый компонент в React.memo"
+   },
+   "details_native": {
+      "message": "Нативный"
+   },
+   "details_native_desc": {
+      "message": "Изменить все узлы SVG на заглавные и использовать специфичный шаблон с импортами react-native-svg. Все неподдерживаемые узлы будут удалены."
+   },
+   "details_optimize": {
+      "message": "Оптимизировать"
+   },
+   "details_plugin": {
+      "message": "Плагины"
+   },
+   "details_preview": {
+      "message": "Предпросмотр"
+   },
+   "details_react": {
+      "message": "React"
+   },
+   "details_ref": {
+      "message": "Ссылка"
+   },
+   "details_ref_desc": {
+      "message": "Передать ссылку на корневой тег SVG"
+   },
+   "details_reset_changes": {
+      "message": "Сбросить изменения"
+   },
+   "details_save_changes": {
+      "message": "Сохранить изменения"
+   },
+   "details_set_default": {
+      "message": "Установить по умолчанию"
+   },
+   "details_settings": {
+      "message": "Настройки"
+   },
+   "details_svgo_default": {
+      "message": "SVGO по умолчанию"
+   },
+   "details_svgr": {
+      "message": "Параметры SVGR"
+   },
+   "details_svgr_error": {
+      "message": "Ошибка при создании компонента SVGR"
+   },
+   "details_typescript": {
+      "message": "TypeScript"
+   },
+   "details_typescript_desc": {
+      "message": "Генерировать определения типов для TypeScript"
+   },
+   "download_all": {
+      "message": "Скачать все"
+   },
+   "drop_files": {
+      "message": "Перетащите файлы сюда"
+   },
+   "edit_applied": {
+      "message": "Применено"
+   },
+   "edit_apply": {
+      "message": "Применить"
+   },
+   "edit_class": {
+      "message": "Класс"
+   },
+   "edit_class_tooltip": {
+      "message": "Строка для применения к свойству class выбранных SVG. Заменит существующий класс"
+   },
+   "edit_custom_name": {
+      "message": "Пользовательское имя"
+   },
+   "edit_custom_name_tooltip": {
+      "message": "Имя свойства для применения к элементу SVG"
+   },
+   "edit_custom_value": {
+      "message": "Пользовательское значение"
+   },
+   "edit_custom_value_tooltip": {
+      "message": "Значение свойства для применения к элементу SVG"
+   },
+   "edit_fill": {
+      "message": "Заливка"
+   },
+   "edit_fill_tooltip": {
+      "message": "Строка для применения к свойству fill выбранных SVG. Заменит существующую заливку"
+   },
+   "edit_height": {
+      "message": "Высота"
+   },
+   "edit_height_tooltip": {
+      "message": "Строка для применения к свойству height выбранных SVG. Заменит существующую высоту"
+   },
+   "edit_id": {
+      "message": "ID"
+   },
+   "edit_id_tooltip": {
+      "message": "Строка для применения к свойству id выбранных SVG. Заменит существующий id"
+   },
+   "edit_properties": {
+      "message": "Свойства"
+   },
+   "edit_reset": {
+      "message": "Сбросить"
+   },
+   "edit_style": {
+      "message": "Стиль"
+   },
+   "edit_style_tooltip": {
+      "message": "Строка для применения к свойству style выбранных SVG. Заменит существующий стиль"
+   },
+   "edit_viewbox": {
+      "message": "viewBox"
+   },
+   "edit_viewbox_tooltip": {
+      "message": "Строка для применения к свойству viewBox выбранных SVG. Заменит существующий viewBox"
+   },
+   "edit_width": {
+      "message": "Ширина"
+   },
+   "edit_width_tooltip": {
+      "message": "Строка для применения к свойству width выбранных SVG. Заменит существующую ширину"
+   },
+   "empty_action": {
+      "message": "Загрузить SVG"
+   },
+   "empty_desc": {
+      "message": "Выберите или перетащите SVG в эту область для загрузки в эту коллекцию"
+   },
+   "empty_title": {
+      "message": "SVG не найдены"
+   },
+   "error_action": {
+      "message": "Обновить"
+   },
+   "error_desc": {
+      "message": "Поделитесь подробностями о том, что вы делали, когда произошла эта ошибка"
+   },
+   "error_input_label": {
+      "message": "Подробности ошибки"
+   },
+   "error_primary_action": {
+      "message": "Отправить"
+   },
+   "error_title": {
+      "message": "Упс! Произошла ошибка"
+   },
+   "export_apply": {
+      "message": "Применить"
+   },
+   "export_copied": {
+      "message": "Скопировано"
+   },
+   "export_copy_clipboard": {
+      "message": "Копировать в буфер"
+   },
+   "export_download": {
+      "message": "Скачать"
+   },
+   "export_export": {
+      "message": "Экспортировать"
+   },
+   "export_export_filename": {
+      "message": "Экспорт имени файла"
+   },
+   "export_filename": {
+      "message": "Имя файла"
+   },
+   "export_filename_prefix": {
+      "message": "Префикс файла"
+   },
+   "export_files": {
+      "message": "Файлы"
+   },
+   "export_filetype": {
+      "message": "Тип файла"
+   },
+   "export_floating": {
+      "message": "Точность с плавающей запятой"
+   },
+   "export_optimize_exports": {
+      "message": "Оптимизировать экспорт"
+   },
+   "export_prefix_names": {
+      "message": "Префикс имен"
+   },
+   "export_prefix_names_tooltip": {
+      "message": "Префикс, который будет добавлен в начало каждого имени файла."
+   },
+   "export_prefix_tooltip": {
+      "message": "Префикс, который будет добавлен в начало каждого имени файла."
+   },
+   "export_pretty": {
+      "message": "Красивый вывод"
+   },
+   "export_quality": {
+      "message": "Качество"
+   },
+   "export_settings": {
+      "message": "Настройки"
+   },
+   "export_size": {
+      "message": "Размер"
+   },
+   "export_sprite_prefix": {
+      "message": "Префикс ID"
+   },
+   "export_sprite_prefix_tooltip": {
+      "message": "Добавьте префикс к ID каждого иконки"
+   },
+   "export_sprite_suffix": {
+      "message": "Суффикс ID"
+   },
+   "export_sprite_suffix_tooltip": {
+      "message": "Добавьте суффикс к ID каждого иконки"
+   },
+   "feedback_email": {
+      "message": "Email"
+   },
+   "feedback_email_optional": {
+      "message": "(опционально для ответа)"
+   },
+   "feedback_email_optional_description": {
+      "message": "Для ответа от разработчика и кредита за отзыв"
+   },
+   "feedback_feedback": {
+      "message": "Отзыв"
+   },
+   "feedback_placeholder": {
+      "message": "Хотелось бы, чтобы SVG Gobbler мог..."
+   },
+   "feedback_primary_action": {
+      "message": "Отправить"
+   },
+   "feedback_secondary_action": {
+      "message": "Отмена"
+   },
+   "feedback_title": {
+      "message": "Быстро, какой функции, по вашему мнению, не хватает SVG Gobbler?"
+   },
+   "launch_gobbler": {
+      "message": "Запуск SVG Gobbler"
+   },
+   "launch_gobbler_desc": {
+      "message": "Настройки запуска расширения"
+   },
+   "main_all": {
+      "message": "все"
+   },
+   "main_cancel": {
+      "message": "Отмена"
+   },
+   "main_copy": {
+      "message": "Копировать"
+   },
+   "main_copy_collection": {
+      "message": "Копировать элементы в коллекцию"
+   },
+   "main_delete": {
+      "message": "Удалить"
+   },
+   "main_load_more": {
+      "message": "Загрузить еще"
+   },
+   "main_move": {
+      "message": "Переместить"
+   },
+   "main_move_collection": {
+      "message": "Переместить элементы в коллекцию"
+   },
+   "main_name": {
+      "message": "Имя"
+   },
+   "main_none": {
+      "message": "ничего"
+   },
+   "main_of": {
+      "message": "из"
+   },
+   "main_results": {
+      "message": "результаты"
+   },
+   "main_select": {
+      "message": "Выбрать"
+   },
+   "main_showing": {
+      "message": "Показано"
+   },
+   "main_submit": {
+      "message": "Отправить"
+   },
+   "name": {
+      "message": "Имя"
+   },
+   "no_results_desc": {
+      "message": "Попробуйте изменить фильтр, поиск или настройки просмотра, чтобы отобразить SVG"
+   },
+   "no_results_title": {
+      "message": "Нет SVG для показа"
+   },
+   "onboarding_card_color": {
+      "message": "Трудно видеть белые SVG? Измените цвет холста 🎨"
+   },
+   "onboarding_desc": {
+      "message": "SVG Gobbler - это расширение для браузера с открытым исходным кодом, созданное"
+   },
+   "onboarding_desc_2": {
+      "message": "в солнечном Сан-Франциско. Внесите вклад в проект, поделитесь своими идеями для функций или сообщите об ошибках на GitHub."
+   },
+   "onboarding_launch": {
+      "message": "Запустить SVG Gobbler"
+   },
+   "onboarding_new": {
+      "message": "Что нового"
+   },
+   "onboarding_title": {
+      "message": "Добро пожаловать в SVG Gobbler"
+   },
+   "onboarding_version": {
+      "message": "Версия 5"
+   },
+   "onboarding_visit": {
+      "message": "Посетить GitHub"
+   },
+   "optimize": {
+      "message": "Оптимизировать"
+   },
+   "optimized": {
+      "message": "Оптимизировано"
+   },
+   "paste_cue_action": {
+      "message": "Готово"
+   },
+   "paste_cue_desc": {
+      "message": "Быстро добавляйте SVG в любую коллекцию, вставляя их непосредственно в представление коллекции."
+   },
+   "paste_cue_title": {
+      "message": "Знаете ли вы, что можете вставлять SVG здесь?"
+   },
+   "remove": {
+      "message": "Удалить"
+   },
+   "review_desc": {
+      "message": "Пожалуйста, оставьте отзыв, чтобы помочь другим его найти."
+   },
+   "review_primary_action": {
+      "message": "Оставить отзыв"
+   },
+   "review_secondary_action": {
+      "message": "Отклонить"
+   },
+   "review_title": {
+      "message": "Находите SVG Gobbler полезным?"
+   },
+   "selected": {
+      "message": "Выбрано"
+   },
+   "settings_about": {
+      "message": "О программе"
+   },
+   "settings_about_desc": {
+      "message": "Немного истории о расширении SVG Gobbler и как его поддержать."
+   },
+   "settings_bug": {
+      "message": "Сообщить об ошибке"
+   },
+   "settings_bug_desc": {
+      "message": "Обнаружили ошибку или есть предложение по функции?"
+   },
+   "settings_collections_desc": {
+      "message": "Настройки и параметры конфигурации для данных и истории коллекций"
+   },
+   "settings_collections_title": {
+      "message": "Данные"
+   },
+   "settings_contribute": {
+      "message": "Внести вклад"
+   },
+   "settings_contribute_desc": {
+      "message": "Расширение SVG Gobbler с открытым исходным кодом доступно для"
+   },
+   "settings_contribute_desc_2": {
+      "message": "вклада на GitHub"
+   },
+   "settings_default_svgo": {
+      "message": "Конфигурация SVGO по умолчанию"
+   },
+   "settings_default_svgo_desc": {
+      "message": "Конфигурация плагинов SVGO по умолчанию, которая будет использоваться при запуске SVG Gobbler."
+   },
+   "settings_disclaimer": {
+      "message": "Отказ от ответственности"
+   },
+   "settings_disclaimer_desc": {
+      "message": "Это расширение для браузера с открытым исходным кодом было создано и предназначено для облегчения загрузки SVG-иконок с веб-сайтов для личного, образовательного или законного профессионального использования. Пользователи должны уважать права интеллектуальной собственности и не использовать этот инструмент для нарушения авторских прав или для коммерческих целей без надлежащей авторизации."
+   },
+   "settings_export": {
+      "message": "Экспорт"
+   },
+   "settings_export__desc": {
+      "message": "Управление и экспорт данных в различных форматах из внутри SVG Gobbler."
+   },
+   "settings_export_all_svg_button": {
+      "message": "Экспортировать SVG"
+   },
+   "settings_export_all_svg_desc": {
+      "message": "Скачать все данные в формате SVG из всех коллекций в виде zip-файла."
+   },
+   "settings_export_all_svg_title": {
+      "message": "Экспортировать SVG в архив"
+   },
+   "settings_export_data": {
+      "message": "Экспортировать данные в формате JSON"
+   },
+   "settings_export_data_desc": {
+      "message": "Экспортировать все коллекции и данные, связанные с SVG Gobbler, в виде JSON-файла."
+   },
+   "settings_export_desc": {
+      "message": "Настройки конфигурации для панели экспорта."
+   },
+   "settings_export_title": {
+      "message": "Экспорт"
+   },
+   "settings_general": {
+      "message": "Общие"
+   },
+   "settings_general_desc": {
+      "message": "Настройте, как SVG Gobbler работает в вашем браузере. Эти настройки специфичны для этого профиля браузера."
+   },
+   "settings_importing": {
+      "message": "Импорт"
+   },
+   "settings_importing_desc": {
+      "message": "Настройки по умолчанию для импорта коллекций."
+   },
+   "settings_kbd": {
+      "message": "Сочетание клавиш"
+   },
+   "settings_kbd_desc": {
+      "message": "Текущее сочетание клавиш для запуска SVG Gobbler:"
+   },
+   "settings_kbd_desc_2": {
+      "message": "Чтобы изменить или удалить это сочетание клавиш"
+   },
+   "settings_kbd_desc_3": {
+      "message": "посетите страницу сочетаний клавиш расширения"
+   },
+   "settings_merge_label": {
+      "message": "Объединить коллекции с одинаковым исходным URL"
+   },
+   "settings_merge_tooltip": {
+      "message": "Автоматически объединять коллекции с идентичными SVG, имеющими одинаковый исходный URL"
+   },
+   "settings_open_issue": {
+      "message": "Открыть задачу на GitHub"
+   },
+   "settings_reset_action": {
+      "message": "Сбросить SVG Gobbler"
+   },
+   "settings_reset_desc": {
+      "message": "Удалить все коллекции и данные из локального хранилища, связанные с SVG Gobbler. Это вернет SVG Gobbler в исходное состояние"
+   },
+   "settings_reset_title": {
+      "message": "Сбросить SVG Gobbler"
+   },
+   "settings_settings": {
+      "message": "Настройки"
+   },
+   "settings_sort_collections_desc": {
+      "message": "Сортировать коллекции алфавитным порядком в боковой панели SVG Gobbler"
+   },
+   "settings_sort_collections_label": {
+      "message": "Сортировать коллекции алфавитным порядком"
+   },
+   "sidebar_cancel": {
+      "message": "Отмена"
+   },
+   "sidebar_close": {
+      "message": "Закрыть боковую панель"
+   },
+   "sidebar_create_collection": {
+      "message": "Создать коллекцию"
+   },
+   "sidebar_create_new": {
+      "message": "Создать новую коллекцию"
+   },
+   "sidebar_drag_files": {
+      "message": "или перетащите"
+   },
+   "sidebar_feedback": {
+      "message": "Отправить отзыв"
+   },
+   "sidebar_file_limit": {
+      "message": "SVG файлы до 10 МБ"
+   },
+   "sidebar_free": {
+      "message": "SVG Gobbler бесплатен"
+   },
+   "sidebar_item": {
+      "message": "элемент"
+   },
+   "sidebar_name": {
+      "message": "Имя"
+   },
+   "sidebar_new_collection": {
+      "message": "Новая коллекция"
+   },
+   "sidebar_open": {
+      "message": "с открытым исходным кодом"
+   },
+   "sidebar_reset": {
+      "message": "Сбросить окружение"
+   },
+   "sidebar_review": {
+      "message": "Оставить отзыв"
+   },
+   "sidebar_settings": {
+      "message": "Настройки"
+   },
+   "sidebar_support": {
+      "message": "Поддержать SVG Gobbler"
+   },
+   "sidebar_support_2": {
+      "message": "и работает полностью на положительных вибрациях. Если у вас возникла проблема или вы хотите добавить функциональность, пожалуйста, создайте задачу или напишите на ross@rossmoody.com для исправления, прежде чем оставлять плохой отзыв."
+   },
+   "sidebar_support_3": {
+      "message": "Если вам нравится SVG Gobbler, пожалуйста, оставьте отзыв, чтобы помочь другим его найти."
+   },
+   "sidebar_support_submit": {
+      "message": "Отправить отзыв"
+   },
+   "sidebar_upload_files": {
+      "message": "Загрузить файлы"
+   },
+   "sidebar_uploaded": {
+      "message": "загружено"
+   },
+   "storage_warning_desc": {
+      "message": "Удалите коллекции, чтобы избежать ошибок."
+   },
+   "storage_warning_title": {
+      "message": "Память почти заполнена"
+   },
+   "svgo_cleanupAttrs": {
+      "message": "Очистить атрибуты"
+   },
+   "svgo_cleanupAttrs_desc": {
+      "message": "Удаляет избыточные пробелы из значений атрибутов. Это не изменит ключи атрибутов и не удалит их, если значение станет пустым после оптимизации."
+   },
+   "svgo_cleanupEnableBackground": {
+      "message": "Очистить enable-background"
+   },
+   "svgo_cleanupEnableBackground_desc": {
+      "message": "Удаляет атрибут enable-background, если он не используется в элементе фильтра"
+   },
+   "svgo_cleanupIDs": {
+      "message": "Очистить ID"
+   },
+   "svgo_cleanupIDs_desc": {
+      "message": "Удаляет неиспользуемые ID и минимизирует ID, на которые ссылаются другие элементы."
+   },
+   "svgo_cleanupListOfValues": {
+      "message": "Очистить список значений"
+   },
+   "svgo_cleanupListOfValues_desc": {
+      "message": "Округляет числовые значения в атрибутах, таких как viewBox, enable-background и точки"
+   },
+   "svgo_cleanupNumericValues": {
+      "message": "Очистить числовые значения"
+   },
+   "svgo_cleanupNumericValues_desc": {
+      "message": "Округляет числовые значения и удаляет единицу измерения, если она 'px', так как это значение по умолчанию."
+   },
+   "svgo_collapsGroups": {
+      "message": "Свернуть группы"
+   },
+   "svgo_collapsGroups_desc": {
+      "message": "Находит группы, которые фактически ничего не делают, и объединяет их, сохраняя содержимое групп."
+   },
+   "svgo_convertColors": {
+      "message": "Преобразовать цвета"
+   },
+   "svgo_convertColors_desc": {
+      "message": "Преобразует ссылки на цвета в их кратчайший эквивалент."
+   },
+   "svgo_convertEllipseToCircle": {
+      "message": "Преобразовать эллипс в круг"
+   },
+   "svgo_convertEllipseToCircle_desc": {
+      "message": "Преобразует эллипсы с равными радиусами в круги."
+   },
+   "svgo_convertOneStopGradients": {
+      "message": "Преобразовать градиенты с одной остановкой"
+   },
+   "svgo_convertOneStopGradients_desc": {
+      "message": "Преобразует узлы \u003ClinearGradient> и \u003CradialGradient>, которые фактически являются сплошным цветом, в этот цвет"
+   },
+   "svgo_convertPathData": {
+      "message": "Преобразовать данные пути"
+   },
+   "svgo_convertPathData_desc": {
+      "message": "Оптимизирует команды пути, найденные в элементах \u003Cpath>, \u003Cglyph> и \u003Cmissing-glyph>. Команды пути - это синтаксис, используемый в атрибуте d, где каждый символ представляет собой инструкцию для рисования путей."
+   },
+   "svgo_convertShapeToPath": {
+      "message": "Преобразовать фигуры в путь"
+   },
+   "svgo_convertShapeToPath_desc": {
+      "message": "Преобразует основные фигуры в элементы \u003Cpath>."
+   },
+   "svgo_convertStyleToAttrs": {
+      "message": "Преобразовать стиль в атрибуты"
+   },
+   "svgo_convertStyleToAttrs_desc": {
+      "message": "Преобразует презентационные атрибуты в стилях элементов в эквивалентный XML атрибут"
+   },
+   "svgo_convertTransform": {
+      "message": "Преобразовать трансформацию"
+   },
+   "svgo_convertTransform_desc": {
+      "message": "Объединяет несколько трансформаций в одну и преобразует матрицы в короткие псевдонимы"
+   },
+   "svgo_inlineStyles": {
+      "message": "Встроенные стили"
+   },
+   "svgo_inlineStyles_desc": {
+      "message": "Объединяет стили из элементов \u003Cstyle> в атрибут стиля соответствующих элементов"
+   },
+   "svgo_mergePaths": {
+      "message": "Объединить пути"
+   },
+   "svgo_mergePaths_desc": {
+      "message": "Объединяет несколько путей в один или в элемент \u003Cg>, если у них одинаковые атрибуты"
+   },
+   "svgo_mergeStyles": {
+      "message": "Объединить стили"
+   },
+   "svgo_mergeStyles_desc": {
+      "message": "Объединяет несколько элементов стиля в один"
+   },
+   "svgo_minifyStyles": {
+      "message": "Минимизировать стили"
+   },
+   "svgo_minifyStyles_desc": {
+      "message": "Минимизирует элементы \u003Cstyle> с помощью CSSO"
+   },
+   "svgo_moveElemsAttrsToGroup": {
+      "message": "Переместить атрибуты элементов в группу"
+   },
+   "svgo_moveElemsAttrsToGroup_desc": {
+      "message": "Перемещает атрибуты элементов в их охватывающую группу"
+   },
+   "svgo_moveGroupAttrsToElems": {
+      "message": "Переместить атрибуты группы в элементы"
+   },
+   "svgo_moveGroupAttrsToElems_desc": {
+      "message": "Перемещает некоторые атрибуты группы в содержащие элементы"
+   },
+   "svgo_prefixIds": {
+      "message": "Префикс ID"
+   },
+   "svgo_prefixIds_desc": {
+      "message": "Добавляет префикс к ID элементов и именам классов с указанным именем файла. По умолчанию 'prefix__'"
+   },
+   "svgo_removeComments": {
+      "message": "Удалить комментарии"
+   },
+   "svgo_removeComments_desc": {
+      "message": "Удаляет XML-комментарии из документа. XML-комментарии - это содержимое между синтаксисом '\u003C!--' и '-->', и они не влияют на рендеринг"
+   },
+   "svgo_removeDesc": {
+      "message": "Удалить описание"
+   },
+   "svgo_removeDesc_desc": {
+      "message": "Удаляет элемент \u003Cdesc> из документа, если он пуст или кажется, что содержит только атрибуцию редактора"
+   },
+   "svgo_removeDimensions": {
+      "message": "Удалить размеры"
+   },
+   "svgo_removeDimensions_desc": {
+      "message": "Удаляет атрибуты ширины и высоты из верхнего элемента \u003Csvg>, если они указаны, и заменяет их атрибутом viewBox, если он отсутствует"
+   },
+   "svgo_removeDoctype": {
+      "message": "Удалить DOCTYPE"
+   },
+   "svgo_removeDoctype_desc": {
+      "message": "Удаляет определение типа документа, также известное как DOCTYPE, из SVG"
+   },
+   "svgo_removeEditorsNSData": {
+      "message": "Удалить данные пространств имен редакторов"
+   },
+   "svgo_removeEditorsNSData_desc": {
+      "message": "Удаляет все пространства имен XML, элементы и атрибуты, связанные с популярным программным обеспечением для редактирования векторов"
+   },
+   "svgo_removeEmptyAttrs": {
+      "message": "Удалить пустые атрибуты"
+   },
+   "svgo_removeEmptyAttrs_desc": {
+      "message": "Удаляет атрибуты с пустыми значениями"
+   },
+   "svgo_removeEmptyContainers": {
+      "message": "Удалить пустые контейнеры"
+   },
+   "svgo_removeEmptyContainers_desc": {
+      "message": "Удаляет контейнерные элементы в документе, которые не имеют детей или значимых атрибутов"
+   },
+   "svgo_removeEmptyText": {
+      "message": "Удалить пустой текст"
+   },
+   "svgo_removeEmptyText_desc": {
+      "message": "Удаляет текстовые элементы, которые не имеют значимых атрибутов"
+   },
+   "svgo_removeHiddenElems": {
+      "message": "Удалить скрытые элементы"
+   },
+   "svgo_removeHiddenElems_desc": {
+      "message": "Удаляет скрытые или невидимые элементы из документа. Это могут быть элементы с определенной нулевой шириной и высотой или элементы, которые просто скрыты с помощью CSS"
+   },
+   "svgo_removeMetadata": {
+      "message": "Удалить метаданные"
+   },
+   "svgo_removeMetadata_desc": {
+      "message": "Удаляет элемент \u003Cmetadata> из документа. Метаданные не влияют на рендеринг. С точки зрения оптимизации, их всегда можно безопасно удалить"
+   },
+   "svgo_removeNonInheritableGroupAttrs": {
+      "message": "Удалить неунаследованные атрибуты группы"
+   },
+   "svgo_removeNonInheritableGroupAttrs_desc": {
+      "message": "Удаляет неунаследованные презентационные группы из детей"
+   },
+   "svgo_removeOffCanvasPaths": {
+      "message": "Удалить пути за пределами холста"
+   },
+   "svgo_removeOffCanvasPaths_desc": {
+      "message": "Удаляет элементы \u003Cpath>, которые рисуются за пределами viewBox"
+   },
+   "svgo_removeRasterImages": {
+      "message": "Удалить растровые изображения"
+   },
+   "svgo_removeRasterImages_desc": {
+      "message": "Удаляет встроенные JPEG, PNG и GIF из документа"
+   },
+   "svgo_removeScriptElement": {
+      "message": "Удалить элементы script"
+   },
+   "svgo_removeScriptElement_desc": {
+      "message": "Удаляет элементы \u003Cscript> из документа"
+   },
+   "svgo_removeStyleElement": {
+      "message": "Удалить элементы style"
+   },
+   "svgo_removeStyleElement_desc": {
+      "message": "Удаляет элементы \u003Cstyle> из документа"
+   },
+   "svgo_removeTitle": {
+      "message": "Удалить заголовок"
+   },
+   "svgo_removeTitle_desc": {
+      "message": "Удаляет элемент \u003Ctitle> из документа."
+   },
+   "svgo_removeUnknownsAndDefaults": {
+      "message": "Удалить неизвестные и значения по умолчанию"
+   },
+   "svgo_removeUnknownsAndDefaults_desc": {
+      "message": "Удаляет неизвестные элементы и атрибуты, а также атрибуты, установленные на их значение по умолчанию"
+   },
+   "svgo_removeUnusedNS": {
+      "message": "Удалить неиспользуемые пространства имен"
+   },
+   "svgo_removeUnusedNS_desc": {
+      "message": "Удаляет неиспользуемые объявления пространств имен из документа"
+   },
+   "svgo_removeUselessDefs": {
+      "message": "Удалить бесполезные defs"
+   },
+   "svgo_removeUselessDefs_desc": {
+      "message": "Удаляет дочерние элементы \u003Cdefs>, у которых нет ID для ссылки."
+   },
+   "svgo_removeUselessStrokeAndFill": {
+      "message": "Удалить бесполезные обводки и заливки"
+   },
+   "svgo_removeUselessStrokeAndFill_desc": {
+      "message": "Удаляет бесполезные атрибуты обводки и заливки"
+   },
+   "svgo_removeViewBox": {
+      "message": "Удалить viewBox"
+   },
+   "svgo_removeViewBox_desc": {
+      "message": "Удаляет атрибут viewBox, когда высота и ширина идентичны"
+   },
+   "svgo_removeXMLInstructions": {
+      "message": "Удалить XML инструкции"
+   },
+   "svgo_removeXMLInstructions_desc": {
+      "message": "Удаляет инструкции обработки XML"
+   },
+   "svgo_removeXMLNS": {
+      "message": "Удалить XMLNS"
+   },
+   "svgo_removeXMLNS_desc": {
+      "message": "Удаляет атрибут xmlns из верхнего элемента \u003Csvg> в документе"
+   },
+   "svgo_reusePaths": {
+      "message": "Повторное использование путей"
+   },
+   "svgo_reusePaths_desc": {
+      "message": "Создает определение для похожих путей и заменяет элементы \u003Cpath> на элементы \u003Cuse>, которые будут ссылаться на одно определение \u003Cpath>"
+   },
+   "svgo_sortAttrs": {
+      "message": "Сортировать атрибуты"
+   },
+   "svgo_sortAttrs_desc": {
+      "message": "Сортирует атрибуты во всех элементах в документе. Это не уменьшает размер SVG, но улучшает читаемость и может улучшить работу алгоритмов сжатия"
+   },
+   "svgo_sortDefsChildren": {
+      "message": "Сортировать детей defs"
+   },
+   "svgo_sortDefsChildren_desc": {
+      "message": "Сортирует всех детей в элементе '\u003Cdefs>'. Это не уменьшает размер SVG, но может улучшить работу алгоритмов сжатия"
+   },
+   "to_upload": {
+      "message": "файлы для загрузки"
+   },
+   "topbar_canvas": {
+      "message": "Изменить цвет холста"
+   },
+   "topbar_canvas_tooltip": {
+      "message": "Цвет холста"
+   },
+   "topbar_collection": {
+      "message": "Коллекция"
+   },
+   "topbar_color": {
+      "message": "Переключить режим цвета"
+   },
+   "topbar_color_tooltip": {
+      "message": "Режим цвета"
+   },
+   "topbar_hide_cors": {
+      "message": "Скрыть ограниченные CORS"
+   },
+   "topbar_size": {
+      "message": "Размер"
+   },
+   "topbar_sort": {
+      "message": "Сортировать"
+   },
+   "topbar_sort_alphabetical_asc": {
+      "message": "Алфавитный: A-Z"
+   },
+   "topbar_sort_alphabetical_desc": {
+      "message": "Алфавитный: Z-A"
+   },
+   "topbar_sort_last_asc": {
+      "message": "Последнее редактирование: сначала новые"
+   },
+   "topbar_sort_last_desc": {
+      "message": "Последнее редактирование: сначала старые"
+   },
+   "topbar_sort_none": {
+      "message": "Нет"
+   },
+   "topbar_sort_size_asc": {
+      "message": "Размер файла: от меньшего к большему"
+   },
+   "topbar_sort_size_desc": {
+      "message": "Размер файла: от большего к меньшему"
+   },
+   "topbar_upload": {
+      "message": "Загрузить"
+   },
+   "topbar_view": {
+      "message": "Вид"
+   },
+   "undone": {
+      "message": "Это действие нельзя отменить."
+   },
+   "upload_clipboard": {
+      "message": "Буфер обмена"
+   },
+   "upload_drag_files": {
+      "message": "или перетащите"
+   },
+   "upload_error": {
+      "message": "Неверный SVG, проверьте строку и попробуйте снова"
+   },
+   "upload_file": {
+      "message": "Файл"
+   },
+   "upload_file_limit": {
+      "message": "SVG файлы до 10 МБ"
+   },
+   "upload_item": {
+      "message": "элемент"
+   },
+   "upload_upload": {
+      "message": "Загрузить"
+   },
+   "upload_upload_files": {
+      "message": "Загрузить файлы"
+   },
+   "upload_uploaded": {
+      "message": "загружено"
+   },
+   "view_always_show_size": {
+      "message": "Всегда показывать размер файла"
+   },
+   "view_show_feature_notice": {
+      "message": "Новые представления!"
+   },
+   "view_show_name": {
+      "message": "Показать имена SVG"
+   },
+   "you_sure": {
+      "message": "Вы уверены, что хотите удалить"
+   },
+   "zoom_in": {
+      "message": "Увеличить"
+   },
+   "zoom_out": {
+      "message": "Уменьшить"
+   }
+}

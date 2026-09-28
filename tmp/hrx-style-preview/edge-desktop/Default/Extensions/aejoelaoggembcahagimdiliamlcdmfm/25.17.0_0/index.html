@@ -1,0 +1,121 @@
+<!--
+  ~ Copyright (C) 2010-2022 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ https://www.talend.com/legal-terms/us-eula
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 5 rue Salomon de Rothschild - 92150 Suresnes
+  ~
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8>
+  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+  <meta name="twitter:widgets:csp" content="on">
+  <link rel="stylesheet" type="text/css" href="css/sourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/simple-line-icons.css">
+  <link rel="stylesheet" type="text/css" href="css/talend-icons-webfont.css">
+  <link rel="stylesheet" type="text/css" href="css/select2-4.0.3.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/api-tester/style.css">
+  <!-- the following order is very important -->
+  <link rel="stylesheet" type="text/css" href="dist/chromeapp.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.4.2.0.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.3.2.1.enriched-for-client.css">
+  <title>Talend API Tester</title>
+  <script type="text/javascript" src="js/tester_boot.js"></script>
+</head>
+
+<body class="main chromeapp" id="console">
+<div id="loader">
+  <div class="tc-app-loader-container" role="status">
+    <div class="tc-app-loader-icon">
+      <div class="tc-app-loader">
+        <div class="spinner-wrapper">
+          <div class="spinner-left">
+            <div class="circle"></div>
+          </div>
+          <div class="spinner-right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="notification-container">
+  <div id="notification" class="notification-area" style="display: none"></div>
+  <div id="alt-notification" class="alt-notification-area" style="display: none"></div>
+</div>
+
+<div id="migration-message-container" class="hidden">
+  <div id="migration-message-body" class="well">
+    <h3 data-translate="MIGRATION_TITLE">Talend API Tester is upgrading!</h3>
+    <div>
+      <p data-translate="MIGRATION_PRESENTATION">
+        To provide you with more cutting-edge features, Talend API Tester must evolve, so does your data.
+      </p>
+      <p class="backed-up-migration-message" data-translate="MIGRATION_BACKUP">
+        As a security measure we've generated a backup file, please make sure you download it.
+      </p>
+      <p class="backed-up-migration-message" data-translate="MIGRATION_SUPPORT">
+        In case anything goes wrong, the support (customercare@talend.com) will help you fix any issue you might
+        encounter.
+      </p>
+      <p data-translate="MIGRATION_WARNING">
+        Please wait until the migration has passed to close or reload the tab.
+      </p>
+      <div id="buttons">
+        <div id="not-backed-up-action" class="r-btn r-btn-primary not-backed-up-migration-message">
+          <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          <span data-translate="MIGRATION_UPGRADE">Upgrade now!</span>
+        </div>
+        <div id="backed-up-action" class="r-btn r-btn-primary backed-up-migration-message">
+          <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          <span data-translate="MIGRATION_UPGRADE">Upgrade now!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<iframe id="__gwt_historyFrame" style="width:0;height:0;border:0;display:none"></iframe>
+<iframe id="__gwt_sandboxFrame" src="sandbox.html" style="width:0;height:0;border:0;display:none"></iframe>
+<input type="file" id="filePicker" style="display: none" />
+
+<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-2.3.2.min.js"></script>
+<script type="text/javascript" src="js/select2-4.0.3.min.js"></script>
+
+<!-- js libs must be before `app.bundle.js` in order store it on `APP` namespace -->
+<script type="text/javascript" src="dist/commons.vendor-default.js"></script>
+<script type="text/javascript" src="dist/commons.vendor-xpath.js"></script>
+<script type="text/javascript" src="dist/commons.vendor-xmldom.js"></script>
+<script type="text/javascript" src="dist/commons.vendor-zip.js"></script>
+<script type="text/javascript" src="dist/commons.bundle.js"></script>
+<script type="text/javascript" src="dist/app.bundle.js"></script>
+
+<!--Compress code mirror files for prod distribution -->
+<script type="text/javascript" src="js/codemirror-5.65.19/codemirror.js"></script>
+<script type="text/javascript" src="js/codemirror-5.65.19/mode/css/css.js"></script>
+<script type="text/javascript" src="js/codemirror-5.65.19/mode/htmlmixed/htmlmixed.js"></script>
+<script type="text/javascript" src="js/codemirror-5.65.19/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="js/codemirror-5.65.19/mode/xml/xml.js"></script>
+<script type="text/javascript" src="js/codemirror/addons/formatting.js"></script>
+
+<script type="text/javascript" src="js/sha.js"></script>
+<script type="text/javascript" src="js/crypto/md5.js"></script>
+<script type="text/javascript" src="js/crypto/aes.js"></script>
+<script type="text/javascript" src="js/markdown.js"></script>
+<script type="text/javascript" src="js/base64.min.js"></script>
+<!-- Remote scripts -->
+
+<!-- ====================================== -->
+<!-- Part that differs between dev and prod -->
+<!-- ====================================== -->
+<!-- Empty on that file tho -->
+</body>
+</html>

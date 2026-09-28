@@ -1,0 +1,5 @@
+2026/09/28-11:00:44.367 26f8 Creating DB C:\Users\tafad\Documents\PROJECTS\Alpha_Solution\alpha_erp\tmp\hrx-style-preview\edge-desktop\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/09/28-11:00:44.860 26f8 Reusing MANIFEST C:\Users\tafad\Documents\PROJECTS\Alpha_Solution\alpha_erp\tmp\hrx-style-preview\edge-desktop\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/09/28-11:00:57.368 8f98 Level-0 table #5: started
+2026/09/28-11:00:57.405 8f98 Level-0 table #5: 683273 bytes OK
+2026/09/28-11:00:57.414 8f98 Delete type=0 #3

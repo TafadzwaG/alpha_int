@@ -1,0 +1,1022 @@
+{
+   "cancel": {
+      "message": "キャンセル"
+   },
+   "card_action_copy": {
+      "message": "オリジナルをコピー"
+   },
+   "card_action_copy_optimized": {
+      "message": "最適化済みをコピー"
+   },
+   "card_action_delete": {
+      "message": "削除"
+   },
+   "card_action_download": {
+      "message": "オリジナルをダウンロード"
+   },
+   "card_action_duplicate": {
+      "message": "複製"
+   },
+   "card_action_optimized": {
+      "message": "最適化済み"
+   },
+   "card_action_original": {
+      "message": "オリジナル"
+   },
+   "card_onboarding_context": {
+      "message": "右クリックでコンテキストメニューを表示"
+   },
+   "card_open": {
+      "message": "開く"
+   },
+   "card_tooltip_cors": {
+      "message": "このSVGはクロスオリジンリソース共有が制限されており、SVG Gobblerから直接編集またはエクスポートできません"
+   },
+   "confirm_delete": {
+      "message": "コレクションの削除を確認する"
+   },
+   "confirm_delete_desc": {
+      "message": "コレクションを削除する前に確認ダイアログを表示する"
+   },
+   "context_desc": {
+      "message": "ページを右クリックしたとき、コンテキストメニューに拡張機能を起動するオプションを表示します"
+   },
+   "context_title": {
+      "message": "コンテキストメニューにSVG Gobblerを表示"
+   },
+   "copy_base64_uri": {
+      "message": "Base64 URIをコピー"
+   },
+   "copy_uri": {
+      "message": "データURIをコピー"
+   },
+   "details_are_you_sure": {
+      "message": "離れてもよろしいですか？変更内容が失われます。"
+   },
+   "details_background_color": {
+      "message": "背景色"
+   },
+   "details_component_desc": {
+      "message": "エクスポートするコンポーネントの名前"
+   },
+   "details_component_name": {
+      "message": "コンポーネント名"
+   },
+   "details_data_uri": {
+      "message": "データURI"
+   },
+   "details_default": {
+      "message": "デフォルト設定"
+   },
+   "details_deselect_all": {
+      "message": "すべて選択解除"
+   },
+   "details_dimensions": {
+      "message": "寸法"
+   },
+   "details_dimensions_desc": {
+      "message": "ルートSVGタグの幅と高さの属性を保持する"
+   },
+   "details_download": {
+      "message": "ダウンロード"
+   },
+   "details_edit_svg": {
+      "message": "SVGを編集"
+   },
+   "details_floating_tooltip": {
+      "message": "浮動小数点数の精度。このパラメータをサポートする各プラグインに渡されます。"
+   },
+   "details_format": {
+      "message": "フォーマット"
+   },
+   "details_live": {
+      "message": "ライブエディターです。コードを変更してみてください"
+   },
+   "details_memo": {
+      "message": "メモ"
+   },
+   "details_memo_desc": {
+      "message": "エクスポートするコンポーネントをReact.memoでラップする"
+   },
+   "details_native": {
+      "message": "ネイティブ"
+   },
+   "details_native_desc": {
+      "message": "すべてのSVGノードを大文字で変更し、react-native-svgのインポートを使用した専用テンプレートを使用します。サポートされていないすべてのノードは削除されます。"
+   },
+   "details_optimize": {
+      "message": "最適化"
+   },
+   "details_plugin": {
+      "message": "プラグイン"
+   },
+   "details_preview": {
+      "message": "プレビュー"
+   },
+   "details_react": {
+      "message": "React"
+   },
+   "details_ref": {
+      "message": "Ref"
+   },
+   "details_ref_desc": {
+      "message": "ルートSVGタグにフォワードrefを指定する"
+   },
+   "details_reset_changes": {
+      "message": "変更をリセット"
+   },
+   "details_save_changes": {
+      "message": "変更を保存"
+   },
+   "details_set_default": {
+      "message": "デフォルトとして設定"
+   },
+   "details_settings": {
+      "message": "設定"
+   },
+   "details_svgo_default": {
+      "message": "SVGOデフォルト"
+   },
+   "details_svgr": {
+      "message": "SVGRオプション"
+   },
+   "details_svgr_error": {
+      "message": "SVGRコンポーネントの作成中にエラーが発生しました"
+   },
+   "details_typescript": {
+      "message": "TypeScript"
+   },
+   "details_typescript_desc": {
+      "message": "TypeScript用の型定義を生成する"
+   },
+   "download_all": {
+      "message": "すべてダウンロード"
+   },
+   "drop_files": {
+      "message": "ファイルをドロップ"
+   },
+   "edit_applied": {
+      "message": "適用済み"
+   },
+   "edit_apply": {
+      "message": "適用"
+   },
+   "edit_class": {
+      "message": "クラス"
+   },
+   "edit_class_tooltip": {
+      "message": "選択したSVGのclassプロパティに適用する文字列。既存のclassを置き換えます"
+   },
+   "edit_custom_name": {
+      "message": "カスタムプロパティ名"
+   },
+   "edit_custom_name_tooltip": {
+      "message": "SVG要素に適用するプロパティの名前"
+   },
+   "edit_custom_value": {
+      "message": "カスタムプロパティ値"
+   },
+   "edit_custom_value_tooltip": {
+      "message": "SVG要素に適用するプロパティの値"
+   },
+   "edit_fill": {
+      "message": "フィル"
+   },
+   "edit_fill_tooltip": {
+      "message": "選択したSVGのfillプロパティに適用する文字列。既存のfillを置き換えます"
+   },
+   "edit_height": {
+      "message": "高さ"
+   },
+   "edit_height_tooltip": {
+      "message": "選択したSVGのheightプロパティに適用する文字列。既存のheightを置き換えます"
+   },
+   "edit_id": {
+      "message": "ID"
+   },
+   "edit_id_tooltip": {
+      "message": "選択したSVGのidプロパティに適用する文字列。既存のidを置き換えます"
+   },
+   "edit_properties": {
+      "message": "プロパティ"
+   },
+   "edit_reset": {
+      "message": "リセット"
+   },
+   "edit_style": {
+      "message": "スタイル"
+   },
+   "edit_style_tooltip": {
+      "message": "選択したSVGのstyleプロパティに適用する文字列。既存のstyleを置き換えます"
+   },
+   "edit_viewbox": {
+      "message": "viewBox"
+   },
+   "edit_viewbox_tooltip": {
+      "message": "選択したSVGのviewBoxプロパティに適用する文字列。既存のviewBoxを置き換えます"
+   },
+   "edit_width": {
+      "message": "幅"
+   },
+   "edit_width_tooltip": {
+      "message": "選択したSVGのwidthプロパティに適用する文字列。既存のwidthを置き換えます"
+   },
+   "empty_action": {
+      "message": "SVGをアップロード"
+   },
+   "empty_desc": {
+      "message": "SVGを選択またはこのエリアにドラッグしてコレクションにアップロード"
+   },
+   "empty_title": {
+      "message": "SVGが見つかりません"
+   },
+   "error_action": {
+      "message": "更新"
+   },
+   "error_desc": {
+      "message": "このエラーが発生したときに、共有しても良い詳細情報やソースページのURLを入力してください"
+   },
+   "error_input_label": {
+      "message": "エラーの詳細"
+   },
+   "error_primary_action": {
+      "message": "送信"
+   },
+   "error_title": {
+      "message": "エラーが発生しました"
+   },
+   "export_apply": {
+      "message": "適用"
+   },
+   "export_copied": {
+      "message": "コピー済み"
+   },
+   "export_copy_clipboard": {
+      "message": "クリップボードにコピー"
+   },
+   "export_download": {
+      "message": "ダウンロード"
+   },
+   "export_download_sprite": {
+      "message": "ダウンロード"
+   },
+   "export_export": {
+      "message": "エクスポート"
+   },
+   "export_export_filename": {
+      "message": "ZIPファイル名"
+   },
+   "export_filename": {
+      "message": "ファイル名"
+   },
+   "export_filename_prefix": {
+      "message": "ファイルのプレフィックス"
+   },
+   "export_files": {
+      "message": "ファイル"
+   },
+   "export_filetype": {
+      "message": "ファイル形式"
+   },
+   "export_floating": {
+      "message": "浮動小数点精度"
+   },
+   "export_optimize_exports": {
+      "message": "エクスポートを最適化"
+   },
+   "export_prefix_names": {
+      "message": "ファイル名にプレフィックスを付ける"
+   },
+   "export_prefix_names_tooltip": {
+      "message": "番号付きプレフィックスで関連するアイコン名を上書きする"
+   },
+   "export_prefix_tooltip": {
+      "message": "各ファイル名の先頭に付加されるプレフィックス"
+   },
+   "export_pretty": {
+      "message": "整形出力"
+   },
+   "export_quality": {
+      "message": "品質"
+   },
+   "export_settings": {
+      "message": "設定"
+   },
+   "export_size": {
+      "message": "サイズ"
+   },
+   "export_sprite_prefix": {
+      "message": "IDにプレフィックスを付ける"
+   },
+   "export_sprite_prefix_tooltip": {
+      "message": "各アイコンのIDにプレフィックスを追加"
+   },
+   "export_sprite_suffix": {
+      "message": "IDにサフィックスを付ける"
+   },
+   "export_sprite_suffix_tooltip": {
+      "message": "各アイコンのIDにサフィックスを追加"
+   },
+   "feedback_email": {
+      "message": "メール"
+   },
+   "feedback_email_optional": {
+      "message": "（任意）"
+   },
+   "feedback_email_optional_description": {
+      "message": "開発者からの返信を希望する場合やフィードバックのクレジットを受け取りたい場合"
+   },
+   "feedback_feedback": {
+      "message": "フィードバック"
+   },
+   "feedback_placeholder": {
+      "message": "SVG Gobblerに〇〇ができれば..."
+   },
+   "feedback_primary_action": {
+      "message": "送信"
+   },
+   "feedback_secondary_action": {
+      "message": "キャンセル"
+   },
+   "feedback_title": {
+      "message": "SVG Gobblerに欠けていると思う機能を一つ教えてください"
+   },
+   "launch_gobbler": {
+      "message": "SVG Gobblerを起動中"
+   },
+   "launch_gobbler_desc": {
+      "message": "拡張機能の起動設定"
+   },
+   "main_all": {
+      "message": "すべて"
+   },
+   "main_cancel": {
+      "message": "キャンセル"
+   },
+   "main_copy": {
+      "message": "コピー"
+   },
+   "main_copy_collection": {
+      "message": "コレクションにアイテムをコピー"
+   },
+   "main_delete": {
+      "message": "削除"
+   },
+   "main_load_more": {
+      "message": "もっと読み込む"
+   },
+   "main_move": {
+      "message": "移動"
+   },
+   "main_move_collection": {
+      "message": "コレクションにアイテムを移動"
+   },
+   "main_name": {
+      "message": "名前"
+   },
+   "main_none": {
+      "message": "なし"
+   },
+   "main_of": {
+      "message": "/"
+   },
+   "main_results": {
+      "message": "件"
+   },
+   "main_select": {
+      "message": "選択"
+   },
+   "main_showing": {
+      "message": "表示中"
+   },
+   "main_submit": {
+      "message": "送信"
+   },
+   "name": {
+      "message": "名前"
+   },
+   "no_results_desc": {
+      "message": "フィルター、検索、または表示設定を変更してSVGを表示してください"
+   },
+   "no_results_title": {
+      "message": "表示するSVGがありません"
+   },
+   "onboarding_card_color": {
+      "message": "白いSVGが見えにくいですか？キャンバスの色を変更してください 🎨"
+   },
+   "onboarding_desc": {
+      "message": "ツールバーの拡張機能アイコンをクリックするか、ページを右クリックしてSVG Gobblerのメニュー項目を選択することで起動できます。"
+   },
+   "onboarding_launch": {
+      "message": "このページをGobbleする"
+   },
+   "onboarding_new": {
+      "message": "新機能"
+   },
+   "onboarding_title": {
+      "message": "はじめに"
+   },
+   "onboarding_version": {
+      "message": "バージョン5"
+   },
+   "onboarding_visit": {
+      "message": "GitHubを訪問"
+   },
+   "optimize": {
+      "message": "最適化"
+   },
+   "optimized": {
+      "message": "最適化済み"
+   },
+   "paste_cue_action": {
+      "message": "完了"
+   },
+   "paste_cue_desc": {
+      "message": "コレクションビューに直接貼り付けることで、SVGを素早く追加できます。"
+   },
+   "paste_cue_title": {
+      "message": "ここにSVGを貼り付けられることをご存知ですか？"
+   },
+   "remove": {
+      "message": "削除"
+   },
+   "review_desc": {
+      "message": "SVG Gobblerは無料のオープンソースです。5つ星で他の人が発見するのを助けてください。"
+   },
+   "review_primary_action": {
+      "message": "レビューする"
+   },
+   "review_secondary_action": {
+      "message": "閉じる"
+   },
+   "review_title": {
+      "message": "簡単なレビューをお願いできますか？"
+   },
+   "selected": {
+      "message": "選択済み"
+   },
+   "settings_about": {
+      "message": "概要"
+   },
+   "settings_about_desc": {
+      "message": "SVG Gobbler拡張機能の簡単な歴史とサポート方法について。"
+   },
+   "settings_bug": {
+      "message": "バグを報告"
+   },
+   "settings_bug_desc": {
+      "message": "バグを発見しましたか？機能リクエストがありますか？"
+   },
+   "settings_collections_desc": {
+      "message": "データとコレクション履歴の設定と構成オプション"
+   },
+   "settings_collections_title": {
+      "message": "コレクション"
+   },
+   "settings_contribute": {
+      "message": "貢献する"
+   },
+   "settings_contribute_desc": {
+      "message": "SVG Gobbler拡張機能はオープンソースで、"
+   },
+   "settings_contribute_desc_2": {
+      "message": "GitHubで貢献できます"
+   },
+   "settings_default_svgo": {
+      "message": "デフォルトのSVGO設定"
+   },
+   "settings_default_svgo_desc": {
+      "message": "SVG Gobblerを起動する際に使用されるデフォルトのSVGOプラグイン設定。"
+   },
+   "settings_disclaimer": {
+      "message": "免責事項"
+   },
+   "settings_disclaimer_desc": {
+      "message": "このオープンソースのブラウザ拡張機能は、個人的、教育的、または正当な職業上の使用のために、ウェブサイトからSVGアイコンのダウンロードを容易にすることを目的として作成されました。ユーザーは知的財産権を尊重し、著作権の侵害や、適切な許可なしに商業目的でこのツールを使用しないことが期待されます。"
+   },
+   "settings_export": {
+      "message": "エクスポート"
+   },
+   "settings_export__desc": {
+      "message": "SVG Gobbler内からさまざまな形式でデータを管理およびエクスポートします。"
+   },
+   "settings_export_all_svg_button": {
+      "message": "SVGをエクスポート"
+   },
+   "settings_export_all_svg_desc": {
+      "message": "すべてのコレクションからすべてのデータをSVGとしてZIPファイルでダウンロードします。"
+   },
+   "settings_export_all_svg_title": {
+      "message": "SVGをZIPとしてエクスポート"
+   },
+   "settings_export_data": {
+      "message": "データをJSONとしてエクスポート"
+   },
+   "settings_export_data_desc": {
+      "message": "SVG Gobblerに関連するすべてのコレクションとデータをJSONファイルとしてエクスポートします。"
+   },
+   "settings_export_desc": {
+      "message": "エクスポートパネルの設定。"
+   },
+   "settings_export_title": {
+      "message": "エクスポート"
+   },
+   "settings_general": {
+      "message": "一般"
+   },
+   "settings_general_desc": {
+      "message": "ブラウザでのSVG Gobblerの動作をカスタマイズします。これらの設定はこのブラウザプロファイルに固有です。"
+   },
+   "settings_importing": {
+      "message": "インポート"
+   },
+   "settings_importing_desc": {
+      "message": "コレクションをインポートするためのデフォルト設定。"
+   },
+   "settings_kbd": {
+      "message": "キーボードショートカット"
+   },
+   "settings_kbd_desc": {
+      "message": "SVG Gobblerを起動するための現在のショートカットは"
+   },
+   "settings_kbd_desc_2": {
+      "message": "このショートカットを編集または削除するには"
+   },
+   "settings_kbd_desc_3": {
+      "message": "拡張機能のショートカットページを訪問"
+   },
+   "settings_merge_label": {
+      "message": "同じソースURLのコレクションをマージする"
+   },
+   "settings_merge_tooltip": {
+      "message": "同じソースURLを持つ同一SVGのコレクションを自動的にマージします"
+   },
+   "settings_open_issue": {
+      "message": "GitHubでイシューを開く"
+   },
+   "settings_reset_action": {
+      "message": "SVG Gobblerをリセット"
+   },
+   "settings_reset_desc": {
+      "message": "SVG Gobblerに関連するローカルストレージからすべてのコレクションとデータを消去します。これによりSVG Gobblerは初期化状態にリセットされます"
+   },
+   "settings_reset_title": {
+      "message": "SVG Gobblerをリセット"
+   },
+   "settings_settings": {
+      "message": "設定"
+   },
+   "settings_sort_collections_desc": {
+      "message": "SVG Gobblerを起動するたびに、サイドバーのコレクションを自動的にアルファベット順に並べ替えます"
+   },
+   "settings_sort_collections_label": {
+      "message": "コレクションをアルファベット順に並べ替える"
+   },
+   "sidebar_cancel": {
+      "message": "キャンセル"
+   },
+   "sidebar_close": {
+      "message": "サイドバーを閉じる"
+   },
+   "sidebar_create_collection": {
+      "message": "コレクションを作成"
+   },
+   "sidebar_create_new": {
+      "message": "新しいコレクションを作成"
+   },
+   "sidebar_drag_files": {
+      "message": "またはドラッグ＆ドロップ"
+   },
+   "sidebar_feedback": {
+      "message": "フィードバックを送る"
+   },
+   "sidebar_file_limit": {
+      "message": "SVGファイル（最大10MB）"
+   },
+   "sidebar_free": {
+      "message": "SVG Gobblerは無料の"
+   },
+   "sidebar_item": {
+      "message": "件"
+   },
+   "sidebar_name": {
+      "message": "名前"
+   },
+   "sidebar_new_collection": {
+      "message": "新しいコレクション"
+   },
+   "sidebar_open": {
+      "message": "オープンソース"
+   },
+   "sidebar_reset": {
+      "message": "環境をリセット"
+   },
+   "sidebar_review": {
+      "message": "レビューを残す"
+   },
+   "sidebar_settings": {
+      "message": "設定"
+   },
+   "sidebar_support": {
+      "message": "SVG Gobblerをサポート"
+   },
+   "sidebar_support_2": {
+      "message": "で、ポジティブなバイブスだけで動いています。問題が発生した場合や不足している機能が欲しい場合は、イシューを作成するかross@rossmoody.comにメールしてください。悪いレビューを投稿する前に対応します。"
+   },
+   "sidebar_support_3": {
+      "message": "SVG Gobblerを楽しんでいただいている場合は、他の人が発見できるようにレビューをお願いします。"
+   },
+   "sidebar_support_submit": {
+      "message": "レビューを送信"
+   },
+   "sidebar_upload_files": {
+      "message": "ファイルをアップロード"
+   },
+   "sidebar_uploaded": {
+      "message": "アップロード済み"
+   },
+   "storage_warning_desc": {
+      "message": "エラーを防ぐためにコレクションを削除してください。"
+   },
+   "storage_warning_title": {
+      "message": "ストレージがほぼいっぱいです"
+   },
+   "svgo_cleanupAttrs": {
+      "message": "属性のクリーンアップ"
+   },
+   "svgo_cleanupAttrs_desc": {
+      "message": "属性値から余分な空白を削除します。属性キーは変更されず、最適化後に値が空になっても削除されません。"
+   },
+   "svgo_cleanupEnableBackground": {
+      "message": "enable-backgroundのクリーンアップ"
+   },
+   "svgo_cleanupEnableBackground_desc": {
+      "message": "フィルター要素で使用されている場合を除き、enable-background属性を削除します"
+   },
+   "svgo_cleanupIDs": {
+      "message": "IDのクリーンアップ"
+   },
+   "svgo_cleanupIDs_desc": {
+      "message": "未使用のIDを削除し、他の要素から参照されているIDを最小化します。"
+   },
+   "svgo_cleanupListOfValues": {
+      "message": "値リストのクリーンアップ"
+   },
+   "svgo_cleanupListOfValues_desc": {
+      "message": "viewBox、enable-background、pointsなどの属性の数値を丸めます"
+   },
+   "svgo_cleanupNumericValues": {
+      "message": "数値のクリーンアップ"
+   },
+   "svgo_cleanupNumericValues_desc": {
+      "message": "数値を丸め、デフォルトである'px'の場合は単位を削除します。"
+   },
+   "svgo_collapsGroups": {
+      "message": "グループの折りたたみ"
+   },
+   "svgo_collapsGroups_desc": {
+      "message": "何もしないグループを見つけてフラット化し、グループのコンテンツを保持します。"
+   },
+   "svgo_convertColors": {
+      "message": "色の変換"
+   },
+   "svgo_convertColors_desc": {
+      "message": "色の参照を最短の等価表現に変換します。"
+   },
+   "svgo_convertEllipseToCircle": {
+      "message": "楕円を円に変換"
+   },
+   "svgo_convertEllipseToCircle_desc": {
+      "message": "等しい半径を持つ楕円を円に変換します。"
+   },
+   "svgo_convertOneStopGradients": {
+      "message": "単一ストップグラデーションの変換"
+   },
+   "svgo_convertOneStopGradients_desc": {
+      "message": "実質的に単色である\u003ClinearGradient>および\u003CradialGradient>ノードをその色に変換します"
+   },
+   "svgo_convertPathData": {
+      "message": "パスデータの変換"
+   },
+   "svgo_convertPathData_desc": {
+      "message": "\u003Cpath>、\u003Cglyph>、\u003Cmissing-glyph>要素のパスコマンドを最適化します。パスコマンドはd属性で使用される構文で、各文字はパスを描画する命令を表します。"
+   },
+   "svgo_convertShapeToPath": {
+      "message": "図形をパスに変換"
+   },
+   "svgo_convertShapeToPath_desc": {
+      "message": "基本図形を\u003Cpath>要素に変換します。"
+   },
+   "svgo_convertStyleToAttrs": {
+      "message": "スタイルを属性に変換"
+   },
+   "svgo_convertStyleToAttrs_desc": {
+      "message": "要素スタイルのプレゼンテーション属性を同等のXML属性に変換します"
+   },
+   "svgo_convertTransform": {
+      "message": "変換の最適化"
+   },
+   "svgo_convertTransform_desc": {
+      "message": "複数の変換を一つにまとめ、行列を短いエイリアスに変換します"
+   },
+   "svgo_inlineStyles": {
+      "message": "インラインスタイル"
+   },
+   "svgo_inlineStyles_desc": {
+      "message": "\u003Cstyle>要素からスタイルを一致する要素のstyle属性にマージします"
+   },
+   "svgo_mergePaths": {
+      "message": "パスのマージ"
+   },
+   "svgo_mergePaths_desc": {
+      "message": "同じ属性を持つ複数のパスを一つ、または\u003Cg>要素にマージします"
+   },
+   "svgo_mergeStyles": {
+      "message": "スタイルのマージ"
+   },
+   "svgo_mergeStyles_desc": {
+      "message": "複数のstyle要素を一つにマージします"
+   },
+   "svgo_minifyStyles": {
+      "message": "スタイルの最小化"
+   },
+   "svgo_minifyStyles_desc": {
+      "message": "CSSoで\u003Cstyle>要素を最小化します"
+   },
+   "svgo_moveElemsAttrsToGroup": {
+      "message": "要素属性をグループに移動"
+   },
+   "svgo_moveElemsAttrsToGroup_desc": {
+      "message": "要素の属性をそれを囲むグループに移動します"
+   },
+   "svgo_moveGroupAttrsToElems": {
+      "message": "グループ属性を要素に移動"
+   },
+   "svgo_moveGroupAttrsToElems_desc": {
+      "message": "一部のグループ属性を含まれる要素に移動します"
+   },
+   "svgo_prefixIds": {
+      "message": "IDにプレフィックスを付ける"
+   },
+   "svgo_prefixIds_desc": {
+      "message": "提供されたファイル名で要素IDとクラス名にプレフィックスを付けます。デフォルトは'prefix__'です"
+   },
+   "svgo_removeComments": {
+      "message": "コメントの削除"
+   },
+   "svgo_removeComments_desc": {
+      "message": "ドキュメントからXMLコメントを削除します。XMLコメントは'\u003C!--'と'-->'の間のコンテンツで、レンダリングには影響しません"
+   },
+   "svgo_removeDesc": {
+      "message": "説明の削除"
+   },
+   "svgo_removeDesc_desc": {
+      "message": "\u003Cdesc>要素が空であるか、エディターの帰属のみを含む場合にドキュメントから削除します"
+   },
+   "svgo_removeDimensions": {
+      "message": "寸法を削除"
+   },
+   "svgo_removeDimensions_desc": {
+      "message": "指定されている場合、最上位の\u003Csvg>要素から幅と高さの属性を削除し、viewBox属性が欠落している場合はそれで置き換えます"
+   },
+   "svgo_removeDoctype": {
+      "message": "DOCTYPE宣言の削除"
+   },
+   "svgo_removeDoctype_desc": {
+      "message": "SVGからドキュメントタイプ定義（DOCTYPE）を削除します"
+   },
+   "svgo_removeEditorsNSData": {
+      "message": "エディターの名前空間データを削除"
+   },
+   "svgo_removeEditorsNSData_desc": {
+      "message": "人気のベクター編集ソフトウェアに関連するすべてのXML名前空間、要素、属性を削除します"
+   },
+   "svgo_removeEmptyAttrs": {
+      "message": "空の属性を削除"
+   },
+   "svgo_removeEmptyAttrs_desc": {
+      "message": "値が空の属性を削除します"
+   },
+   "svgo_removeEmptyContainers": {
+      "message": "空のコンテナを削除"
+   },
+   "svgo_removeEmptyContainers_desc": {
+      "message": "子要素や意味のある属性を持たないコンテナ要素を削除します"
+   },
+   "svgo_removeEmptyText": {
+      "message": "空のテキストを削除"
+   },
+   "svgo_removeEmptyText_desc": {
+      "message": "意味のある属性を持たないテキスト要素を削除します"
+   },
+   "svgo_removeHiddenElems": {
+      "message": "非表示の要素を削除"
+   },
+   "svgo_removeHiddenElems_desc": {
+      "message": "ドキュメントから非表示または不可視の要素を削除します。幅と高さが0の要素や、CSSで非表示にされた要素が該当します"
+   },
+   "svgo_removeMetadata": {
+      "message": "メタデータを削除"
+   },
+   "svgo_removeMetadata_desc": {
+      "message": "ドキュメントから\u003Cmetadata>要素を削除します。メタデータはレンダリングに影響しません。最適化の観点から、これらは常に安全に削除できます"
+   },
+   "svgo_removeNonInheritableGroupAttrs": {
+      "message": "継承不可能なグループ属性を削除"
+   },
+   "svgo_removeNonInheritableGroupAttrs_desc": {
+      "message": "子要素から継承不可能なプレゼンテーショングループを削除します"
+   },
+   "svgo_removeOffCanvasPaths": {
+      "message": "キャンバス外のパスを削除"
+   },
+   "svgo_removeOffCanvasPaths_desc": {
+      "message": "viewBoxの外に描画されている\u003Cpath>要素を削除します"
+   },
+   "svgo_removeRasterImages": {
+      "message": "ラスター画像を削除"
+   },
+   "svgo_removeRasterImages_desc": {
+      "message": "ドキュメントからインラインのJPEG、PNG、GIFを削除します"
+   },
+   "svgo_removeScriptElement": {
+      "message": "script要素を削除"
+   },
+   "svgo_removeScriptElement_desc": {
+      "message": "ドキュメントから\u003Cscript>要素を削除します"
+   },
+   "svgo_removeStyleElement": {
+      "message": "style要素を削除"
+   },
+   "svgo_removeStyleElement_desc": {
+      "message": "ドキュメントから\u003Cstyle>要素を削除します"
+   },
+   "svgo_removeTitle": {
+      "message": "タイトルを削除"
+   },
+   "svgo_removeTitle_desc": {
+      "message": "ドキュメントから\u003Ctitle>要素を削除します。"
+   },
+   "svgo_removeUnknownsAndDefaults": {
+      "message": "未知の要素とデフォルトを削除"
+   },
+   "svgo_removeUnknownsAndDefaults_desc": {
+      "message": "未知の要素と属性、およびデフォルト値に設定されている属性を削除します"
+   },
+   "svgo_removeUnusedNS": {
+      "message": "未使用の名前空間を削除"
+   },
+   "svgo_removeUnusedNS_desc": {
+      "message": "ドキュメントから未使用の名前空間宣言を削除します"
+   },
+   "svgo_removeUselessDefs": {
+      "message": "不要なdefsを削除"
+   },
+   "svgo_removeUselessDefs_desc": {
+      "message": "参照するIDを持たない\u003Cdefs>要素の子を削除します。"
+   },
+   "svgo_removeUselessStrokeAndFill": {
+      "message": "不要なストロークとフィルを削除"
+   },
+   "svgo_removeUselessStrokeAndFill_desc": {
+      "message": "不要なストロークとフィル属性を削除します"
+   },
+   "svgo_removeViewBox": {
+      "message": "viewBoxを削除"
+   },
+   "svgo_removeViewBox_desc": {
+      "message": "高さと幅が同一の場合にviewBox属性を削除します"
+   },
+   "svgo_removeXMLInstructions": {
+      "message": "XML命令を削除"
+   },
+   "svgo_removeXMLInstructions_desc": {
+      "message": "XML処理命令を削除します"
+   },
+   "svgo_removeXMLNS": {
+      "message": "XMLNSを削除"
+   },
+   "svgo_removeXMLNS_desc": {
+      "message": "ドキュメント内の最上位\u003Csvg>要素からxmlns属性を削除します"
+   },
+   "svgo_reusePaths": {
+      "message": "パスを再利用"
+   },
+   "svgo_reusePaths_desc": {
+      "message": "類似パスの定義を作成し、\u003Cpath>要素を単一の\u003Cpath>定義を参照する\u003Cuse>要素に置き換えます"
+   },
+   "svgo_sortAttrs": {
+      "message": "属性を並べ替え"
+   },
+   "svgo_sortAttrs_desc": {
+      "message": "ドキュメント内のすべての要素の属性を並べ替えます。SVGのサイズは削減されませんが、読みやすさが向上し、圧縮アルゴリズムのパフォーマンスが改善される可能性があります"
+   },
+   "svgo_sortDefsChildren": {
+      "message": "defs子要素を並べ替え"
+   },
+   "svgo_sortDefsChildren_desc": {
+      "message": "'\u003Cdefs>'要素内のすべての子要素を並べ替えます。SVGのサイズは削減されませんが、圧縮アルゴリズムのパフォーマンスが改善される可能性があります"
+   },
+   "to_upload": {
+      "message": "アップロードするには"
+   },
+   "topbar_canvas": {
+      "message": "キャンバスの色を変更"
+   },
+   "topbar_canvas_tooltip": {
+      "message": "キャンバスの色"
+   },
+   "topbar_collection": {
+      "message": "コレクション"
+   },
+   "topbar_color": {
+      "message": "カラーモードを切り替え"
+   },
+   "topbar_color_tooltip": {
+      "message": "カラーモード"
+   },
+   "topbar_hide_cors": {
+      "message": "CORS制限を非表示"
+   },
+   "topbar_size": {
+      "message": "サイズ"
+   },
+   "topbar_sort": {
+      "message": "並べ替え"
+   },
+   "topbar_sort_alphabetical_asc": {
+      "message": "アルファベット順：A → Z"
+   },
+   "topbar_sort_alphabetical_desc": {
+      "message": "アルファベット順：Z → A"
+   },
+   "topbar_sort_last_asc": {
+      "message": "最終編集：新しい順"
+   },
+   "topbar_sort_last_desc": {
+      "message": "最終編集：古い順"
+   },
+   "topbar_sort_none": {
+      "message": "なし"
+   },
+   "topbar_sort_size_asc": {
+      "message": "ファイルサイズ：小さい順"
+   },
+   "topbar_sort_size_desc": {
+      "message": "ファイルサイズ：大きい順"
+   },
+   "topbar_upload": {
+      "message": "アップロード"
+   },
+   "topbar_view": {
+      "message": "表示"
+   },
+   "undone": {
+      "message": "この操作は元に戻せません。"
+   },
+   "upload_clipboard": {
+      "message": "クリップボード"
+   },
+   "upload_drag_files": {
+      "message": "またはドラッグ＆ドロップ"
+   },
+   "upload_error": {
+      "message": "無効なSVGです。文字列を確認してもう一度試してください"
+   },
+   "upload_file": {
+      "message": "ファイル"
+   },
+   "upload_file_limit": {
+      "message": "SVGファイル（最大10MB）"
+   },
+   "upload_item": {
+      "message": "件"
+   },
+   "upload_upload": {
+      "message": "アップロード"
+   },
+   "upload_upload_files": {
+      "message": "ファイルをアップロード"
+   },
+   "upload_uploaded": {
+      "message": "アップロード済み"
+   },
+   "view_always_show_size": {
+      "message": "SVGファイルサイズを表示"
+   },
+   "view_show_feature_notice": {
+      "message": "新しいビュー！"
+   },
+   "view_show_name": {
+      "message": "SVG名を表示"
+   },
+   "you_sure": {
+      "message": "本当に削除しますか"
+   },
+   "zoom_in": {
+      "message": "ズームイン"
+   },
+   "zoom_out": {
+      "message": "ズームアウト"
+   }
+}

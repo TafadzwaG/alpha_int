@@ -1,0 +1,61 @@
+{
+   "action": {
+      "default_popup": "popup.html"
+   },
+   "author": "HyperWrite",
+   "background": {
+      "service_worker": "background.bundle.js"
+   },
+   "content_scripts": [ {
+      "js": [ "googleDocsUtil.bundle.js", "googleDocsInject.bundle.js" ],
+      "matches": [ "https://docs.google.com/document/d/*" ],
+      "run_at": "document_idle"
+   }, {
+      "all_frames": false,
+      "js": [ "googleDocsCanvasInjector.bundle.js" ],
+      "matches": [ "https://docs.google.com/document/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": false,
+      "js": [ "extensionInstalled.bundle.js" ],
+      "matches": [ "https://app.hyperwriteai.com/*", "https://hyperwriteai.com/*", "http://localhost:3000/*" ],
+      "run_at": "document_idle"
+   }, {
+      "all_frames": true,
+      "js": [ "app.bundle.js" ],
+      "matches": [ "https://word.cloud.microsoft/*", "https://word-edit.officeapps.live.com/*" ],
+      "run_at": "document_idle"
+   }, {
+      "all_frames": false,
+      "exclude_matches": [ "https://auth.hyperwriteai.com/*", "http://localhost:3000/*", "https://accounts.google.com/*" ],
+      "js": [ "app.bundle.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_idle"
+   }, {
+      "all_frames": false,
+      "js": [ "eventTrap.bundle.js" ],
+      "matches": [ "\u003Call_urls>" ]
+   } ],
+   "description": "Smart autocomplete for Gmail, Google Docs, ChatGPT, and more. An AI writing assistant that predicts words and sentences.",
+   "externally_connectable": {
+      "matches": [ "https://app.hyperwriteai.com/*", "https://hyperwriteai.com/*", "http://localhost:3000/*", "http://localhost:3001/*" ]
+   },
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "icon128.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0EDjaO1xcYQvxe+v01H46ejc6dG2QOaZAhZslnXRAi10VYzarP616WU/pDYCRMY6H34DmqTV8rzRmvIZfBdoT+GLxL2epjITm6I+7rec88HzY/VfqoMgC39Wu0aNRkeuNrEmDs1cGsgEjw/5GknEwU/epzLuGoueTpqu4hyKH7z+TYQkQ8dzI3+mhfX6pMN+BFrDl/oh792VNDv1ZZ6D0XMw3GtDtyoz2/Th0QJ45xQiqcRR0CaTdY+laTRRDQTlY9ZyXFNKj/BzlZy6Mh5iYDWTXFHqy1kBf0RRIg1O6IzIMRFX6R7rx57h7xg6ryUpwV5wB5esPWFq/pFur98RsQIDAQAB",
+   "manifest_version": 3,
+   "name": "HyperWrite: AI Writing Assistant and Autocomplete App",
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "settings.html"
+   },
+   "permissions": [ "storage", "tabs" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.2.7.3",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "content/inject.js", "*.png", "*.svg", "*.gif", "*.woff", "*.tff", "content/gDocsAnnotatedCanvas.js" ]
+   } ]
+}

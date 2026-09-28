@@ -1,0 +1,38 @@
+{
+   "action": {
+      "default_title": "SVG Gobbler"
+   },
+   "background": {
+      "service_worker": "service-worker-loader.js",
+      "type": "module"
+   },
+   "commands": {
+      "_execute_action": {
+         "suggested_key": {
+            "default": "Ctrl+Shift+G"
+         }
+      }
+   },
+   "default_locale": "en",
+   "description": "Find, optimize, organize, edit, and export your SVGs",
+   "homepage_url": "https://svggobbler.com",
+   "host_permissions": [ "https://us-west2-svg-gobbler.cloudfunctions.net/svg-gobbler-svgr" ],
+   "icons": {
+      "128": "assets/prod/128.png",
+      "16": "assets/prod/16.png",
+      "256": "assets/prod/256.png",
+      "32": "assets/prod/32.png",
+      "48": "assets/prod/48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvdozIhXw8MrBmwKwIb53Q+3wz0+crDqf/jV4CE+AlYG0mx6Me1QaaVBPiB6M2EXcoLHfXEjMjW+K5uGoLr9kqtLkatSTXGKG4DLIpqCs9ScHtvtP8WX+OaTDYZiM1YrBnKlBXL5Umr0IZq1WbU08RBXiXo6IrzjpFhBlDus5isUqVMT+Lv1Seb4siBUl+D0/zkdIW7jJdxjyY+VzppL5K5MI1KY2OX3ZqFTcVpMN6Fitt0S4Uj2uzIJT3WbTHNtrrkbK6XwX75omX/e2ta9xakSu/iRWZjpxF8VerzObZ+x0HAHOFm7R2goDENKaWtgkvlLHRBdn6qrR2ziguCYZUwIDAQAB",
+   "manifest_version": 3,
+   "name": "SVG Gobbler",
+   "permissions": [ "activeTab", "scripting", "storage", "contextMenus" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "5.32.0",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "assets/dev/**/*.png", "assets/prod/**/*.png" ],
+      "use_dynamic_url": false
+   } ]
+}

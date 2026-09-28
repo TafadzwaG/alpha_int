@@ -1,0 +1,32 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "img/128.png",
+         "16": "img/16.png",
+         "32": "img/32.png",
+         "48": "img/48.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "ReqBin HTTP API Client"
+   },
+   "background": {
+      "service_worker": "service-worker.js",
+      "type": "module"
+   },
+   "description": "ReqBin HTTP Client to send HTTP API requests to the localhost and servers on your local network.",
+   "externally_connectable": {
+      "matches": [ "https://reqbin.com/*", "https://app.reqbin.com/*", "https://beta.reqbin.com/*" ]
+   },
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "img/128.png",
+      "16": "img/16.png",
+      "32": "img/32.png",
+      "48": "img/48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArgCH5DX9sDul11n5/mvYZdB5mCcqtSN6pCPxRMZoMTO4A+JiU3V0bDXDdis+GhG/iWP0/Qc9K3kIufWsosWO/4AWe3pCLucvxWKZw2Q9QuxyuA96adKKKxlOTOWlmu7s7ZqHEEW6mY4T8B/UjeikQbfwfp7MeW+OQP2vzEj6WeZBpiNvL+erUaRP6DpEV4WDZHLKp1THVOWBo6cgNakbbtwjlLynScJCUtYK5G5eGxc7mpYYU8jtsw7Sk2LQYxf9Y0EcgyPCMYMvdq27kWuxJiQXtPO/9AilJx69mhivohj08Vff4Er/wSg4BEMsIxEfePdUDZYHCFiVXOuEOY75AQIDAQAB",
+   "manifest_version": 3,
+   "name": "ReqBin HTTP Client",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.3"
+}

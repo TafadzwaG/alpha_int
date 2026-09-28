@@ -1,0 +1,121 @@
+
+> dev
+> vite --host 127.0.0.1 --port 5174
+
+
+  VITE v6.1.1  ready in 1016 ms
+
+  ➜  Local:   http://127.0.0.1:5174/
+  ➜  press h + enter to show help
+
+  LARAVEL v12.69.2  plugin v1.2.0
+
+  ➜  APP_URL: http://localhost:8000
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/blocked.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/gif_viewer.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/offscreen.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/options.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/pairing.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/sidepanel.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aapbdbdomjkkjkaonfhkkikfgjllcleb/2.0.17_0/offscreen.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aapbdbdomjkkjkaonfhkkikfgjllcleb/2.0.17_0/options.html
+11:04:17 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aapbdbdomjkkjkaonfhkkikfgjllcleb/2.0.17_0/popup.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aejoelaoggembcahagimdiliamlcdmfm/25.17.0_0/application_launcher.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aejoelaoggembcahagimdiliamlcdmfm/25.17.0_0/blank.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aejoelaoggembcahagimdiliamlcdmfm/25.17.0_0/index.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/aejoelaoggembcahagimdiliamlcdmfm/25.17.0_0/sandbox.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/ghbmnnjooekpmoecnnnilnnbdlolhkhi/1.110.1_0/offscreendocument.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/kljjoeapehcmaphfcjkmbhkinoaopdnd/4.2.7.3_0/panel.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/kljjoeapehcmaphfcjkmbhkinoaopdnd/4.2.7.3_0/popup.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/kljjoeapehcmaphfcjkmbhkinoaopdnd/4.2.7.3_0/settings.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/pfgnfdagidkfgccljigdamigbcnndkod/0.9.33_0/panel-loader.html
+11:04:18 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/pfgnfdagidkfgccljigdamigbcnndkod/0.9.33_0/panel.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/pfgnfdagidkfgccljigdamigbcnndkod/0.9.33_0/window.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/mpbmflcodadhgafbbakjeahpandgcbch/5.32.0_0/index.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/mpbmflcodadhgafbbakjeahpandgcbch/5.32.0_0/onboarding.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/inmopeiepgfljkpkidclfgbgbmfcennb/1.1.25_0/sandbox.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/pekhihjiehdafocefoimckjpbkegknoh/2.25_0/popup.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/pekhihjiehdafocefoimckjpbkegknoh/2.25_0/screenshot.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/main.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/panel.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/mmioliijnhnoblpgimnlajmefafdfilb/2.7.0_0/popup.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/gmmkjpcadciiokjpikmkkmapphbmdjok/1.3_0/popup.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.2.10_0/devpanel.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.2.10_0/devtools.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.2.10_0/options.html
+11:04:19 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.2.10_0/remote.html
+11:04:30 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/jabopobgcpjmedljpbcaablpmlmfcogm/3.2.0_0/background/index.html
+11:04:30 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn/1.0.94_0/public/offscreen.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/pages/devtools-background.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/pages/devtools-panel.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/disabled.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/disabled.nuxt.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/enabled.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/disabled.vitepress.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/enabled.nuxt.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/enabled.vitepress.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/not-found.html
+11:04:34 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/7.7.7_0/popups/vue2-migration-guide.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/about/about.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/find-broken-images.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/find-duplicate-ids.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/validate-local-css.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/validate-local-html.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-anchor-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-color-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-cookie-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-css.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-document-outline.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-form-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-javascript.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-link-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-image-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-response-headers.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-meta-tag-information.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/generated/view-responsive-layouts.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/mcgbeeipkmelnpldkobichboakdfaeon/3.1.92_0/options/index.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/options/options.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/options/syntax-highlight.html
+11:04:35 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/mcgbeeipkmelnpldkobichboakdfaeon/3.1.92_0/popup/index.html
+11:04:36 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/bfbameneiokkgbdmiekhjnmfkcnldhhm/3.0.1_0/overlay/overlay.html
+11:04:36 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/ajhmfdgkijocedmfjonnpjfojldioehi/4.0.2_0/options/index.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/deadcode.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/development.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/disabled.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/outdated.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/production.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/restricted.html
+11:04:37 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/8.0.0_0/popups/unminified.html
+11:04:45 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/cnpniohnfphhjihaiiggeabnkjhpaldj/4.5.3_0/src/Options/index.html
+11:04:45 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lhobafahddgcelffkeicbaginigeejlf/0.2.3_0/data/options/options.html
+11:04:45 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/lhobafahddgcelffkeicbaginigeejlf/0.2.3_0/data/popup/popup.html
+11:04:46 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/cnpniohnfphhjihaiiggeabnkjhpaldj/4.5.3_0/src/SidePanel/index.html
+11:04:46 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/cnpniohnfphhjihaiiggeabnkjhpaldj/4.5.3_0/src/Popup/index.html
+11:04:54 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/gppongmhjkpfnbhagpmjfkannfbllamg/6.12.6_0/html/options.html
+11:04:54 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/gppongmhjkpfnbhagpmjfkannfbllamg/6.12.6_0/html/background.html
+11:04:54 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/gppongmhjkpfnbhagpmjfkannfbllamg/6.12.6_0/html/terms.html
+11:04:54 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extensions/gppongmhjkpfnbhagpmjfkannfbllamg/6.12.6_0/html/popup.html
+11:06:39 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extension Rules/000003.log
+11:06:39 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extension Scripts/000003.log
+11:06:39 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Extension State/000003.log
+11:06:39 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/LevelDB/000003.log
+11:06:42 AM [vite] (client) page reload tmp/hrx-style-preview/vite.out.log
+11:06:43 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:06:45 AM [vite] (client) page reload tmp/hrx-style-preview/vite.out.log
+11:06:46 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/component_crx_cache/metadata.json
+11:06:48 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:48 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:06:48 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:49 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:49 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:50 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:50 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:51 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:51 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:52 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/Sync Data/Logs/cv_debug.log
+11:06:52 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:06:59 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:07:01 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:07:04 AM [vite] (client) page reload tmp/hrx-style-preview/edge-desktop/Default/load_statistics.db-wal
+11:07:06 AM [vite] (client) page reload tmp/hrx-style-preview/server.out.log
+11:07:06 AM [vite] (client) page reload tmp/hrx-style-preview/vite.out.log

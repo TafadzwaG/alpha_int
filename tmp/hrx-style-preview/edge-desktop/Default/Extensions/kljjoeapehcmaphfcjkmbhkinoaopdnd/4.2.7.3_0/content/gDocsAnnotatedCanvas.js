@@ -1,0 +1,1 @@
+!function(){const n=document.currentScript?.dataset?.extensionId||null;window._docs_annotate_canvas_by_ext=n}();

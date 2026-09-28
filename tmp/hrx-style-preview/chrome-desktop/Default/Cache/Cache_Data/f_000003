@@ -1,0 +1,1145 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/resources/js/pages/welcome.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=8a7f79df"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s = $RefreshSig$();
+import { Head, Link, usePage } from "/node_modules/.vite/deps/@inertiajs_react.js?v=8a7f79df";
+import {
+  ArrowRight,
+  BarChart3,
+  Building2,
+  Check,
+  ChevronRight,
+  CircleDollarSign,
+  Files,
+  Landmark,
+  LayoutDashboard,
+  MapPinned,
+  Menu,
+  ShieldCheck,
+  Sparkles,
+  UsersRound,
+  X
+} from "/node_modules/.vite/deps/lucide-react.js?v=8a7f79df";
+import __vite__cjsImport5_react from "/node_modules/.vite/deps/react.js?v=8a7f79df"; const useState = __vite__cjsImport5_react["useState"];
+const brand = {
+  navy: "#1E2641",
+  sage: "#759987",
+  ink: "#1E2641"
+};
+const modules = [
+  {
+    icon: MapPinned,
+    eyebrow: "Land portfolio",
+    title: "Every stand, file and allocation in one clear view.",
+    description: "Follow developments from phase planning to client allocation, with reliable status history across every branch."
+  },
+  {
+    icon: CircleDollarSign,
+    eyebrow: "Finance and collections",
+    title: "Collections that reconcile back to the source.",
+    description: "Record multi-currency payments, issue traceable receipts and keep client balances grounded in an immutable ledger."
+  },
+  {
+    icon: ShieldCheck,
+    eyebrow: "Governance",
+    title: "Approvals and accountability built into the workflow.",
+    description: "Protect sensitive actions with role-based access, maker-checker approval and a complete audit trail."
+  }
+];
+const operatingPillars = [
+  { icon: Building2, label: "Multi-branch operations" },
+  { icon: UsersRound, label: "Client lifecycle management" },
+  { icon: Landmark, label: "Financial control" },
+  { icon: BarChart3, label: "Decision-ready reporting" }
+];
+const governanceItems = [
+  "Maker-checker approvals for sensitive actions",
+  "Branch-aware roles and permissions",
+  "Append-only financial and audit records"
+];
+export default function Welcome() {
+  _s();
+  const { auth } = usePage().props;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const primaryHref = auth.user ? route("dashboard") : route("login");
+  return /* @__PURE__ */ jsxDEV(Fragment, { children: [
+    /* @__PURE__ */ jsxDEV(Head, { title: "Alpha Land ERP", children: [
+      /* @__PURE__ */ jsxDEV("meta", { name: "description", content: "The central operations platform for Alpha International Land Developers." }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 70,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("link", { rel: "preconnect", href: "https://fonts.bunny.net" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 71,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("link", { href: "https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700", rel: "stylesheet" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 72,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 69,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "min-h-screen overflow-hidden bg-[#FDFDFC] font-['Instrument_Sans'] text-[#1E2641] selection:bg-[#759987] selection:text-white", children: [
+      /* @__PURE__ */ jsxDEV("header", { className: "fixed inset-x-0 top-0 z-50 border-b border-[#E8E8E4]/90 bg-[#FDFDFC]/90 backdrop-blur-xl", children: [
+        /* @__PURE__ */ jsxDEV("nav", { className: "mx-auto flex min-h-20 max-w-[1320px] items-center justify-between px-5 py-3 sm:px-8 lg:px-10", children: [
+          /* @__PURE__ */ jsxDEV("a", { href: "#top", className: "flex min-w-0 items-center gap-3", "aria-label": "Alpha Land home", children: [
+            /* @__PURE__ */ jsxDEV(LogoMark, {}, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 79,
+              columnNumber: 29
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { className: "min-w-0 leading-none", children: [
+              /* @__PURE__ */ jsxDEV("span", { className: "block truncate text-sm font-bold tracking-[-0.01em] text-[#1E2641] sm:text-base", children: "Alpha Land" }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 81,
+                columnNumber: 33
+              }, this),
+              /* @__PURE__ */ jsxDEV("span", { className: "mt-1 block truncate text-[10px] font-medium tracking-[0.16em] text-[#759987] uppercase", children: "Operations Portal" }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 82,
+                columnNumber: 33
+              }, this)
+            ] }, void 0, true, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 80,
+              columnNumber: 29
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 78,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "hidden items-center gap-8 lg:flex", children: [
+            ["Platform", "#platform"],
+            ["Capabilities", "#capabilities"],
+            ["Governance", "#governance"]
+          ].map(
+            ([label, href]) => /* @__PURE__ */ jsxDEV(
+              "a",
+              {
+                href,
+                className: "relative pb-1 text-sm font-medium text-[#1E2641]/80 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-[#759987] after:transition-transform hover:text-[#759987] hover:after:scale-x-100",
+                children: label
+              },
+              label,
+              false,
+              {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 94,
+                columnNumber: 15
+              },
+              this
+            )
+          ) }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 88,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "hidden items-center gap-2.5 sm:flex", children: [
+            !auth.user && /* @__PURE__ */ jsxDEV(
+              Link,
+              {
+                href: route("register"),
+                className: "inline-flex h-9 items-center justify-center rounded-md px-3.5 text-sm font-medium text-[#1E2641] transition-colors hover:bg-[#EDF3F0]",
+                children: "Request access"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 106,
+                columnNumber: 15
+              },
+              this
+            ),
+            /* @__PURE__ */ jsxDEV(
+              Link,
+              {
+                href: primaryHref,
+                className: "inline-flex h-9 items-center justify-center gap-2 rounded-md bg-[#1E2641] px-4 text-sm font-medium text-white shadow-xs transition-colors hover:bg-[#2A3454]",
+                children: [
+                  auth.user ? /* @__PURE__ */ jsxDEV(LayoutDashboard, { className: "h-4 w-4" }, void 0, false, {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 117,
+                    columnNumber: 46
+                  }, this) : null,
+                  auth.user ? "Dashboard" : "Portal login"
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 113,
+                columnNumber: 29
+              },
+              this
+            )
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 104,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              type: "button",
+              onClick: () => setMenuOpen((open) => !open),
+              className: "grid h-9 w-9 place-items-center rounded-md text-[#1E2641] transition-colors hover:bg-[#EDF3F0] sm:hidden",
+              "aria-expanded": menuOpen,
+              "aria-controls": "mobile-nav",
+              "aria-label": menuOpen ? "Close navigation" : "Open navigation",
+              children: menuOpen ? /* @__PURE__ */ jsxDEV(X, { className: "h-5 w-5" }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 130,
+                columnNumber: 41
+              }, this) : /* @__PURE__ */ jsxDEV(Menu, { className: "h-5 w-5" }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 130,
+                columnNumber: 69
+              }, this)
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 122,
+              columnNumber: 25
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 77,
+          columnNumber: 21
+        }, this),
+        menuOpen && /* @__PURE__ */ jsxDEV("div", { id: "mobile-nav", className: "border-t border-[#E8E8E4] bg-[#FDFDFC]/95 px-5 py-4 backdrop-blur-xl sm:hidden", children: /* @__PURE__ */ jsxDEV("div", { className: "mx-auto flex max-w-[1320px] flex-col gap-1", children: [
+          [
+            ["Platform", "#platform"],
+            ["Capabilities", "#capabilities"],
+            ["Governance", "#governance"]
+          ].map(
+            ([label, href]) => /* @__PURE__ */ jsxDEV(
+              "a",
+              {
+                href,
+                onClick: () => setMenuOpen(false),
+                className: "rounded-lg px-3 py-3 text-sm font-medium text-[#1E2641] hover:bg-[#EDF3F0]",
+                children: label
+              },
+              label,
+              false,
+              {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 142,
+                columnNumber: 15
+              },
+              this
+            )
+          ),
+          /* @__PURE__ */ jsxDEV("div", { className: "my-2 h-px bg-[#E8E8E4]" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 151,
+            columnNumber: 33
+          }, this),
+          !auth.user && /* @__PURE__ */ jsxDEV(
+            Link,
+            {
+              href: route("register"),
+              className: "rounded-lg px-3 py-3 text-sm font-medium text-[#1E2641] hover:bg-[#EDF3F0]",
+              children: "Request access"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 153,
+              columnNumber: 15
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(
+            Link,
+            {
+              href: primaryHref,
+              className: "mt-2 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1E2641] px-4 text-sm font-medium text-white",
+              children: [
+                auth.user ? "Open dashboard" : "Portal login",
+                /* @__PURE__ */ jsxDEV(ArrowRight, { className: "h-4 w-4" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 165,
+                  columnNumber: 37
+                }, this)
+              ]
+            },
+            void 0,
+            true,
+            {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 160,
+              columnNumber: 33
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 136,
+          columnNumber: 29
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 135,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 76,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("main", { id: "top", children: [
+        /* @__PURE__ */ jsxDEV("section", { className: "relative min-h-[92vh] overflow-hidden pt-20", children: [
+          /* @__PURE__ */ jsxDEV(HeroBackdrop, {}, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 174,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "relative z-10 mx-auto flex min-h-[calc(92vh-5rem)] max-w-[1320px] items-center px-5 py-20 sm:px-8 lg:px-10 lg:py-24", children: /* @__PURE__ */ jsxDEV("div", { className: "grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-10", children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-7", children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "inline-flex items-center gap-2 rounded-full border border-[#D9E1DD] bg-white/80 px-3 py-1.5 text-xs font-semibold shadow-sm backdrop-blur-sm", children: [
+                /* @__PURE__ */ jsxDEV(Sparkles, { className: "h-3.5 w-3.5 text-[#1E2641]" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 180,
+                  columnNumber: 41
+                }, this),
+                /* @__PURE__ */ jsxDEV("span", { children: "Alpha Land Operations" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 181,
+                  columnNumber: 41
+                }, this),
+                /* @__PURE__ */ jsxDEV("span", { className: "hidden text-[#6B7280] sm:inline", children: "· One connected workspace" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 182,
+                  columnNumber: 41
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 179,
+                columnNumber: 37
+              }, this),
+              /* @__PURE__ */ jsxDEV("h1", { className: "mt-6 max-w-3xl text-4xl leading-[1.02] font-bold tracking-[-0.045em] text-[#1E2641] sm:text-5xl lg:text-6xl xl:text-7xl", children: [
+                "Land operations, ",
+                /* @__PURE__ */ jsxDEV("span", { className: "text-[#759987]", children: "brought into view." }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 186,
+                  columnNumber: 58
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 185,
+                columnNumber: 37
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "mt-5 max-w-xl text-base leading-relaxed text-[#4F596B] sm:text-lg", children: "A secure, connected workspace for managing property portfolios, client accounts, collections and approvals across Alpha Land." }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 189,
+                columnNumber: 37
+              }, this),
+              /* @__PURE__ */ jsxDEV("div", { className: "mt-5 flex flex-wrap gap-2", children: ["Role-based access", "Multi-branch visibility", "Traceable approvals"].map(
+                (item) => /* @__PURE__ */ jsxDEV(
+                  "span",
+                  {
+                    className: "inline-flex items-center gap-1.5 rounded-full border border-[#D9E1DD] bg-white/75 px-2.5 py-1 text-xs font-medium text-[#1E2641] backdrop-blur-sm",
+                    children: [
+                      /* @__PURE__ */ jsxDEV(Check, { className: "h-3.5 w-3.5 text-[#759987]" }, void 0, false, {
+                        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                        lineNumber: 200,
+                        columnNumber: 49
+                      }, this),
+                      item
+                    ]
+                  },
+                  item,
+                  true,
+                  {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 196,
+                    columnNumber: 21
+                  },
+                  this
+                )
+              ) }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 194,
+                columnNumber: 37
+              }, this),
+              /* @__PURE__ */ jsxDEV("div", { className: "mt-8 flex flex-col gap-3 sm:flex-row sm:items-center", children: [
+                /* @__PURE__ */ jsxDEV(
+                  Link,
+                  {
+                    href: primaryHref,
+                    className: "group inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1E2641] px-5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#2A3454]",
+                    children: [
+                      auth.user ? "Continue to dashboard" : "Enter your workspace",
+                      /* @__PURE__ */ jsxDEV(ArrowRight, { className: "h-4 w-4 transition-transform group-hover:translate-x-0.5" }, void 0, false, {
+                        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                        lineNumber: 212,
+                        columnNumber: 45
+                      }, this)
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 207,
+                    columnNumber: 41
+                  },
+                  this
+                ),
+                /* @__PURE__ */ jsxDEV(
+                  "a",
+                  {
+                    href: "#platform",
+                    className: "inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#759987] bg-white/80 px-5 text-sm font-semibold text-[#1E2641] shadow-xs transition-colors hover:bg-[#759987] hover:text-white",
+                    children: [
+                      "Explore the platform",
+                      /* @__PURE__ */ jsxDEV(ChevronRight, { className: "h-4 w-4" }, void 0, false, {
+                        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                        lineNumber: 219,
+                        columnNumber: 45
+                      }, this)
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 214,
+                    columnNumber: 41
+                  },
+                  this
+                )
+              ] }, void 0, true, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 206,
+                columnNumber: 37
+              }, this)
+            ] }, void 0, true, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 178,
+              columnNumber: 33
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-5", children: /* @__PURE__ */ jsxDEV(OperationsPanel, {}, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 225,
+              columnNumber: 37
+            }, this) }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 224,
+              columnNumber: 33
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 177,
+            columnNumber: 29
+          }, this) }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 176,
+            columnNumber: 25
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 173,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ jsxDEV("section", { className: "relative border-y border-[#E8E8E4] bg-white/70 py-8", children: /* @__PURE__ */ jsxDEV("div", { className: "mx-auto grid max-w-[1240px] grid-cols-2 gap-7 px-5 sm:px-8 lg:grid-cols-4 lg:px-10", children: operatingPillars.map(
+          ({ icon: Icon, label }) => /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3 lg:justify-center", children: [
+            /* @__PURE__ */ jsxDEV("span", { className: "grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#EDF3F0] text-[#759987]", children: /* @__PURE__ */ jsxDEV(Icon, { className: "h-4 w-4" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 236,
+              columnNumber: 41
+            }, this) }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 235,
+              columnNumber: 37
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { className: "text-xs font-semibold text-[#3F485A] sm:text-sm", children: label }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 238,
+              columnNumber: 37
+            }, this)
+          ] }, label, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 234,
+            columnNumber: 15
+          }, this)
+        ) }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 232,
+          columnNumber: 25
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 231,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ jsxDEV("section", { id: "platform", className: "relative overflow-hidden px-5 py-20 sm:px-8 lg:px-10 lg:py-24", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "pointer-events-none absolute top-12 right-[-8rem] h-72 w-72 rounded-full bg-[#EDF3F0] blur-3xl" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 245,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "relative mx-auto max-w-[1240px]", children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "grid items-end gap-8 lg:grid-cols-[0.9fr_1.1fr]", children: [
+              /* @__PURE__ */ jsxDEV("div", { children: [
+                /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs tracking-[0.18em] text-[#759987] uppercase", children: "// The connected platform" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 249,
+                  columnNumber: 37
+                }, this),
+                /* @__PURE__ */ jsxDEV("h2", { className: "mt-4 max-w-xl text-3xl font-bold tracking-[-0.035em] text-[#1E2641] sm:text-4xl", children: "One system from first enquiry to final balance." }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 250,
+                  columnNumber: 37
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 248,
+                columnNumber: 33
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "max-w-xl text-sm leading-7 text-[#667085] sm:text-base lg:justify-self-end", children: "Alpha Land ERP connects the records teams depend on every day, so branch activity, client progress and financial decisions share the same trusted context." }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 254,
+                columnNumber: 33
+              }, this)
+            ] }, void 0, true, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 247,
+              columnNumber: 29
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { id: "capabilities", className: "mt-12 grid gap-5 lg:grid-cols-3", children: modules.map(
+              (module, index) => /* @__PURE__ */ jsxDEV(ModuleCard, { ...module, index }, module.eyebrow, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 262,
+                columnNumber: 17
+              }, this)
+            ) }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 260,
+              columnNumber: 29
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 246,
+            columnNumber: 25
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 244,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ jsxDEV("section", { id: "governance", className: "px-5 pb-20 sm:px-8 lg:px-10 lg:pb-24", children: /* @__PURE__ */ jsxDEV("div", { className: "relative mx-auto grid max-w-[1240px] overflow-hidden rounded-2xl bg-[#1E2641] px-6 py-12 text-white shadow-2xl shadow-[#1E2641]/15 sm:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:px-14 lg:py-14", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "pointer-events-none absolute -top-40 -right-16 h-96 w-96 rounded-full border-[64px] border-white/[0.035]" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 270,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "pointer-events-none absolute -bottom-36 left-[28%] h-72 w-72 rounded-full bg-[#759987]/20 blur-3xl" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 271,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "relative", children: [
+            /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs tracking-[0.18em] text-[#AFC5BA] uppercase", children: "// Built for responsible growth" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 273,
+              columnNumber: 33
+            }, this),
+            /* @__PURE__ */ jsxDEV("h2", { className: "mt-4 max-w-2xl text-3xl font-bold tracking-[-0.035em] sm:text-4xl", children: "Clear controls. Better decisions. Stronger service." }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 274,
+              columnNumber: 33
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "mt-5 max-w-xl text-sm leading-7 text-white/65 sm:text-base", children: "Give every team the information they need while preserving branch boundaries, approval authority and a dependable record of every critical action." }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 277,
+              columnNumber: 33
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 272,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "relative mt-8 grid gap-2.5 lg:mt-0 lg:justify-self-end", children: governanceItems.map(
+            (item) => /* @__PURE__ */ jsxDEV(
+              "div",
+              {
+                className: "flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.07] px-4 py-3.5 backdrop-blur lg:min-w-[390px]",
+                children: [
+                  /* @__PURE__ */ jsxDEV("span", { className: "grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#759987] text-white", children: /* @__PURE__ */ jsxDEV(Check, { className: "h-3.5 w-3.5 stroke-[3]" }, void 0, false, {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 290,
+                    columnNumber: 45
+                  }, this) }, void 0, false, {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 289,
+                    columnNumber: 41
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("span", { className: "text-xs font-medium text-white/90 sm:text-sm", children: item }, void 0, false, {
+                    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                    lineNumber: 292,
+                    columnNumber: 41
+                  }, this)
+                ]
+              },
+              item,
+              true,
+              {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 285,
+                columnNumber: 17
+              },
+              this
+            )
+          ) }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 283,
+            columnNumber: 29
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 269,
+          columnNumber: 25
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 268,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ jsxDEV("section", { className: "border-t border-[#E8E8E4] bg-[#F7F8F7] px-5 py-16 text-center sm:px-8 lg:px-10", children: /* @__PURE__ */ jsxDEV("div", { className: "mx-auto max-w-2xl", children: [
+          /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs tracking-[0.18em] text-[#759987] uppercase", children: "// Your workspace" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 301,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("h2", { className: "mt-4 text-3xl font-bold tracking-[-0.035em] text-[#1E2641] sm:text-4xl", children: "Your portfolio starts here." }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 302,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("p", { className: "mx-auto mt-4 max-w-xl text-sm leading-7 text-[#667085] sm:text-base", children: "Access the workspace to manage land, clients, collections and approvals with confidence." }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 303,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            Link,
+            {
+              href: primaryHref,
+              className: "group mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1E2641] px-5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#2A3454]",
+              children: [
+                auth.user ? "Open dashboard" : "Sign in to Alpha Land ERP",
+                /* @__PURE__ */ jsxDEV(ArrowRight, { className: "h-4 w-4 transition-transform group-hover:translate-x-0.5" }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 311,
+                  columnNumber: 33
+                }, this)
+              ]
+            },
+            void 0,
+            true,
+            {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 306,
+              columnNumber: 29
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 300,
+          columnNumber: 25
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 299,
+          columnNumber: 21
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 172,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("footer", { className: "border-t border-[#E8E8E4] bg-white px-5 py-8 sm:px-8 lg:px-10", children: /* @__PURE__ */ jsxDEV("div", { className: "mx-auto flex max-w-[1240px] flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxDEV(LogoMark, { compact: true }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 320,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { children: [
+            /* @__PURE__ */ jsxDEV("p", { className: "text-xs font-semibold text-[#1E2641]", children: "Alpha International Land Developers" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 322,
+              columnNumber: 33
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "mt-0.5 text-[10px] font-medium tracking-[0.08em] text-[#759987] uppercase", children: "Operations Portal" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 323,
+              columnNumber: 33
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 321,
+            columnNumber: 29
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 319,
+          columnNumber: 25
+        }, this),
+        /* @__PURE__ */ jsxDEV("p", { className: "text-xs text-[#737B8C]", children: "Property Managers · Property Sales · Land Developers" }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 326,
+          columnNumber: 25
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 318,
+        columnNumber: 21
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 317,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 75,
+      columnNumber: 13
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+    lineNumber: 68,
+    columnNumber: 5
+  }, this);
+}
+_s(Welcome, "i7IUSJP9MGUOrZi5gTXz/5vL6bM=", false, function() {
+  return [usePage];
+});
+_c = Welcome;
+function LogoMark({ compact = false }) {
+  const size = compact ? "h-9 w-9" : "h-11 w-11";
+  const imageSize = compact ? "h-[54px] w-[54px]" : "h-[64px] w-[64px]";
+  return /* @__PURE__ */ jsxDEV("span", { className: `relative shrink-0 overflow-hidden rounded-lg border border-[#D9E1DD] bg-[#EDF3F0] ${size}`, children: /* @__PURE__ */ jsxDEV(
+    "img",
+    {
+      src: "/images/alpha-land-logo.png",
+      alt: "",
+      className: `absolute top-[-3px] left-1/2 max-w-none -translate-x-1/2 object-cover object-top ${imageSize}`
+    },
+    void 0,
+    false,
+    {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 340,
+      columnNumber: 13
+    },
+    this
+  ) }, void 0, false, {
+    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+    lineNumber: 339,
+    columnNumber: 5
+  }, this);
+}
+_c2 = LogoMark;
+function HeroBackdrop() {
+  return /* @__PURE__ */ jsxDEV("div", { className: "pointer-events-none absolute inset-0", "aria-hidden": "true", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "absolute inset-0 bg-[linear-gradient(180deg,#FDFDFC_0%,#F8FAF9_72%,#FDFDFC_100%)]" }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 352,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "absolute -top-24 -left-20 h-[30rem] w-[30rem] rounded-full bg-[#759987]/16 blur-3xl" }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 353,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "absolute top-1/4 -right-24 h-[24rem] w-[24rem] rounded-full bg-[#1E2641]/10 blur-3xl" }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 354,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV(
+      "div",
+      {
+        className: "absolute inset-0 opacity-35",
+        style: {
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(30, 38, 65, 0.12) 1px, transparent 0)",
+          backgroundSize: "32px 32px",
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 88%)"
+        }
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 355,
+        columnNumber: 13
+      },
+      this
+    ),
+    /* @__PURE__ */ jsxDEV("svg", { className: "absolute top-[18%] left-[7%] h-44 w-44 opacity-30", viewBox: "0 0 120 120", fill: "none", children: [
+      /* @__PURE__ */ jsxDEV("line", { x1: "20", y1: "60", x2: "55", y2: "30", stroke: brand.ink, strokeOpacity: "0.12" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 364,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("line", { x1: "55", y1: "30", x2: "95", y2: "55", stroke: brand.ink, strokeOpacity: "0.12" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 365,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("line", { x1: "55", y1: "30", x2: "70", y2: "90", stroke: brand.sage, strokeOpacity: "0.4" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 366,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("line", { x1: "20", y1: "60", x2: "70", y2: "90", stroke: brand.navy, strokeOpacity: "0.2" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 367,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("circle", { cx: "20", cy: "60", r: "5", fill: brand.sage, fillOpacity: "0.45" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 368,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("circle", { cx: "55", cy: "30", r: "6", fill: brand.navy, fillOpacity: "0.28" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 369,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("circle", { cx: "95", cy: "55", r: "4", fill: brand.sage, fillOpacity: "0.4" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 370,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("circle", { cx: "70", cy: "90", r: "5", fill: brand.navy, fillOpacity: "0.24" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 371,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 363,
+      columnNumber: 13
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+    lineNumber: 351,
+    columnNumber: 5
+  }, this);
+}
+_c3 = HeroBackdrop;
+function OperationsPanel() {
+  const metrics = [
+    { icon: MapPinned, label: "Land portfolio", value: "Mapped", color: brand.navy },
+    { icon: Files, label: "Client files", value: "Connected", color: brand.sage },
+    { icon: ShieldCheck, label: "Access control", value: "Protected", color: brand.ink }
+  ];
+  return /* @__PURE__ */ jsxDEV("div", { className: "relative", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "pointer-events-none absolute -inset-4 rounded-3xl bg-[linear-gradient(135deg,rgba(30,38,65,0.13),rgba(117,153,135,0.12))] blur-2xl" }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 386,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "relative overflow-hidden rounded-2xl border border-[#D9E1DD] bg-white/90 shadow-2xl shadow-black/10 backdrop-blur-md", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "h-1 bg-[linear-gradient(90deg,#1E2641,#759987)]" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 388,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "flex items-center justify-between gap-3 border-b border-[#E8E8E4] px-5 py-4", children: [
+        /* @__PURE__ */ jsxDEV("div", { children: [
+          /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] tracking-[0.18em] text-[#7A8190] uppercase", children: "Operations pulse" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 392,
+            columnNumber: 25
+          }, this),
+          /* @__PURE__ */ jsxDEV("p", { className: "mt-0.5 text-sm font-bold text-[#1E2641]", children: "Portfolio command centre" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 393,
+            columnNumber: 25
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 391,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ jsxDEV("span", { className: "inline-flex items-center gap-1.5 rounded-full border border-[#759987]/30 bg-[#EDF3F0] px-2.5 py-1 text-[10px] font-semibold text-[#5A7A6D]", children: [
+          /* @__PURE__ */ jsxDEV("span", { className: "relative flex h-2 w-2", children: [
+            /* @__PURE__ */ jsxDEV("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-[#759987] opacity-50" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 397,
+              columnNumber: 29
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-[#759987]" }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 398,
+              columnNumber: 29
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 396,
+            columnNumber: 25
+          }, this),
+          "Active"
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 395,
+          columnNumber: 21
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 390,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-3 gap-px bg-[#E8E8E4]", children: metrics.map(
+        ({ icon: Icon, label, value, color }) => /* @__PURE__ */ jsxDEV("div", { className: "bg-white/95 px-2 py-4 text-center sm:px-3", children: [
+          /* @__PURE__ */ jsxDEV("span", { className: "mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-[#EDF3F0]", children: /* @__PURE__ */ jsxDEV(Icon, { className: "h-4 w-4", style: { color } }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 408,
+            columnNumber: 33
+          }, this) }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 407,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs font-bold tracking-tight text-[#1E2641] sm:text-sm", children: value }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 410,
+            columnNumber: 29
+          }, this),
+          /* @__PURE__ */ jsxDEV("p", { className: "mt-0.5 text-[9px] leading-snug text-[#737B8C] sm:text-[10px]", children: label }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 411,
+            columnNumber: 29
+          }, this)
+        ] }, label, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 406,
+          columnNumber: 11
+        }, this)
+      ) }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 404,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "border-b border-[#E8E8E4] px-5 py-3", children: /* @__PURE__ */ jsxDEV("p", { className: "flex items-center gap-2 text-xs text-[#737B8C]", children: [
+        /* @__PURE__ */ jsxDEV(BarChart3, { className: "h-3.5 w-3.5 text-[#759987]" }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 418,
+          columnNumber: 25
+        }, this),
+        /* @__PURE__ */ jsxDEV("span", { children: [
+          /* @__PURE__ */ jsxDEV("strong", { className: "font-semibold text-[#1E2641]", children: "One live view" }, void 0, false, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 420,
+            columnNumber: 29
+          }, this),
+          " across branches, balances and approvals"
+        ] }, void 0, true, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 419,
+          columnNumber: 25
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 417,
+        columnNumber: 21
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 416,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "space-y-2 p-4", children: [
+        /* @__PURE__ */ jsxDEV("p", { className: "px-1 text-[10px] font-semibold tracking-[0.14em] text-[#737B8C] uppercase", children: "Workflow health" }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 426,
+          columnNumber: 21
+        }, this),
+        [
+          ["Portfolio records", "Synchronized", "94%"],
+          ["Client accounts", "Reconciled", "87%"],
+          ["Approval controls", "Enforced", "100%"]
+        ].map(
+          ([title, status, progress]) => /* @__PURE__ */ jsxDEV("div", { className: "rounded-xl border border-[#E2E5E3] bg-white px-3 py-3 shadow-sm", children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "flex items-center justify-between gap-3", children: [
+              /* @__PURE__ */ jsxDEV("div", { children: [
+                /* @__PURE__ */ jsxDEV("p", { className: "text-sm font-semibold text-[#1E2641]", children: title }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 435,
+                  columnNumber: 37
+                }, this),
+                /* @__PURE__ */ jsxDEV("p", { className: "mt-0.5 text-[11px] text-[#737B8C]", children: status }, void 0, false, {
+                  fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                  lineNumber: 436,
+                  columnNumber: 37
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 434,
+                columnNumber: 33
+              }, this),
+              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs font-bold text-[#759987]", children: progress }, void 0, false, {
+                fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+                lineNumber: 438,
+                columnNumber: 33
+              }, this)
+            ] }, void 0, true, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 433,
+              columnNumber: 29
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "mt-2 h-1.5 overflow-hidden rounded-full bg-[#EDF3F0]", children: /* @__PURE__ */ jsxDEV("div", { className: "h-full rounded-full bg-[#759987]", style: { width: progress } }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 441,
+              columnNumber: 33
+            }, this) }, void 0, false, {
+              fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+              lineNumber: 440,
+              columnNumber: 29
+            }, this)
+          ] }, title, true, {
+            fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+            lineNumber: 432,
+            columnNumber: 11
+          }, this)
+        )
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 425,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "border-t border-[#E8E8E4] px-5 py-4", children: /* @__PURE__ */ jsxDEV("span", { className: "inline-flex items-center gap-1.5 text-xs font-semibold text-[#5A7A6D]", children: [
+        "Built around your property portfolio",
+        /* @__PURE__ */ jsxDEV(ArrowRight, { className: "h-3.5 w-3.5" }, void 0, false, {
+          fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+          lineNumber: 450,
+          columnNumber: 25
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 448,
+        columnNumber: 21
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 447,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 387,
+      columnNumber: 13
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+    lineNumber: 385,
+    columnNumber: 5
+  }, this);
+}
+_c4 = OperationsPanel;
+function ModuleCard({ icon: Icon, eyebrow, title, description, index }) {
+  return /* @__PURE__ */ jsxDEV("article", { className: "group flex h-full flex-col rounded-xl border border-[#E2E5E3] bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#759987]/45 hover:shadow-lg hover:shadow-[#1E2641]/8", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "flex items-start justify-between", children: [
+      /* @__PURE__ */ jsxDEV("span", { className: "grid h-11 w-11 place-items-center rounded-lg bg-[#EDF3F0] text-[#759987] transition-colors group-hover:bg-[#1E2641] group-hover:text-white", children: /* @__PURE__ */ jsxDEV(Icon, { className: "h-5 w-5" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 463,
+        columnNumber: 21
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 462,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs font-bold text-[#BEC4C1]", children: [
+        "0",
+        index + 1
+      ] }, void 0, true, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 465,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 461,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("p", { className: "mt-7 font-mono text-[10px] font-semibold tracking-[0.16em] text-[#759987] uppercase", children: eyebrow }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 467,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("h3", { className: "mt-3 text-lg leading-7 font-semibold tracking-[-0.02em] text-[#1E2641]", children: title }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 468,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("p", { className: "mt-3 flex-1 text-sm leading-7 text-[#667085]", children: description }, void 0, false, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 469,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "mt-6 flex items-center gap-1.5 text-xs font-semibold text-[#5A7A6D]", children: [
+      "Built into the workspace",
+      /* @__PURE__ */ jsxDEV(ChevronRight, { className: "h-3.5 w-3.5 transition-transform group-hover:translate-x-1" }, void 0, false, {
+        fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+        lineNumber: 472,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+      lineNumber: 470,
+      columnNumber: 13
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx",
+    lineNumber: 460,
+    columnNumber: 5
+  }, this);
+}
+_c5 = ModuleCard;
+var _c, _c2, _c3, _c4, _c5;
+$RefreshReg$(_c, "Welcome");
+$RefreshReg$(_c2, "LogoMark");
+$RefreshReg$(_c3, "HeroBackdrop");
+$RefreshReg$(_c4, "OperationsPanel");
+$RefreshReg$(_c5, "ModuleCard");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/tafad/Documents/PROJECTS/Alpha_Solution/alpha_erp/resources/js/pages/welcome.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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YXJlZERhdGEiLCJIZWFkIiwiTGluayIsInVzZVBhZ2UiLCJBcnJvd1JpZ2h0IiwiQmFyQ2hhcnQzIiwiQnVpbGRpbmcyIiwiQ2hlY2siLCJDaGV2cm9uUmlnaHQiLCJDaXJjbGVEb2xsYXJTaWduIiwiRmlsZXMiLCJMYW5kbWFyayIsIkxheW91dERhc2hib2FyZCIsIk1hcFBpbm5lZCIsIk1lbnUiLCJTaGllbGRDaGVjayIsIlNwYXJrbGVzIiwiVXNlcnNSb3VuZCIsIlgiLCJ1c2VTdGF0ZSIsImJyYW5kIiwibmF2eSIsInNhZ2UiLCJpbmsiLCJtb2R1bGVzIiwiaWNvbiIsImV5ZWJyb3ciLCJ0aXRsZSIsImRlc2NyaXB0aW9uIiwib3BlcmF0aW5nUGlsbGFycyIsImxhYmVsIiwiZ292ZXJuYW5jZUl0ZW1zIiwiV2VsY29tZSIsIl9zIiwiYXV0aCIsInByb3BzIiwibWVudU9wZW4iLCJzZXRNZW51T3BlbiIsInByaW1hcnlIcmVmIiwidXNlciIsInJvdXRlIiwibWFwIiwiaHJlZiIsIm9wZW4iLCJpdGVtIiwiSWNvbiIsIm1vZHVsZSIsImluZGV4IiwiX2MiLCJMb2dvTWFyayIsImNvbXBhY3QiLCJzaXplIiwiaW1hZ2VTaXplIiwiX2MyIiwiSGVyb0JhY2tkcm9wIiwiYmFja2dyb3VuZEltYWdlIiwiYmFja2dyb3VuZFNpemUiLCJtYXNrSW1hZ2UiLCJfYzMiLCJPcGVyYXRpb25zUGFuZWwiLCJtZXRyaWNzIiwidmFsdWUiLCJjb2xvciIsInN0YXR1cyIsInByb2dyZXNzIiwid2lkdGgiLCJfYzQiLCJNb2R1bGVDYXJkIiwiX2M1IiwiJFJlZnJlc2hSZWckIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIndlbGNvbWUudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHR5cGUgU2hhcmVkRGF0YSB9IGZyb20gJ0AvdHlwZXMnO1xuaW1wb3J0IHsgSGVhZCwgTGluaywgdXNlUGFnZSB9IGZyb20gJ0BpbmVydGlhanMvcmVhY3QnO1xuaW1wb3J0IHtcbiAgICBBcnJvd1JpZ2h0LFxuICAgIEJhckNoYXJ0MyxcbiAgICBCdWlsZGluZzIsXG4gICAgQ2hlY2ssXG4gICAgQ2hldnJvblJpZ2h0LFxuICAgIENpcmNsZURvbGxhclNpZ24sXG4gICAgRmlsZXMsXG4gICAgTGFuZG1hcmssXG4gICAgTGF5b3V0RGFzaGJvYXJkLFxuICAgIE1hcFBpbm5lZCxcbiAgICBNZW51LFxuICAgIFNoaWVsZENoZWNrLFxuICAgIFNwYXJrbGVzLFxuICAgIFVzZXJzUm91bmQsXG4gICAgWCxcbn0gZnJvbSAnbHVjaWRlLXJlYWN0JztcbmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuXG5jb25zdCBicmFuZCA9IHtcbiAgICBuYXZ5OiAnIzFFMjY0MScsXG4gICAgc2FnZTogJyM3NTk5ODcnLFxuICAgIGluazogJyMxRTI2NDEnLFxufSBhcyBjb25zdDtcblxuY29uc3QgbW9kdWxlcyA9IFtcbiAgICB7XG4gICAgICAgIGljb246IE1hcFBpbm5lZCxcbiAgICAgICAgZXllYnJvdzogJ0xhbmQgcG9ydGZvbGlvJyxcbiAgICAgICAgdGl0bGU6ICdFdmVyeSBzdGFuZCwgZmlsZSBhbmQgYWxsb2NhdGlvbiBpbiBvbmUgY2xlYXIgdmlldy4nLFxuICAgICAgICBkZXNjcmlwdGlvbjogJ0ZvbGxvdyBkZXZlbG9wbWVudHMgZnJvbSBwaGFzZSBwbGFubmluZyB0byBjbGllbnQgYWxsb2NhdGlvbiwgd2l0aCByZWxpYWJsZSBzdGF0dXMgaGlzdG9yeSBhY3Jvc3MgZXZlcnkgYnJhbmNoLicsXG4gICAgfSxcbiAgICB7XG4gICAgICAgIGljb246IENpcmNsZURvbGxhclNpZ24sXG4gICAgICAgIGV5ZWJyb3c6ICdGaW5hbmNlIGFuZCBjb2xsZWN0aW9ucycsXG4gICAgICAgIHRpdGxlOiAnQ29sbGVjdGlvbnMgdGhhdCByZWNvbmNpbGUgYmFjayB0byB0aGUgc291cmNlLicsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnUmVjb3JkIG11bHRpLWN1cnJlbmN5IHBheW1lbnRzLCBpc3N1ZSB0cmFjZWFibGUgcmVjZWlwdHMgYW5kIGtlZXAgY2xpZW50IGJhbGFuY2VzIGdyb3VuZGVkIGluIGFuIGltbXV0YWJsZSBsZWRnZXIuJyxcbiAgICB9LFxuICAgIHtcbiAgICAgICAgaWNvbjogU2hpZWxkQ2hlY2ssXG4gICAgICAgIGV5ZWJyb3c6ICdHb3Zlcm5hbmNlJyxcbiAgICAgICAgdGl0bGU6ICdBcHByb3ZhbHMgYW5kIGFjY291bnRhYmlsaXR5IGJ1aWx0IGludG8gdGhlIHdvcmtmbG93LicsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnUHJvdGVjdCBzZW5zaXRpdmUgYWN0aW9ucyB3aXRoIHJvbGUtYmFzZWQgYWNjZXNzLCBtYWtlci1jaGVja2VyIGFwcHJvdmFsIGFuZCBhIGNvbXBsZXRlIGF1ZGl0IHRyYWlsLicsXG4gICAgfSxcbl07XG5cbmNvbnN0IG9wZXJhdGluZ1BpbGxhcnMgPSBbXG4gICAgeyBpY29uOiBCdWlsZGluZzIsIGxhYmVsOiAnTXVsdGktYnJhbmNoIG9wZXJhdGlvbnMnIH0sXG4gICAgeyBpY29uOiBVc2Vyc1JvdW5kLCBsYWJlbDogJ0NsaWVudCBsaWZlY3ljbGUgbWFuYWdlbWVudCcgfSxcbiAgICB7IGljb246IExhbmRtYXJrLCBsYWJlbDogJ0ZpbmFuY2lhbCBjb250cm9sJyB9LFxuICAgIHsgaWNvbjogQmFyQ2hhcnQzLCBsYWJlbDogJ0RlY2lzaW9uLXJlYWR5IHJlcG9ydGluZycgfSxcbl07XG5cbmNvbnN0IGdvdmVybmFuY2VJdGVtcyA9IFtcbiAgICAnTWFrZXItY2hlY2tlciBhcHByb3ZhbHMgZm9yIHNlbnNpdGl2ZSBhY3Rpb25zJyxcbiAgICAnQnJhbmNoLWF3YXJlIHJvbGVzIGFuZCBwZXJtaXNzaW9ucycsXG4gICAgJ0FwcGVuZC1vbmx5IGZpbmFuY2lhbCBhbmQgYXVkaXQgcmVjb3JkcycsXG5dO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBXZWxjb21lKCkge1xuICAgIGNvbnN0IHsgYXV0aCB9ID0gdXNlUGFnZTxTaGFyZWREYXRhPigpLnByb3BzO1xuICAgIGNvbnN0IFttZW51T3Blbiwgc2V0TWVudU9wZW5dID0gdXNlU3RhdGUoZmFsc2UpO1xuICAgIGNvbnN0IHByaW1hcnlIcmVmID0gYXV0aC51c2VyID8gcm91dGUoJ2Rhc2hib2FyZCcpIDogcm91dGUoJ2xvZ2luJyk7XG5cbiAgICByZXR1cm4gKFxuICAgICAgICA8PlxuICAgICAgICAgICAgPEhlYWQgdGl0bGU9XCJBbHBoYSBMYW5kIEVSUFwiPlxuICAgICAgICAgICAgICAgIDxtZXRhIG5hbWU9XCJkZXNjcmlwdGlvblwiIGNvbnRlbnQ9XCJUaGUgY2VudHJhbCBvcGVyYXRpb25zIHBsYXRmb3JtIGZvciBBbHBoYSBJbnRlcm5hdGlvbmFsIExhbmQgRGV2ZWxvcGVycy5cIiAvPlxuICAgICAgICAgICAgICAgIDxsaW5rIHJlbD1cInByZWNvbm5lY3RcIiBocmVmPVwiaHR0cHM6Ly9mb250cy5idW5ueS5uZXRcIiAvPlxuICAgICAgICAgICAgICAgIDxsaW5rIGhyZWY9XCJodHRwczovL2ZvbnRzLmJ1bm55Lm5ldC9jc3M/ZmFtaWx5PWluc3RydW1lbnQtc2Fuczo0MDAsNTAwLDYwMCw3MDBcIiByZWw9XCJzdHlsZXNoZWV0XCIgLz5cbiAgICAgICAgICAgIDwvSGVhZD5cblxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJtaW4taC1zY3JlZW4gb3ZlcmZsb3ctaGlkZGVuIGJnLVsjRkRGREZDXSBmb250LVsnSW5zdHJ1bWVudF9TYW5zJ10gdGV4dC1bIzFFMjY0MV0gc2VsZWN0aW9uOmJnLVsjNzU5OTg3XSBzZWxlY3Rpb246dGV4dC13aGl0ZVwiPlxuICAgICAgICAgICAgICAgIDxoZWFkZXIgY2xhc3NOYW1lPVwiZml4ZWQgaW5zZXQteC0wIHRvcC0wIHotNTAgYm9yZGVyLWIgYm9yZGVyLVsjRThFOEU0XS85MCBiZy1bI0ZERkRGQ10vOTAgYmFja2Ryb3AtYmx1ci14bFwiPlxuICAgICAgICAgICAgICAgICAgICA8bmF2IGNsYXNzTmFtZT1cIm14LWF1dG8gZmxleCBtaW4taC0yMCBtYXgtdy1bMTMyMHB4XSBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIHB4LTUgcHktMyBzbTpweC04IGxnOnB4LTEwXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICA8YSBocmVmPVwiI3RvcFwiIGNsYXNzTmFtZT1cImZsZXggbWluLXctMCBpdGVtcy1jZW50ZXIgZ2FwLTNcIiBhcmlhLWxhYmVsPVwiQWxwaGEgTGFuZCBob21lXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPExvZ29NYXJrIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwibWluLXctMCBsZWFkaW5nLW5vbmVcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiYmxvY2sgdHJ1bmNhdGUgdGV4dC1zbSBmb250LWJvbGQgdHJhY2tpbmctWy0wLjAxZW1dIHRleHQtWyMxRTI2NDFdIHNtOnRleHQtYmFzZVwiPkFscGhhIExhbmQ8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cIm10LTEgYmxvY2sgdHJ1bmNhdGUgdGV4dC1bMTBweF0gZm9udC1tZWRpdW0gdHJhY2tpbmctWzAuMTZlbV0gdGV4dC1bIzc1OTk4N10gdXBwZXJjYXNlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBPcGVyYXRpb25zIFBvcnRhbFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC9hPlxuXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImhpZGRlbiBpdGVtcy1jZW50ZXIgZ2FwLTggbGc6ZmxleFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFsnUGxhdGZvcm0nLCAnI3BsYXRmb3JtJ10sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFsnQ2FwYWJpbGl0aWVzJywgJyNjYXBhYmlsaXRpZXMnXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWydHb3Zlcm5hbmNlJywgJyNnb3Zlcm5hbmNlJ10sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXS5tYXAoKFtsYWJlbCwgaHJlZl0pID0+IChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleT17bGFiZWx9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBocmVmPXtocmVmfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwicmVsYXRpdmUgcGItMSB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtWyMxRTI2NDFdLzgwIHRyYW5zaXRpb24tY29sb3JzIGFmdGVyOmFic29sdXRlIGFmdGVyOmluc2V0LXgtMCBhZnRlcjpib3R0b20tMCBhZnRlcjpoLTAuNSBhZnRlcjpvcmlnaW4tbGVmdCBhZnRlcjpzY2FsZS14LTAgYWZ0ZXI6cm91bmRlZC1mdWxsIGFmdGVyOmJnLVsjNzU5OTg3XSBhZnRlcjp0cmFuc2l0aW9uLXRyYW5zZm9ybSBob3Zlcjp0ZXh0LVsjNzU5OTg3XSBob3ZlcjphZnRlcjpzY2FsZS14LTEwMFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtsYWJlbH1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9hPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiaGlkZGVuIGl0ZW1zLWNlbnRlciBnYXAtMi41IHNtOmZsZXhcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IWF1dGgudXNlciAmJiAoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBocmVmPXtyb3V0ZSgncmVnaXN0ZXInKX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImlubGluZS1mbGV4IGgtOSBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgcm91bmRlZC1tZCBweC0zLjUgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LVsjMUUyNjQxXSB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1bI0VERjNGMF1cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXF1ZXN0IGFjY2Vzc1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgKX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBocmVmPXtwcmltYXJ5SHJlZn1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaC05IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBnYXAtMiByb3VuZGVkLW1kIGJnLVsjMUUyNjQxXSBweC00IHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC13aGl0ZSBzaGFkb3cteHMgdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6YmctWyMyQTM0NTRdXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHthdXRoLnVzZXIgPyA8TGF5b3V0RGFzaGJvYXJkIGNsYXNzTmFtZT1cImgtNCB3LTRcIiAvPiA6IG51bGx9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHthdXRoLnVzZXIgPyAnRGFzaGJvYXJkJyA6ICdQb3J0YWwgbG9naW4nfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0TWVudU9wZW4oKG9wZW4pID0+ICFvcGVuKX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJncmlkIGgtOSB3LTkgcGxhY2UtaXRlbXMtY2VudGVyIHJvdW5kZWQtbWQgdGV4dC1bIzFFMjY0MV0gdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6YmctWyNFREYzRjBdIHNtOmhpZGRlblwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYXJpYS1leHBhbmRlZD17bWVudU9wZW59XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYXJpYS1jb250cm9scz1cIm1vYmlsZS1uYXZcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFyaWEtbGFiZWw9e21lbnVPcGVuID8gJ0Nsb3NlIG5hdmlnYXRpb24nIDogJ09wZW4gbmF2aWdhdGlvbid9XG4gICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAge21lbnVPcGVuID8gPFggY2xhc3NOYW1lPVwiaC01IHctNVwiIC8+IDogPE1lbnUgY2xhc3NOYW1lPVwiaC01IHctNVwiIC8+fVxuICAgICAgICAgICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgICAgICAgIDwvbmF2PlxuXG4gICAgICAgICAgICAgICAgICAgIHttZW51T3BlbiAmJiAoXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGlkPVwibW9iaWxlLW5hdlwiIGNsYXNzTmFtZT1cImJvcmRlci10IGJvcmRlci1bI0U4RThFNF0gYmctWyNGREZERkNdLzk1IHB4LTUgcHktNCBiYWNrZHJvcC1ibHVyLXhsIHNtOmhpZGRlblwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXgtYXV0byBmbGV4IG1heC13LVsxMzIwcHhdIGZsZXgtY29sIGdhcC0xXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbJ1BsYXRmb3JtJywgJyNwbGF0Zm9ybSddLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWydDYXBhYmlsaXRpZXMnLCAnI2NhcGFiaWxpdGllcyddLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWydHb3Zlcm5hbmNlJywgJyNnb3Zlcm5hbmNlJ10sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0ubWFwKChbbGFiZWwsIGhyZWZdKSA9PiAoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleT17bGFiZWx9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaHJlZj17aHJlZn1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRNZW51T3BlbihmYWxzZSl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwicm91bmRlZC1sZyBweC0zIHB5LTMgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LVsjMUUyNjQxXSBob3ZlcjpiZy1bI0VERjNGMF1cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtsYWJlbH1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXktMiBoLXB4IGJnLVsjRThFOEU0XVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHshYXV0aC51c2VyICYmIChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaHJlZj17cm91dGUoJ3JlZ2lzdGVyJyl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwicm91bmRlZC1sZyBweC0zIHB5LTMgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LVsjMUUyNjQxXSBob3ZlcjpiZy1bI0VERjNGMF1cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlcXVlc3QgYWNjZXNzXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBocmVmPXtwcmltYXJ5SHJlZn1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cIm10LTIgaW5saW5lLWZsZXggaC0xMSBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgZ2FwLTIgcm91bmRlZC1tZCBiZy1bIzFFMjY0MV0gcHgtNCB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtd2hpdGVcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7YXV0aC51c2VyID8gJ09wZW4gZGFzaGJvYXJkJyA6ICdQb3J0YWwgbG9naW4nfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPEFycm93UmlnaHQgY2xhc3NOYW1lPVwiaC00IHctNFwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgICAgIDwvaGVhZGVyPlxuXG4gICAgICAgICAgICAgICAgPG1haW4gaWQ9XCJ0b3BcIj5cbiAgICAgICAgICAgICAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPVwicmVsYXRpdmUgbWluLWgtWzkydmhdIG92ZXJmbG93LWhpZGRlbiBwdC0yMFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPEhlcm9CYWNrZHJvcCAvPlxuXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJlbGF0aXZlIHotMTAgbXgtYXV0byBmbGV4IG1pbi1oLVtjYWxjKDkydmgtNXJlbSldIG1heC13LVsxMzIwcHhdIGl0ZW1zLWNlbnRlciBweC01IHB5LTIwIHNtOnB4LTggbGc6cHgtMTAgbGc6cHktMjRcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImdyaWQgdy1mdWxsIGl0ZW1zLWNlbnRlciBnYXAtMTIgbGc6Z3JpZC1jb2xzLTEyIGxnOmdhcC0xMFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImxnOmNvbC1zcGFuLTdcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0yIHJvdW5kZWQtZnVsbCBib3JkZXIgYm9yZGVyLVsjRDlFMUREXSBiZy13aGl0ZS84MCBweC0zIHB5LTEuNSB0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgc2hhZG93LXNtIGJhY2tkcm9wLWJsdXItc21cIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8U3BhcmtsZXMgY2xhc3NOYW1lPVwiaC0zLjUgdy0zLjUgdGV4dC1bIzFFMjY0MV1cIiAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkFscGhhIExhbmQgT3BlcmF0aW9uczwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJoaWRkZW4gdGV4dC1bIzZCNzI4MF0gc206aW5saW5lXCI+wrcgT25lIGNvbm5lY3RlZCB3b3Jrc3BhY2U8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGgxIGNsYXNzTmFtZT1cIm10LTYgbWF4LXctM3hsIHRleHQtNHhsIGxlYWRpbmctWzEuMDJdIGZvbnQtYm9sZCB0cmFja2luZy1bLTAuMDQ1ZW1dIHRleHQtWyMxRTI2NDFdIHNtOnRleHQtNXhsIGxnOnRleHQtNnhsIHhsOnRleHQtN3hsXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGFuZCBvcGVyYXRpb25zLCA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LVsjNzU5OTg3XVwiPmJyb3VnaHQgaW50byB2aWV3Ljwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvaDE+XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTUgbWF4LXcteGwgdGV4dC1iYXNlIGxlYWRpbmctcmVsYXhlZCB0ZXh0LVsjNEY1OTZCXSBzbTp0ZXh0LWxnXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQSBzZWN1cmUsIGNvbm5lY3RlZCB3b3Jrc3BhY2UgZm9yIG1hbmFnaW5nIHByb3BlcnR5IHBvcnRmb2xpb3MsIGNsaWVudCBhY2NvdW50cywgY29sbGVjdGlvbnMgYW5kIGFwcHJvdmFsc1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFjcm9zcyBBbHBoYSBMYW5kLlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9wPlxuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm10LTUgZmxleCBmbGV4LXdyYXAgZ2FwLTJcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7WydSb2xlLWJhc2VkIGFjY2VzcycsICdNdWx0aS1icmFuY2ggdmlzaWJpbGl0eScsICdUcmFjZWFibGUgYXBwcm92YWxzJ10ubWFwKChpdGVtKSA9PiAoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZXk9e2l0ZW19XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSByb3VuZGVkLWZ1bGwgYm9yZGVyIGJvcmRlci1bI0Q5RTFERF0gYmctd2hpdGUvNzUgcHgtMi41IHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LVsjMUUyNjQxXSBiYWNrZHJvcC1ibHVyLXNtXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPENoZWNrIGNsYXNzTmFtZT1cImgtMy41IHctMy41IHRleHQtWyM3NTk5ODddXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtpdGVtfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJtdC04IGZsZXggZmxleC1jb2wgZ2FwLTMgc206ZmxleC1yb3cgc206aXRlbXMtY2VudGVyXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPExpbmtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaHJlZj17cHJpbWFyeUhyZWZ9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImdyb3VwIGlubGluZS1mbGV4IGgtMTEgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGdhcC0yIHJvdW5kZWQtbWQgYmctWyMxRTI2NDFdIHB4LTUgdGV4dC1zbSBmb250LXNlbWlib2xkIHRleHQtd2hpdGUgc2hhZG93LXhzIHRyYW5zaXRpb24tY29sb3JzIGhvdmVyOmJnLVsjMkEzNDU0XVwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7YXV0aC51c2VyID8gJ0NvbnRpbnVlIHRvIGRhc2hib2FyZCcgOiAnRW50ZXIgeW91ciB3b3Jrc3BhY2UnfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8QXJyb3dSaWdodCBjbGFzc05hbWU9XCJoLTQgdy00IHRyYW5zaXRpb24tdHJhbnNmb3JtIGdyb3VwLWhvdmVyOnRyYW5zbGF0ZS14LTAuNVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxhXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhyZWY9XCIjcGxhdGZvcm1cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJpbmxpbmUtZmxleCBoLTExIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBnYXAtMiByb3VuZGVkLW1kIGJvcmRlciBib3JkZXItWyM3NTk5ODddIGJnLXdoaXRlLzgwIHB4LTUgdGV4dC1zbSBmb250LXNlbWlib2xkIHRleHQtWyMxRTI2NDFdIHNoYWRvdy14cyB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1bIzc1OTk4N10gaG92ZXI6dGV4dC13aGl0ZVwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBFeHBsb3JlIHRoZSBwbGF0Zm9ybVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Q2hldnJvblJpZ2h0IGNsYXNzTmFtZT1cImgtNCB3LTRcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImxnOmNvbC1zcGFuLTVcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxPcGVyYXRpb25zUGFuZWwgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPC9zZWN0aW9uPlxuXG4gICAgICAgICAgICAgICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT1cInJlbGF0aXZlIGJvcmRlci15IGJvcmRlci1bI0U4RThFNF0gYmctd2hpdGUvNzAgcHktOFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJteC1hdXRvIGdyaWQgbWF4LXctWzEyNDBweF0gZ3JpZC1jb2xzLTIgZ2FwLTcgcHgtNSBzbTpweC04IGxnOmdyaWQtY29scy00IGxnOnB4LTEwXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAge29wZXJhdGluZ1BpbGxhcnMubWFwKCh7IGljb246IEljb24sIGxhYmVsIH0pID0+IChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBrZXk9e2xhYmVsfSBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMyBsZzpqdXN0aWZ5LWNlbnRlclwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiZ3JpZCBoLTEwIHctMTAgc2hyaW5rLTAgcGxhY2UtaXRlbXMtY2VudGVyIHJvdW5kZWQtbGcgYmctWyNFREYzRjBdIHRleHQtWyM3NTk5ODddXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPEljb24gY2xhc3NOYW1lPVwiaC00IHctNFwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdGV4dC1bIzNGNDg1QV0gc206dGV4dC1zbVwiPntsYWJlbH08L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDwvc2VjdGlvbj5cblxuICAgICAgICAgICAgICAgICAgICA8c2VjdGlvbiBpZD1cInBsYXRmb3JtXCIgY2xhc3NOYW1lPVwicmVsYXRpdmUgb3ZlcmZsb3ctaGlkZGVuIHB4LTUgcHktMjAgc206cHgtOCBsZzpweC0xMCBsZzpweS0yNFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwb2ludGVyLWV2ZW50cy1ub25lIGFic29sdXRlIHRvcC0xMiByaWdodC1bLThyZW1dIGgtNzIgdy03MiByb3VuZGVkLWZ1bGwgYmctWyNFREYzRjBdIGJsdXItM3hsXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwicmVsYXRpdmUgbXgtYXV0byBtYXgtdy1bMTI0MHB4XVwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBpdGVtcy1lbmQgZ2FwLTggbGc6Z3JpZC1jb2xzLVswLjlmcl8xLjFmcl1cIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cImZvbnQtbW9ubyB0ZXh0LXhzIHRyYWNraW5nLVswLjE4ZW1dIHRleHQtWyM3NTk5ODddIHVwcGVyY2FzZVwiPi8vIFRoZSBjb25uZWN0ZWQgcGxhdGZvcm08L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aDIgY2xhc3NOYW1lPVwibXQtNCBtYXgtdy14bCB0ZXh0LTN4bCBmb250LWJvbGQgdHJhY2tpbmctWy0wLjAzNWVtXSB0ZXh0LVsjMUUyNjQxXSBzbTp0ZXh0LTR4bFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9uZSBzeXN0ZW0gZnJvbSBmaXJzdCBlbnF1aXJ5IHRvIGZpbmFsIGJhbGFuY2UuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2gyPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwibWF4LXcteGwgdGV4dC1zbSBsZWFkaW5nLTcgdGV4dC1bIzY2NzA4NV0gc206dGV4dC1iYXNlIGxnOmp1c3RpZnktc2VsZi1lbmRcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFscGhhIExhbmQgRVJQIGNvbm5lY3RzIHRoZSByZWNvcmRzIHRlYW1zIGRlcGVuZCBvbiBldmVyeSBkYXksIHNvIGJyYW5jaCBhY3Rpdml0eSwgY2xpZW50IHByb2dyZXNzIGFuZCBmaW5hbmNpYWxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlY2lzaW9ucyBzaGFyZSB0aGUgc2FtZSB0cnVzdGVkIGNvbnRleHQuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgaWQ9XCJjYXBhYmlsaXRpZXNcIiBjbGFzc05hbWU9XCJtdC0xMiBncmlkIGdhcC01IGxnOmdyaWQtY29scy0zXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHttb2R1bGVzLm1hcCgobW9kdWxlLCBpbmRleCkgPT4gKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPE1vZHVsZUNhcmQga2V5PXttb2R1bGUuZXllYnJvd30gey4uLm1vZHVsZX0gaW5kZXg9e2luZGV4fSAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICA8L3NlY3Rpb24+XG5cbiAgICAgICAgICAgICAgICAgICAgPHNlY3Rpb24gaWQ9XCJnb3Zlcm5hbmNlXCIgY2xhc3NOYW1lPVwicHgtNSBwYi0yMCBzbTpweC04IGxnOnB4LTEwIGxnOnBiLTI0XCI+XG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJlbGF0aXZlIG14LWF1dG8gZ3JpZCBtYXgtdy1bMTI0MHB4XSBvdmVyZmxvdy1oaWRkZW4gcm91bmRlZC0yeGwgYmctWyMxRTI2NDFdIHB4LTYgcHktMTIgdGV4dC13aGl0ZSBzaGFkb3ctMnhsIHNoYWRvdy1bIzFFMjY0MV0vMTUgc206cHgtMTAgbGc6Z3JpZC1jb2xzLVsxLjA4ZnJfMC45MmZyXSBsZzppdGVtcy1jZW50ZXIgbGc6cHgtMTQgbGc6cHktMTRcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInBvaW50ZXItZXZlbnRzLW5vbmUgYWJzb2x1dGUgLXRvcC00MCAtcmlnaHQtMTYgaC05NiB3LTk2IHJvdW5kZWQtZnVsbCBib3JkZXItWzY0cHhdIGJvcmRlci13aGl0ZS9bMC4wMzVdXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInBvaW50ZXItZXZlbnRzLW5vbmUgYWJzb2x1dGUgLWJvdHRvbS0zNiBsZWZ0LVsyOCVdIGgtNzIgdy03MiByb3VuZGVkLWZ1bGwgYmctWyM3NTk5ODddLzIwIGJsdXItM3hsXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJlbGF0aXZlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cImZvbnQtbW9ubyB0ZXh0LXhzIHRyYWNraW5nLVswLjE4ZW1dIHRleHQtWyNBRkM1QkFdIHVwcGVyY2FzZVwiPi8vIEJ1aWx0IGZvciByZXNwb25zaWJsZSBncm93dGg8L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJtdC00IG1heC13LTJ4bCB0ZXh0LTN4bCBmb250LWJvbGQgdHJhY2tpbmctWy0wLjAzNWVtXSBzbTp0ZXh0LTR4bFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2xlYXIgY29udHJvbHMuIEJldHRlciBkZWNpc2lvbnMuIFN0cm9uZ2VyIHNlcnZpY2UuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvaDI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTUgbWF4LXcteGwgdGV4dC1zbSBsZWFkaW5nLTcgdGV4dC13aGl0ZS82NSBzbTp0ZXh0LWJhc2VcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEdpdmUgZXZlcnkgdGVhbSB0aGUgaW5mb3JtYXRpb24gdGhleSBuZWVkIHdoaWxlIHByZXNlcnZpbmcgYnJhbmNoIGJvdW5kYXJpZXMsIGFwcHJvdmFsIGF1dGhvcml0eSBhbmQgYSBkZXBlbmRhYmxlXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWNvcmQgb2YgZXZlcnkgY3JpdGljYWwgYWN0aW9uLlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJlbGF0aXZlIG10LTggZ3JpZCBnYXAtMi41IGxnOm10LTAgbGc6anVzdGlmeS1zZWxmLWVuZFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7Z292ZXJuYW5jZUl0ZW1zLm1hcCgoaXRlbSkgPT4gKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleT17aXRlbX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMyByb3VuZGVkLXhsIGJvcmRlciBib3JkZXItd2hpdGUvMTAgYmctd2hpdGUvWzAuMDddIHB4LTQgcHktMy41IGJhY2tkcm9wLWJsdXIgbGc6bWluLXctWzM5MHB4XVwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiZ3JpZCBoLTcgdy03IHNocmluay0wIHBsYWNlLWl0ZW1zLWNlbnRlciByb3VuZGVkLWxnIGJnLVsjNzU5OTg3XSB0ZXh0LXdoaXRlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxDaGVjayBjbGFzc05hbWU9XCJoLTMuNSB3LTMuNSBzdHJva2UtWzNdXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwidGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LXdoaXRlLzkwIHNtOnRleHQtc21cIj57aXRlbX08L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPC9zZWN0aW9uPlxuXG4gICAgICAgICAgICAgICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT1cImJvcmRlci10IGJvcmRlci1bI0U4RThFNF0gYmctWyNGN0Y4RjddIHB4LTUgcHktMTYgdGV4dC1jZW50ZXIgc206cHgtOCBsZzpweC0xMFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJteC1hdXRvIG1heC13LTJ4bFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cImZvbnQtbW9ubyB0ZXh0LXhzIHRyYWNraW5nLVswLjE4ZW1dIHRleHQtWyM3NTk5ODddIHVwcGVyY2FzZVwiPi8vIFlvdXIgd29ya3NwYWNlPC9wPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJtdC00IHRleHQtM3hsIGZvbnQtYm9sZCB0cmFja2luZy1bLTAuMDM1ZW1dIHRleHQtWyMxRTI2NDFdIHNtOnRleHQtNHhsXCI+WW91ciBwb3J0Zm9saW8gc3RhcnRzIGhlcmUuPC9oMj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJteC1hdXRvIG10LTQgbWF4LXcteGwgdGV4dC1zbSBsZWFkaW5nLTcgdGV4dC1bIzY2NzA4NV0gc206dGV4dC1iYXNlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0aGUgd29ya3NwYWNlIHRvIG1hbmFnZSBsYW5kLCBjbGllbnRzLCBjb2xsZWN0aW9ucyBhbmQgYXBwcm92YWxzIHdpdGggY29uZmlkZW5jZS5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPExpbmtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaHJlZj17cHJpbWFyeUhyZWZ9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImdyb3VwIG10LTcgaW5saW5lLWZsZXggaC0xMSBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgZ2FwLTIgcm91bmRlZC1tZCBiZy1bIzFFMjY0MV0gcHgtNSB0ZXh0LXNtIGZvbnQtc2VtaWJvbGQgdGV4dC13aGl0ZSBzaGFkb3cteHMgdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6YmctWyMyQTM0NTRdXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHthdXRoLnVzZXIgPyAnT3BlbiBkYXNoYm9hcmQnIDogJ1NpZ24gaW4gdG8gQWxwaGEgTGFuZCBFUlAnfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8QXJyb3dSaWdodCBjbGFzc05hbWU9XCJoLTQgdy00IHRyYW5zaXRpb24tdHJhbnNmb3JtIGdyb3VwLWhvdmVyOnRyYW5zbGF0ZS14LTAuNVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDwvc2VjdGlvbj5cbiAgICAgICAgICAgICAgICA8L21haW4+XG5cbiAgICAgICAgICAgICAgICA8Zm9vdGVyIGNsYXNzTmFtZT1cImJvcmRlci10IGJvcmRlci1bI0U4RThFNF0gYmctd2hpdGUgcHgtNSBweS04IHNtOnB4LTggbGc6cHgtMTBcIj5cbiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJteC1hdXRvIGZsZXggbWF4LXctWzEyNDBweF0gZmxleC1jb2wgaXRlbXMtY2VudGVyIGdhcC00IHRleHQtY2VudGVyIHNtOmZsZXgtcm93IHNtOmp1c3RpZnktYmV0d2VlbiBzbTp0ZXh0LWxlZnRcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTNcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8TG9nb01hcmsgY29tcGFjdCAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQteHMgZm9udC1zZW1pYm9sZCB0ZXh0LVsjMUUyNjQxXVwiPkFscGhhIEludGVybmF0aW9uYWwgTGFuZCBEZXZlbG9wZXJzPC9wPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC0wLjUgdGV4dC1bMTBweF0gZm9udC1tZWRpdW0gdHJhY2tpbmctWzAuMDhlbV0gdGV4dC1bIzc1OTk4N10gdXBwZXJjYXNlXCI+T3BlcmF0aW9ucyBQb3J0YWw8L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQteHMgdGV4dC1bIzczN0I4Q11cIj5Qcm9wZXJ0eSBNYW5hZ2VycyDCtyBQcm9wZXJ0eSBTYWxlcyDCtyBMYW5kIERldmVsb3BlcnM8L3A+XG4gICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgIDwvZm9vdGVyPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvPlxuICAgICk7XG59XG5cbmZ1bmN0aW9uIExvZ29NYXJrKHsgY29tcGFjdCA9IGZhbHNlIH06IHsgY29tcGFjdD86IGJvb2xlYW4gfSkge1xuICAgIGNvbnN0IHNpemUgPSBjb21wYWN0ID8gJ2gtOSB3LTknIDogJ2gtMTEgdy0xMSc7XG4gICAgY29uc3QgaW1hZ2VTaXplID0gY29tcGFjdCA/ICdoLVs1NHB4XSB3LVs1NHB4XScgOiAnaC1bNjRweF0gdy1bNjRweF0nO1xuXG4gICAgcmV0dXJuIChcbiAgICAgICAgPHNwYW4gY2xhc3NOYW1lPXtgcmVsYXRpdmUgc2hyaW5rLTAgb3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQtbGcgYm9yZGVyIGJvcmRlci1bI0Q5RTFERF0gYmctWyNFREYzRjBdICR7c2l6ZX1gfT5cbiAgICAgICAgICAgIDxpbWdcbiAgICAgICAgICAgICAgICBzcmM9XCIvaW1hZ2VzL2FscGhhLWxhbmQtbG9nby5wbmdcIlxuICAgICAgICAgICAgICAgIGFsdD1cIlwiXG4gICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgYWJzb2x1dGUgdG9wLVstM3B4XSBsZWZ0LTEvMiBtYXgtdy1ub25lIC10cmFuc2xhdGUteC0xLzIgb2JqZWN0LWNvdmVyIG9iamVjdC10b3AgJHtpbWFnZVNpemV9YH1cbiAgICAgICAgICAgIC8+XG4gICAgICAgIDwvc3Bhbj5cbiAgICApO1xufVxuXG5mdW5jdGlvbiBIZXJvQmFja2Ryb3AoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwb2ludGVyLWV2ZW50cy1ub25lIGFic29sdXRlIGluc2V0LTBcIiBhcmlhLWhpZGRlbj1cInRydWVcIj5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYWJzb2x1dGUgaW5zZXQtMCBiZy1bbGluZWFyLWdyYWRpZW50KDE4MGRlZywjRkRGREZDXzAlLCNGOEZBRjlfNzIlLCNGREZERkNfMTAwJSldXCIgLz5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYWJzb2x1dGUgLXRvcC0yNCAtbGVmdC0yMCBoLVszMHJlbV0gdy1bMzByZW1dIHJvdW5kZWQtZnVsbCBiZy1bIzc1OTk4N10vMTYgYmx1ci0zeGxcIiAvPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJhYnNvbHV0ZSB0b3AtMS80IC1yaWdodC0yNCBoLVsyNHJlbV0gdy1bMjRyZW1dIHJvdW5kZWQtZnVsbCBiZy1bIzFFMjY0MV0vMTAgYmx1ci0zeGxcIiAvPlxuICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImFic29sdXRlIGluc2V0LTAgb3BhY2l0eS0zNVwiXG4gICAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZEltYWdlOiAncmFkaWFsLWdyYWRpZW50KGNpcmNsZSBhdCAxcHggMXB4LCByZ2JhKDMwLCAzOCwgNjUsIDAuMTIpIDFweCwgdHJhbnNwYXJlbnQgMCknLFxuICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kU2l6ZTogJzMycHggMzJweCcsXG4gICAgICAgICAgICAgICAgICAgIG1hc2tJbWFnZTogJ2xpbmVhci1ncmFkaWVudCh0byBib3R0b20sIGJsYWNrIDAlLCB0cmFuc3BhcmVudCA4OCUpJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDxzdmcgY2xhc3NOYW1lPVwiYWJzb2x1dGUgdG9wLVsxOCVdIGxlZnQtWzclXSBoLTQ0IHctNDQgb3BhY2l0eS0zMFwiIHZpZXdCb3g9XCIwIDAgMTIwIDEyMFwiIGZpbGw9XCJub25lXCI+XG4gICAgICAgICAgICAgICAgPGxpbmUgeDE9XCIyMFwiIHkxPVwiNjBcIiB4Mj1cIjU1XCIgeTI9XCIzMFwiIHN0cm9rZT17YnJhbmQuaW5rfSBzdHJva2VPcGFjaXR5PVwiMC4xMlwiIC8+XG4gICAgICAgICAgICAgICAgPGxpbmUgeDE9XCI1NVwiIHkxPVwiMzBcIiB4Mj1cIjk1XCIgeTI9XCI1NVwiIHN0cm9rZT17YnJhbmQuaW5rfSBzdHJva2VPcGFjaXR5PVwiMC4xMlwiIC8+XG4gICAgICAgICAgICAgICAgPGxpbmUgeDE9XCI1NVwiIHkxPVwiMzBcIiB4Mj1cIjcwXCIgeTI9XCI5MFwiIHN0cm9rZT17YnJhbmQuc2FnZX0gc3Ryb2tlT3BhY2l0eT1cIjAuNFwiIC8+XG4gICAgICAgICAgICAgICAgPGxpbmUgeDE9XCIyMFwiIHkxPVwiNjBcIiB4Mj1cIjcwXCIgeTI9XCI5MFwiIHN0cm9rZT17YnJhbmQubmF2eX0gc3Ryb2tlT3BhY2l0eT1cIjAuMlwiIC8+XG4gICAgICAgICAgICAgICAgPGNpcmNsZSBjeD1cIjIwXCIgY3k9XCI2MFwiIHI9XCI1XCIgZmlsbD17YnJhbmQuc2FnZX0gZmlsbE9wYWNpdHk9XCIwLjQ1XCIgLz5cbiAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PVwiNTVcIiBjeT1cIjMwXCIgcj1cIjZcIiBmaWxsPXticmFuZC5uYXZ5fSBmaWxsT3BhY2l0eT1cIjAuMjhcIiAvPlxuICAgICAgICAgICAgICAgIDxjaXJjbGUgY3g9XCI5NVwiIGN5PVwiNTVcIiByPVwiNFwiIGZpbGw9e2JyYW5kLnNhZ2V9IGZpbGxPcGFjaXR5PVwiMC40XCIgLz5cbiAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PVwiNzBcIiBjeT1cIjkwXCIgcj1cIjVcIiBmaWxsPXticmFuZC5uYXZ5fSBmaWxsT3BhY2l0eT1cIjAuMjRcIiAvPlxuICAgICAgICAgICAgPC9zdmc+XG4gICAgICAgIDwvZGl2PlxuICAgICk7XG59XG5cbmZ1bmN0aW9uIE9wZXJhdGlvbnNQYW5lbCgpIHtcbiAgICBjb25zdCBtZXRyaWNzID0gW1xuICAgICAgICB7IGljb246IE1hcFBpbm5lZCwgbGFiZWw6ICdMYW5kIHBvcnRmb2xpbycsIHZhbHVlOiAnTWFwcGVkJywgY29sb3I6IGJyYW5kLm5hdnkgfSxcbiAgICAgICAgeyBpY29uOiBGaWxlcywgbGFiZWw6ICdDbGllbnQgZmlsZXMnLCB2YWx1ZTogJ0Nvbm5lY3RlZCcsIGNvbG9yOiBicmFuZC5zYWdlIH0sXG4gICAgICAgIHsgaWNvbjogU2hpZWxkQ2hlY2ssIGxhYmVsOiAnQWNjZXNzIGNvbnRyb2wnLCB2YWx1ZTogJ1Byb3RlY3RlZCcsIGNvbG9yOiBicmFuZC5pbmsgfSxcbiAgICBdO1xuXG4gICAgcmV0dXJuIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJyZWxhdGl2ZVwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwb2ludGVyLWV2ZW50cy1ub25lIGFic29sdXRlIC1pbnNldC00IHJvdW5kZWQtM3hsIGJnLVtsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLHJnYmEoMzAsMzgsNjUsMC4xMykscmdiYSgxMTcsMTUzLDEzNSwwLjEyKSldIGJsdXItMnhsXCIgLz5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwicmVsYXRpdmUgb3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItWyNEOUUxRERdIGJnLXdoaXRlLzkwIHNoYWRvdy0yeGwgc2hhZG93LWJsYWNrLzEwIGJhY2tkcm9wLWJsdXItbWRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImgtMSBiZy1bbGluZWFyLWdyYWRpZW50KDkwZGVnLCMxRTI2NDEsIzc1OTk4NyldXCIgLz5cblxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIGdhcC0zIGJvcmRlci1iIGJvcmRlci1bI0U4RThFNF0gcHgtNSBweS00XCI+XG4gICAgICAgICAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJmb250LW1vbm8gdGV4dC1bMTBweF0gdHJhY2tpbmctWzAuMThlbV0gdGV4dC1bIzdBODE5MF0gdXBwZXJjYXNlXCI+T3BlcmF0aW9ucyBwdWxzZTwvcD5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTAuNSB0ZXh0LXNtIGZvbnQtYm9sZCB0ZXh0LVsjMUUyNjQxXVwiPlBvcnRmb2xpbyBjb21tYW5kIGNlbnRyZTwvcD5cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBnYXAtMS41IHJvdW5kZWQtZnVsbCBib3JkZXIgYm9yZGVyLVsjNzU5OTg3XS8zMCBiZy1bI0VERjNGMF0gcHgtMi41IHB5LTEgdGV4dC1bMTBweF0gZm9udC1zZW1pYm9sZCB0ZXh0LVsjNUE3QTZEXVwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwicmVsYXRpdmUgZmxleCBoLTIgdy0yXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiYWJzb2x1dGUgaW5saW5lLWZsZXggaC1mdWxsIHctZnVsbCBhbmltYXRlLXBpbmcgcm91bmRlZC1mdWxsIGJnLVsjNzU5OTg3XSBvcGFjaXR5LTUwXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJyZWxhdGl2ZSBpbmxpbmUtZmxleCBoLTIgdy0yIHJvdW5kZWQtZnVsbCBiZy1bIzc1OTk4N11cIiAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICAgICAgQWN0aXZlXG4gICAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtMyBnYXAtcHggYmctWyNFOEU4RTRdXCI+XG4gICAgICAgICAgICAgICAgICAgIHttZXRyaWNzLm1hcCgoeyBpY29uOiBJY29uLCBsYWJlbCwgdmFsdWUsIGNvbG9yIH0pID0+IChcbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYga2V5PXtsYWJlbH0gY2xhc3NOYW1lPVwiYmctd2hpdGUvOTUgcHgtMiBweS00IHRleHQtY2VudGVyIHNtOnB4LTNcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJteC1hdXRvIG1iLTIgZmxleCBoLTggdy04IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciByb3VuZGVkLWxnIGJnLVsjRURGM0YwXVwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8SWNvbiBjbGFzc05hbWU9XCJoLTQgdy00XCIgc3R5bGU9e3sgY29sb3IgfX0gLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiZm9udC1tb25vIHRleHQteHMgZm9udC1ib2xkIHRyYWNraW5nLXRpZ2h0IHRleHQtWyMxRTI2NDFdIHNtOnRleHQtc21cIj57dmFsdWV9PC9wPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTAuNSB0ZXh0LVs5cHhdIGxlYWRpbmctc251ZyB0ZXh0LVsjNzM3QjhDXSBzbTp0ZXh0LVsxMHB4XVwiPntsYWJlbH08L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImJvcmRlci1iIGJvcmRlci1bI0U4RThFNF0gcHgtNSBweS0zXCI+XG4gICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIHRleHQteHMgdGV4dC1bIzczN0I4Q11cIj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxCYXJDaGFydDMgY2xhc3NOYW1lPVwiaC0zLjUgdy0zLjUgdGV4dC1bIzc1OTk4N11cIiAvPlxuICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHN0cm9uZyBjbGFzc05hbWU9XCJmb250LXNlbWlib2xkIHRleHQtWyMxRTI2NDFdXCI+T25lIGxpdmUgdmlldzwvc3Ryb25nPiBhY3Jvc3MgYnJhbmNoZXMsIGJhbGFuY2VzIGFuZCBhcHByb3ZhbHNcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzcGFjZS15LTIgcC00XCI+XG4gICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInB4LTEgdGV4dC1bMTBweF0gZm9udC1zZW1pYm9sZCB0cmFja2luZy1bMC4xNGVtXSB0ZXh0LVsjNzM3QjhDXSB1cHBlcmNhc2VcIj5Xb3JrZmxvdyBoZWFsdGg8L3A+XG4gICAgICAgICAgICAgICAgICAgIHtbXG4gICAgICAgICAgICAgICAgICAgICAgICBbJ1BvcnRmb2xpbyByZWNvcmRzJywgJ1N5bmNocm9uaXplZCcsICc5NCUnXSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFsnQ2xpZW50IGFjY291bnRzJywgJ1JlY29uY2lsZWQnLCAnODclJ10sXG4gICAgICAgICAgICAgICAgICAgICAgICBbJ0FwcHJvdmFsIGNvbnRyb2xzJywgJ0VuZm9yY2VkJywgJzEwMCUnXSxcbiAgICAgICAgICAgICAgICAgICAgXS5tYXAoKFt0aXRsZSwgc3RhdHVzLCBwcm9ncmVzc10pID0+IChcbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYga2V5PXt0aXRsZX0gY2xhc3NOYW1lPVwicm91bmRlZC14bCBib3JkZXIgYm9yZGVyLVsjRTJFNUUzXSBiZy13aGl0ZSBweC0zIHB5LTMgc2hhZG93LXNtXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTNcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtc20gZm9udC1zZW1pYm9sZCB0ZXh0LVsjMUUyNjQxXVwiPnt0aXRsZX08L3A+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC0wLjUgdGV4dC1bMTFweF0gdGV4dC1bIzczN0I4Q11cIj57c3RhdHVzfTwvcD5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cImZvbnQtbW9ubyB0ZXh0LXhzIGZvbnQtYm9sZCB0ZXh0LVsjNzU5OTg3XVwiPntwcm9ncmVzc308L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJtdC0yIGgtMS41IG92ZXJmbG93LWhpZGRlbiByb3VuZGVkLWZ1bGwgYmctWyNFREYzRjBdXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiaC1mdWxsIHJvdW5kZWQtZnVsbCBiZy1bIzc1OTk4N11cIiBzdHlsZT17eyB3aWR0aDogcHJvZ3Jlc3MgfX0gLz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYm9yZGVyLXQgYm9yZGVyLVsjRThFOEU0XSBweC01IHB5LTRcIj5cbiAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC14cyBmb250LXNlbWlib2xkIHRleHQtWyM1QTdBNkRdXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICBCdWlsdCBhcm91bmQgeW91ciBwcm9wZXJ0eSBwb3J0Zm9saW9cbiAgICAgICAgICAgICAgICAgICAgICAgIDxBcnJvd1JpZ2h0IGNsYXNzTmFtZT1cImgtMy41IHctMy41XCIgLz5cbiAgICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICk7XG59XG5cbmZ1bmN0aW9uIE1vZHVsZUNhcmQoeyBpY29uOiBJY29uLCBleWVicm93LCB0aXRsZSwgZGVzY3JpcHRpb24sIGluZGV4IH06ICh0eXBlb2YgbW9kdWxlcylbbnVtYmVyXSAmIHsgaW5kZXg6IG51bWJlciB9KSB7XG4gICAgcmV0dXJuIChcbiAgICAgICAgPGFydGljbGUgY2xhc3NOYW1lPVwiZ3JvdXAgZmxleCBoLWZ1bGwgZmxleC1jb2wgcm91bmRlZC14bCBib3JkZXIgYm9yZGVyLVsjRTJFNUUzXSBiZy13aGl0ZSBwLTcgc2hhZG93LXNtIHRyYW5zaXRpb24gZHVyYXRpb24tMzAwIGhvdmVyOi10cmFuc2xhdGUteS0xIGhvdmVyOmJvcmRlci1bIzc1OTk4N10vNDUgaG92ZXI6c2hhZG93LWxnIGhvdmVyOnNoYWRvdy1bIzFFMjY0MV0vOFwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLXN0YXJ0IGp1c3RpZnktYmV0d2VlblwiPlxuICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cImdyaWQgaC0xMSB3LTExIHBsYWNlLWl0ZW1zLWNlbnRlciByb3VuZGVkLWxnIGJnLVsjRURGM0YwXSB0ZXh0LVsjNzU5OTg3XSB0cmFuc2l0aW9uLWNvbG9ycyBncm91cC1ob3ZlcjpiZy1bIzFFMjY0MV0gZ3JvdXAtaG92ZXI6dGV4dC13aGl0ZVwiPlxuICAgICAgICAgICAgICAgICAgICA8SWNvbiBjbGFzc05hbWU9XCJoLTUgdy01XCIgLz5cbiAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwiZm9udC1tb25vIHRleHQteHMgZm9udC1ib2xkIHRleHQtWyNCRUM0QzFdXCI+MHtpbmRleCArIDF9PC9zcGFuPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC03IGZvbnQtbW9ubyB0ZXh0LVsxMHB4XSBmb250LXNlbWlib2xkIHRyYWNraW5nLVswLjE2ZW1dIHRleHQtWyM3NTk5ODddIHVwcGVyY2FzZVwiPntleWVicm93fTwvcD5cbiAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9XCJtdC0zIHRleHQtbGcgbGVhZGluZy03IGZvbnQtc2VtaWJvbGQgdHJhY2tpbmctWy0wLjAyZW1dIHRleHQtWyMxRTI2NDFdXCI+e3RpdGxlfTwvaDM+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC0zIGZsZXgtMSB0ZXh0LXNtIGxlYWRpbmctNyB0ZXh0LVsjNjY3MDg1XVwiPntkZXNjcmlwdGlvbn08L3A+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm10LTYgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSB0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdGV4dC1bIzVBN0E2RF1cIj5cbiAgICAgICAgICAgICAgICBCdWlsdCBpbnRvIHRoZSB3b3Jrc3BhY2VcbiAgICAgICAgICAgICAgICA8Q2hldnJvblJpZ2h0IGNsYXNzTmFtZT1cImgtMy41IHctMy41IHRyYW5zaXRpb24tdHJhbnNmb3JtIGdyb3VwLWhvdmVyOnRyYW5zbGF0ZS14LTFcIiAvPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvYXJ0aWNsZT5cbiAgICApO1xufVxuIl0sImZpbGUiOiJDOi9Vc2Vycy90YWZhZC9Eb2N1bWVudHMvUFJPSkVDVFMvQWxwaGFfU29sdXRpb24vYWxwaGFfZXJwL3Jlc291cmNlcy9qcy9wYWdlcy93ZWxjb21lLnRzeCJ9

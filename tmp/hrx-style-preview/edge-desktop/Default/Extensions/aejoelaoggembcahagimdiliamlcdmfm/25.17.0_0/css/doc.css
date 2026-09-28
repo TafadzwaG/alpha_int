@@ -1,0 +1,45 @@
+/*
+ * Copyright (C) 2010-2022 Talend Inc. - www.talend.com
+ *
+ * This source code is available under agreement available at
+ * https://www.talend.com/legal-terms/us-eula
+ *
+ * You should have received a copy of the agreement
+ * along with this program; if not, write to Talend SA
+ * 5 rue Salomon de Rothschild - 92150 Suresnes
+ *
+ */
+
+@import '../css/normalize.css';
+
+body {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F9F9F9;
+}
+
+h1 {
+    vertical-align: top;
+    font-weight: 900;
+    font-size: 32px;
+}
+
+h1 > img {
+    padding: 0 10px 0 0;
+    position: relative;
+    top: 3px;
+}
+
+section {
+    padding: 5px 0 0 0;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+p {
+    text-indent: 0;
+    font-weight: 400;
+}

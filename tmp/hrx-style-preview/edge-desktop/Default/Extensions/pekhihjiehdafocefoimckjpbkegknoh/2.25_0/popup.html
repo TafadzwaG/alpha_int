@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Site Palette</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div id="progress" class="progress ">
+      <span class="progress__icon icon-loading progress__icon_show"></span>
+    </div>
+
+    <div id="result" class="result result_hide">
+      <div id="progr-container" class="progr-container container_hide">
+        <img class="container__img" src="icons/app-icon.png">
+        <h1 class="container__sigh">Creating palette…</h1>
+        <div class="container__time-left">
+          <p class="container__time-num"></p>
+          <p class="container__time-sec"></p>
+        </div>
+      </div>
+      <div id="create-container" class="create-container">
+        <img class="container__img" src="icons/app-icon.png">
+        <button class="container__btn container__btn_active" id="create-btn" >Create palette</button>
+        <p class="container__unable-create">Unfortunately, palette creation is currently unavailable on this tab due to technical restrictions.</p>
+        <div class="container__price-block">
+          <p class="container__price-title"></p>
+          <p class="container__price-subtitle"></p>
+          <div class="container__price-cards">
+            <div class="container__price-card container__price-card_active"  id="subs-card">
+              <p class="container__price-card-title">Subscription</p>
+              <div class="container__price-card-main">
+                <p class="container__price-card-subtitle">from</p>
+                <p class="container__price-info">$2.50/mo</p>
+                <p class="container__price-card-bill">billed annually</p>
+                <button class="container__price-card-btn container__price-card-btn_active" id="subs-btn">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+            <div class="container__price-card" id="purch-card">
+              <p class="container__price-card-title">Lifetime</p>
+              <div class="container__price-card-main">
+                <p class="container__price-info">$99</p>
+                <p class="container__price-card-bill">billed once</p>
+                <button class="container__price-card-btn" id="purch-btn">
+                  Purchase
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="create-container__line">
+          <div class="create-container__links">
+            <a href="https://palette.site/palettes" target="_blank" class="create-container__link">My palettes</a>
+            <a href="https://palette.site/profile" target="_blank" class="create-container__link">My profile</a>
+          </div>
+          <div class="container__trial-info">
+            <p class="container__trial-info-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icons/Icon-128.png",
+         "16": "icons/Icon-16.png",
+         "48": "icons/Icon-48.png"
+      },
+      "default_title": "MobX Developer Tools"
+   },
+   "background": {
+      "service_worker": "background.js",
+      "type": "module"
+   },
+   "commands": {
+      "open-devtools-window": {
+         "description": "DevTools window to left",
+         "suggested_key": {
+            "default": "Alt+M"
+         }
+      }
+   },
+   "content_scripts": [ {
+      "js": [ "injectGlobalHook.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_start",
+      "world": "MAIN"
+   }, {
+      "js": [ "testHelper.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_start"
+   } ],
+   "description": "Dev-tools for MobX and React",
+   "devtools_page": "panel-loader.html",
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "icons/Icon-128.png",
+      "16": "icons/Icon-16.png",
+      "48": "icons/Icon-48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2SJ7DYR7eSHrwoVCHd4bJ8MxV8AQxPEAIsLB1DR0vv/mkhPU4SIgWB0oYcAnB0WuJAPEN6R1mYfkD6UOydiGhKwZDPqQ4IirB3zSwwr6QmfbV6BmxqEw7Q7tiJ8XFK5cuErtk4AuYnrzkkZcssu7lmCHTuPOeBCFqDGuSc2jexsRLdGWEr/Co+KJ/QzEnC5ac3/DgVLVdmvz0T7qwKwa8JX/7FQOft4o2mAhwI5qPMEXpUOGdKDhHcZPixyLVcB6joo8bnwDQ4trUphaicqDc6lxpzE7m0EjM99lh++nhwUIsqRc1q23Z35l9sjqvNAcANcAmougH3Ghk/gGH7UrLwIDAQAB",
+   "manifest_version": 3,
+   "minimum_chrome_version": "88",
+   "name": "MobX Developer Tools",
+   "permissions": [ "contextMenus", "storage", "scripting" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.9.33",
+   "version_name": "0.9.33",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "main.html", "panel.html", "backend.js" ]
+   } ]
+}

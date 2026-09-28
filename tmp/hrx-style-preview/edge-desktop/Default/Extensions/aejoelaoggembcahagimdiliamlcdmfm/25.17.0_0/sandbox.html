@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Talend API Tester</title>
+</head>
+<body>
+<script src="./js/jsonpathPlus.cjs"></script>
+<script src="./js/jsonpath.js"></script>
+<script>
+  // Handle jsonpath events
+  function jsonpath (messageId, content, outgoingPort) {
+
+    try {
+      const { json, pathSelector } = content; // constants defined in JsonPathMessage class
+
+      const result = jsonPath(json, pathSelector, { evalType: "RESULT", safeEval: true });
+
+      outgoingPort.postMessage({ content: result, messageId });
+    } catch (error) {
+      outgoingPort.postMessage({ messageId, errorMessage: error.message });
+    }
+  }
+
+  // Set up message event handler
+  window.addEventListener('message', function (event) {
+    const eventHasSameOrigin = event.origin === window.location.origin
+    if (!eventHasSameOrigin) {
+      return; // silently ignore the suspicious message
+    }
+
+    const {
+      ports: [ outgoingPort ],
+      data: { messageId, messageType, content } // constants defined in SandboxServiceMessage class
+    } = event;
+
+    if (messageType === 'sandboxMessageTypeJsonpath') { // constant defined in SandboxServiceMessageType enum
+      jsonpath(messageId, content, outgoingPort);
+    } else {
+      outgoingPort.postMessage({ messageId, errorMessage: `Unknown message type ${messageType}` });
+    }
+  });
+</script>
+</body>
+</html>
