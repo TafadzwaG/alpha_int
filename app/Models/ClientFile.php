@@ -41,4 +41,14 @@ class ClientFile extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function allocations()
+    {
+        return $this->hasMany(StandAllocation::class, 'client_file_id');
+    }
+
+    public function accounts()
+    {
+        return $this->hasMany(ClientAccount::class, 'client_file_id');
+    }
 }

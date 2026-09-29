@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -37,10 +39,25 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $organization = Organization::query()
+            ->where('code', 'ALPHA')
+            ->where('status', 'active')
+            ->first()
+            ?? Organization::query()->where('status', 'active')->oldest('id')->firstOrFail();
+        $homeBranch = Branch::query()
+            ->where('organization_id', $organization->id)
+            ->where('status', 'active')
+            ->orderByRaw("CASE WHEN code = 'HQ' THEN 0 ELSE 1 END")
+            ->orderBy('name')
+            ->first();
+
         $user = User::create([
+            'organization_id' => $organization->id,
+            'home_branch_id' => $homeBranch?->id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => 'active',
         ]);
 
         event(new Registered($user));

@@ -4,17 +4,17 @@ import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown } from 'lucide-react';
 
-export function NavSection({ title, items }: { title: string; items: NavItem[] }) {
+export function NavSection({ title, items, defaultOpen = true }: { title: string; items: NavItem[]; defaultOpen?: boolean }) {
     const page = usePage();
     const currentPath = page.url.split(/[?#]/)[0];
-    const isActive = (url: string) => currentPath === url || (url !== '/administration' && currentPath.startsWith(`${url}/`));
-    const containsActiveItem = items.some((item) => isActive(item.url));
+    const isSectionRoot = (url: string) => ['/administration', '/accounting'].includes(url);
+    const isActive = (url: string) => currentPath === url || (!isSectionRoot(url) && currentPath.startsWith(`${url}/`));
 
     return (
-        <Collapsible defaultOpen={containsActiveItem} className="group/collapsible">
+        <Collapsible defaultOpen={defaultOpen} className="group/collapsible">
             <SidebarGroup className="py-1">
                 <SidebarGroupLabel asChild>
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger className="cursor-pointer">
                         {title}
                         <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                     </CollapsibleTrigger>

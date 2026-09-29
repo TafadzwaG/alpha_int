@@ -68,8 +68,47 @@ class PhaseOneResourceRegistry
         $definition = $this->definition($key);
         $query = $this->query($key, $request);
         $search = trim((string) $request->string('search'));
+        $status = Str::lower(trim((string) $request->string('status')));
+        $branchId = $request->integer('branch');
+        $statusOptions = [
+            'stands' => ['planned', 'available', 'reserved', 'allocated', 'withdrawn'],
+            'clients' => ['prospect', 'active', 'inactive', 'blocked'],
+            'stand-allocations' => ['pending', 'approved', 'allocated', 'cancelled'],
+        ];
 
-        if ($search !== '' && $definition['searchable']) {
+        if (! in_array($status, $statusOptions[$key] ?? [], true)) {
+            $status = '';
+        }
+
+        if ($status !== '') {
+            $query->where(match ($key) {
+                'stands' => 'physical_status',
+                default => 'status',
+            }, $status);
+        }
+
+        if ($branchId && in_array($key, ['stands', 'clients', 'stand-allocations'], true)) {
+            if ($key === 'stands') {
+                $query->whereHas('allocations', fn (Builder $builder) => $builder->where('branch_id', $branchId));
+            } elseif ($key === 'clients') {
+                $query->where('owning_branch_id', $branchId);
+            } else {
+                $query->where('branch_id', $branchId);
+            }
+        }
+
+        if ($search !== '' && $key === 'stand-allocations') {
+            $query->where(function (Builder $builder) use ($search) {
+                $builder->where('category', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%")
+                    ->orWhereHas('stand', fn (Builder $stand) => $stand->where('stand_no', 'like', "%{$search}%"))
+                    ->orWhereHas('clientFile.client', fn (Builder $client) => $client
+                        ->where('client_no', 'like', "%{$search}%")
+                        ->orWhere('first_name', 'like', "%{$search}%")
+                        ->orWhere('last_name', 'like', "%{$search}%")
+                        ->orWhere('search_name', 'like', "%{$search}%"));
+            });
+        } elseif ($search !== '' && $definition['searchable']) {
             $query->where(function (Builder $builder) use ($definition, $search) {
                 foreach ($definition['searchable'] as $index => $column) {
                     $method = $index === 0 ? 'where' : 'orWhere';
@@ -84,10 +123,14 @@ class PhaseOneResourceRegistry
             ->through(fn (Model $record) => $this->serialize($key, $record));
 
         return [
-            'resource' => ['key' => $key, ...Arr::except($definition, ['model', 'searchable'])],
+            'resource' => [
+                'key' => $key,
+                'detailsEnabled' => in_array($key, ['stands', 'clients', 'stand-allocations'], true),
+                ...Arr::except($definition, ['model', 'searchable']),
+            ],
             'records' => $records,
             'options' => $this->options($request),
-            'filters' => ['search' => $search],
+            'filters' => ['search' => $search, 'status' => $status, 'branch' => $branchId ? (string) $branchId : 'all'],
         ];
     }
 
@@ -201,7 +244,13 @@ class PhaseOneResourceRegistry
                 ->with(['phase.development:id,name', 'standType:id,name']);
         } elseif ($key === 'stand-allocations') {
             $query->whereHas('clientFile.client', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
-                ->with(['clientFile.client:id,client_no,first_name,last_name', 'stand.phase.development:id,name', 'branch:id,name']);
+                ->with([
+                    'clientFile.client:id,client_no,first_name,last_name',
+                    'stand.phase.development:id,name',
+                    'branch:id,name',
+                    'account.charges.paymentAllocations.payment:id,status',
+                    'installments.paymentAllocations.payment:id,status',
+                ]);
         } elseif ($key === 'clients') {
             $query->where('organization_id', $organizationId)->with('owningBranch:id,name');
         } elseif ($key === 'account-charges') {
@@ -811,7 +860,7 @@ class PhaseOneResourceRegistry
             /** @var StandAllocation $model */
             $clientFile = ClientFile::query()->with('client')->findOrFail($model->client_file_id);
             if ($model->status !== 'cancelled') {
-                ClientAccount::updateOrCreate(
+                $account = ClientAccount::updateOrCreate(
                     ['allocation_id' => $model->id],
                     [
                         'client_file_id' => $model->client_file_id,
@@ -821,6 +870,21 @@ class PhaseOneResourceRegistry
                         'status' => 'open',
                     ],
                 );
+
+                if ((float) $model->effective_price > 0) {
+                    AccountCharge::firstOrCreate(
+                        ['account_id' => $account->id, 'charge_type' => 'stand_price'],
+                        [
+                            'description' => 'Stand '.($model->stand?->stand_no ?? 'allocation').' purchase price',
+                            'amount' => $model->effective_price,
+                            'currency_code' => $account->currency_code,
+                            'due_date' => $model->allocated_at?->toDateString() ?? now()->toDateString(),
+                            'status' => 'posted',
+                            'posted_at' => now(),
+                            'created_by' => $request->user()->id,
+                        ],
+                    );
+                }
             }
 
             if ($model->stand_id) {
@@ -1050,6 +1114,19 @@ class PhaseOneResourceRegistry
                 ? "{$record->stand->phase?->development?->name} — Stand {$record->stand->stand_no}"
                 : 'Not assigned';
             $data['branch_name'] = $record->branch?->name;
+            $charges = $record->account?->charges ?? collect();
+            $chargeTotal = (float) $charges->where('status', '!=', 'void')->sum('amount');
+            $paidTotal = (float) $charges
+                ->flatMap->paymentAllocations
+                ->filter(fn (PaymentAllocation $allocation) => $allocation->payment?->status === 'approved')
+                ->sum('amount');
+            $data['balance'] = max(0, $chargeTotal - $paidTotal);
+            $data['next_due_date'] = $record->installments
+                ?->whereNotIn('status', ['paid', 'waived'])
+                ->sortBy('due_date')
+                ->first()
+                ?->due_date
+                ?->toDateString();
         }
 
         if ($key === 'account-charges') {
@@ -1315,7 +1392,7 @@ class PhaseOneResourceRegistry
                 ['name' => 'owning_branch_id', 'label' => 'Owning branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'client_no', 'label' => 'Client number', 'required' => true], ['name' => 'first_name', 'label' => 'First name', 'required' => true], ['name' => 'middle_names', 'label' => 'Middle names'], ['name' => 'last_name', 'label' => 'Last name', 'required' => true], ['name' => 'national_id', 'label' => 'National ID', 'type' => 'password', 'help' => 'Encrypted before storage. Leave blank when editing to keep the current value.'], ['name' => 'phone_normalized', 'label' => 'Phone'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'prospect', 'label' => 'Prospect'], ['value' => 'active', 'label' => 'Active'], ['value' => 'inactive', 'label' => 'Inactive'], ['value' => 'blocked', 'label' => 'Blocked']], 'default' => 'active', 'required' => true],
             ], ['client_no', 'first_name', 'middle_names', 'last_name', 'phone_normalized']),
             'stand-allocations' => $this->makeDefinition(StandAllocation::class, 'Stand allocations', 'Connect client files to stands, pricing and approval status.', 'client', [
-                ['key' => 'client_name', 'label' => 'Client'], ['key' => 'stand_name', 'label' => 'Stand'], ['key' => 'branch_name', 'label' => 'Branch'], ['key' => 'category', 'label' => 'Category'], ['key' => 'effective_price', 'label' => 'Effective price'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
+                ['key' => 'client_name', 'label' => 'Client'], ['key' => 'stand_name', 'label' => 'Stand'], ['key' => 'branch_name', 'label' => 'Branch'], ['key' => 'effective_price', 'label' => 'Price'], ['key' => 'balance', 'label' => 'Balance'], ['key' => 'next_due_date', 'label' => 'Next due'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
             ], [
                 ['name' => 'client_file_id', 'label' => 'Client file', 'type' => 'select', 'options' => 'client-files', 'required' => true], ['name' => 'stand_id', 'label' => 'Stand', 'type' => 'select', 'options' => 'stands'], ['name' => 'branch_id', 'label' => 'Branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'category', 'label' => 'Allocation category', 'type' => 'select', 'choices' => [['value' => 'cash', 'label' => 'Cash'], ['value' => 'credit', 'label' => 'Credit'], ['value' => 'special', 'label' => 'Special'], ['value' => 'staff', 'label' => 'Staff']], 'default' => 'cash', 'required' => true], ['name' => 'allocated_at', 'label' => 'Allocated at', 'type' => 'datetime-local'], ['name' => 'effective_price', 'label' => 'Effective price', 'type' => 'number', 'step' => '0.01'], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'pending', 'label' => 'Pending'], ['value' => 'approved', 'label' => 'Approved'], ['value' => 'allocated', 'label' => 'Allocated'], ['value' => 'cancelled', 'label' => 'Cancelled']], 'default' => 'pending', 'required' => true],
             ], ['category', 'status']),

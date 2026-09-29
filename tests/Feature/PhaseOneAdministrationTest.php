@@ -62,6 +62,22 @@ class PhaseOneAdministrationTest extends TestCase
         }
     }
 
+    public function test_stands_workspace_can_be_filtered_by_dashboard_inventory_status(): void
+    {
+        $admin = User::where('email', 'test@example.com')->firstOrFail();
+        $availableStands = Stand::query()->where('physical_status', 'available')->count();
+
+        $this->actingAs($admin)
+            ->get('/administration/stands?status=available')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('administration/resource')
+                ->where('resource.key', 'stands')
+                ->where('filters.status', 'available')
+                ->where('records.total', $availableStands)
+                ->where('records.data', fn ($records) => collect($records)->every(fn ($stand) => $stand['physical_status'] === 'available')));
+    }
+
     public function test_administrator_can_open_each_finance_and_cash_control_workspace(): void
     {
         $admin = User::where('email', 'test@example.com')->firstOrFail();

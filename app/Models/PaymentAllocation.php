@@ -12,6 +12,7 @@ class PaymentAllocation extends Model
     protected $fillable = [
         'payment_id',
         'charge_id',
+        'installment_id',
         'amount',
     ];
 
@@ -30,5 +31,10 @@ class PaymentAllocation extends Model
     public function charge()
     {
         return $this->belongsTo(AccountCharge::class, 'charge_id');
+    }
+
+    public function installment()
+    {
+        return $this->belongsTo(Installment::class, 'installment_id');
     }
 }

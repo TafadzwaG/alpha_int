@@ -55,4 +55,14 @@ class StandAllocation extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function account()
+    {
+        return $this->hasOne(ClientAccount::class, 'allocation_id');
+    }
+
+    public function installments()
+    {
+        return $this->hasMany(Installment::class, 'allocation_id');
+    }
 }

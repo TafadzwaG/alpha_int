@@ -12,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
-import { ArrowLeft, Pencil, Plus, Search, ShieldCheck, Trash2 } from 'lucide-react';
+import { ArrowLeft, Eye, Pencil, Plus, Search, ShieldCheck, Trash2, X } from 'lucide-react';
 import { FormEvent, useMemo, useState } from 'react';
 
 type Option = { value: string | number | boolean; label: string };
@@ -35,6 +35,7 @@ type Resource = {
     columns: Column[];
     fields: Field[];
     readOnly: boolean;
+    detailsEnabled: boolean;
 };
 type RecordData = Record<string, unknown>;
 type Pagination = {
@@ -48,7 +49,7 @@ type Props = {
     resource: Resource;
     records: Pagination;
     options: Record<string, Option[]>;
-    filters: { search: string };
+    filters: { search: string; status: string; branch: string };
 };
 
 function displayValue(value: unknown, badge = false, key = '') {
@@ -76,6 +77,7 @@ function displayValue(value: unknown, badge = false, key = '') {
             'deposited_total',
             'list_price',
             'effective_price',
+            'balance',
         ].includes(key)
     ) {
         const numeric = Number(value);
@@ -101,6 +103,15 @@ export default function ResourcePage({ resource, records, options, filters }: Pr
     const [dialogOpen, setDialogOpen] = useState(false);
     const [editing, setEditing] = useState<RecordData | null>(null);
     const [search, setSearch] = useState(filters.search ?? '');
+    const [status, setStatus] = useState(filters.status || 'all');
+    const [branch, setBranch] = useState(filters.branch || 'all');
+    const hasAdvancedFilters = ['stands', 'clients', 'stand-allocations'].includes(resource.key);
+    const hasActions = canManage || resource.detailsEnabled;
+    const statusOptions: Record<string, string[]> = {
+        stands: ['planned', 'available', 'reserved', 'allocated', 'withdrawn'],
+        clients: ['prospect', 'active', 'inactive', 'blocked'],
+        'stand-allocations': ['pending', 'approved', 'allocated', 'cancelled'],
+    };
     const defaults = useMemo(
         () => Object.fromEntries(resource.fields.map((field) => [field.name, normalizeForInput(field, field.default)])),
         [resource],
@@ -142,7 +153,19 @@ export default function ResourcePage({ resource, records, options, filters }: Pr
 
     const runSearch = (event: FormEvent) => {
         event.preventDefault();
-        router.get(`/administration/${resource.key}`, search ? { search } : {}, { preserveState: true, replace: true });
+        const query = Object.fromEntries(
+            Object.entries({ search, status: status === 'all' ? '' : status, branch: branch === 'all' ? '' : branch }).filter(([, value]) =>
+                Boolean(value),
+            ),
+        );
+        router.get(`/administration/${resource.key}`, query, { preserveState: true, replace: true });
+    };
+
+    const clearFilters = () => {
+        setSearch('');
+        setStatus('all');
+        setBranch('all');
+        router.get(`/administration/${resource.key}`, {}, { preserveState: true, replace: true });
     };
 
     const fieldOptions = (field: Field) => field.choices ?? (field.options ? (options[field.options] ?? []) : []);
@@ -180,20 +203,65 @@ export default function ResourcePage({ resource, records, options, filters }: Pr
                 <Card className="min-w-0 overflow-hidden">
                     <CardContent className="p-0">
                         <div className="flex flex-col gap-3 border-b p-4 sm:flex-row sm:items-center sm:justify-between">
-                            <form onSubmit={runSearch} className="flex w-full max-w-sm gap-2">
-                                <div className="relative flex-1">
-                                    <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
-                                    <Input
-                                        value={search}
-                                        onChange={(event) => setSearch(event.target.value)}
-                                        className="h-9 pl-9"
-                                        placeholder={`Search ${resource.title.toLowerCase()}…`}
-                                    />
-                                </div>
-                                <Button type="submit" variant="outline" size="sm">
-                                    Search
-                                </Button>
-                            </form>
+                            <div className="flex w-full flex-col gap-2 sm:max-w-xl">
+                                <form onSubmit={runSearch} className="flex w-full flex-col gap-2 lg:flex-row">
+                                    <div className="relative flex-1">
+                                        <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                                        <Input
+                                            value={search}
+                                            onChange={(event) => setSearch(event.target.value)}
+                                            className="h-9 pl-9"
+                                            placeholder={
+                                                hasAdvancedFilters
+                                                    ? 'Stand number, client name, phone or reference…'
+                                                    : `Search ${resource.title.toLowerCase()}…`
+                                            }
+                                        />
+                                    </div>
+                                    {hasAdvancedFilters && (
+                                        <>
+                                            <Select value={branch} onValueChange={setBranch}>
+                                                <SelectTrigger className="h-9 lg:w-44" aria-label="Filter by branch">
+                                                    <SelectValue placeholder="All branches" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectItem value="all">All branches</SelectItem>
+                                                        {(options.branches ?? []).map((option) => (
+                                                            <SelectItem key={String(option.value)} value={String(option.value)}>
+                                                                {option.label}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                            <Select value={status} onValueChange={setStatus}>
+                                                <SelectTrigger className="h-9 lg:w-40" aria-label="Filter by status">
+                                                    <SelectValue placeholder="All statuses" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectItem value="all">All statuses</SelectItem>
+                                                        {(statusOptions[resource.key] ?? []).map((value) => (
+                                                            <SelectItem key={value} value={value} className="capitalize">
+                                                                {value.replaceAll('_', ' ')}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </>
+                                    )}
+                                    <Button type="submit" variant="outline" size="sm">
+                                        Search
+                                    </Button>
+                                    {hasAdvancedFilters && (filters.search || filters.status || filters.branch !== 'all') && (
+                                        <Button type="button" variant="ghost" size="sm" onClick={clearFilters}>
+                                            <X data-icon="inline-start" /> Clear
+                                        </Button>
+                                    )}
+                                </form>
+                            </div>
                             <p className="text-muted-foreground text-xs">
                                 {records.total} record{records.total === 1 ? '' : 's'}
                             </p>
@@ -205,14 +273,14 @@ export default function ResourcePage({ resource, records, options, filters }: Pr
                                     {resource.columns.map((column) => (
                                         <TableHead key={column.key}>{column.label}</TableHead>
                                     ))}
-                                    {canManage && <TableHead className="w-28 text-right">Actions</TableHead>}
+                                    {hasActions && <TableHead className="w-36 text-right">Actions</TableHead>}
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {records.data.length === 0 && (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={resource.columns.length + (canManage ? 1 : 0)}
+                                            colSpan={resource.columns.length + (hasActions ? 1 : 0)}
                                             className="text-muted-foreground h-32 text-center"
                                         >
                                             No records found.
@@ -226,27 +294,41 @@ export default function ResourcePage({ resource, records, options, filters }: Pr
                                                 {displayValue(record[column.key], column.badge, column.key)}
                                             </TableCell>
                                         ))}
-                                        {canManage && (
+                                        {hasActions && (
                                             <TableCell className="text-right">
                                                 <div className="flex justify-end gap-1">
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="size-8"
-                                                        onClick={() => beginEdit(record)}
-                                                        aria-label="Edit record"
-                                                    >
-                                                        <Pencil data-icon="inline-start" />
-                                                    </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="text-destructive size-8"
-                                                        onClick={() => remove(record)}
-                                                        aria-label="Deactivate record"
-                                                    >
-                                                        <Trash2 data-icon="inline-start" />
-                                                    </Button>
+                                                    {resource.detailsEnabled && (
+                                                        <Button variant="ghost" size="icon" className="size-8" asChild>
+                                                            <Link
+                                                                href={`/administration/${resource.key}/${String(record.id)}`}
+                                                                aria-label="View details"
+                                                            >
+                                                                <Eye data-icon="inline-start" />
+                                                            </Link>
+                                                        </Button>
+                                                    )}
+                                                    {canManage && (
+                                                        <>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                className="size-8"
+                                                                onClick={() => beginEdit(record)}
+                                                                aria-label="Edit record"
+                                                            >
+                                                                <Pencil data-icon="inline-start" />
+                                                            </Button>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                className="text-destructive size-8"
+                                                                onClick={() => remove(record)}
+                                                                aria-label="Deactivate record"
+                                                            >
+                                                                <Trash2 data-icon="inline-start" />
+                                                            </Button>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </TableCell>
                                         )}

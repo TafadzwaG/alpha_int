@@ -17,6 +17,8 @@ use App\Models\DevelopmentPhase;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
 use App\Models\ExpenseLine;
+use App\Models\Installment;
+use App\Models\InstallmentReminder;
 use App\Models\Organization;
 use App\Models\Payment;
 use App\Models\PaymentAllocation;
@@ -150,10 +152,11 @@ class OperationalDemoSeeder extends Seeder
                 ['client_file_id' => $file->id, 'account_no' => "ACC-{$clientNo}", 'currency_code' => 'USD', 'opened_at' => $allocation->allocated_at, 'status' => 'open'],
             );
             $chargeAmount = (float) $allocation->effective_price;
-            $chargeDate = now()->subMonths(7 - min($index, 6))->startOfMonth()->addDays(4);
+            $dueDate = now()->startOfDay()->addDays([-150, -110, -75, -45, -20, -5, 10, 30][$index]);
+            $chargeDate = $dueDate->copy()->subDays(30);
             $charge = AccountCharge::updateOrCreate(
                 ['account_id' => $account->id, 'charge_type' => 'stand_price'],
-                ['description' => "Stand {$stand->stand_no} purchase price", 'amount' => $chargeAmount, 'currency_code' => 'USD', 'due_date' => $chargeDate->copy()->addDays(30), 'status' => 'partially_paid', 'posted_at' => $chargeDate, 'created_by' => $admin->id],
+                ['description' => "Stand {$stand->stand_no} purchase price", 'amount' => $chargeAmount, 'currency_code' => 'USD', 'due_date' => $dueDate, 'status' => 'partially_paid', 'posted_at' => $chargeDate, 'created_by' => $admin->id],
             );
             $paymentAmount = round($chargeAmount * (0.22 + (($index % 4) * 0.06)), 2);
             $methodCode = ['BANK', 'MOBILE', 'CASH', 'CARD'][$index % 4];
@@ -162,7 +165,30 @@ class OperationalDemoSeeder extends Seeder
                 ['branch_id' => $branch->id, 'method_id' => $methods[$methodCode], 'external_reference' => "DEMO-PAY-{$clientNo}"],
                 ['account_id' => $account->id, 'cash_session_id' => $methodCode === 'CASH' ? $cashSessions[$branchCode]->id : null, 'amount' => $paymentAmount, 'currency_code' => 'USD', 'received_at' => $paymentDate, 'status' => 'approved', 'made_by' => $admin->id, 'approved_by' => $admin->id, 'approved_at' => $paymentDate],
             );
-            PaymentAllocation::updateOrCreate(['payment_id' => $payment->id, 'charge_id' => $charge->id], ['amount' => $paymentAmount]);
+            $remaining = round($chargeAmount - $paymentAmount, 2);
+            $remainingCents = (int) round($remaining * 100);
+            $baseCents = intdiv($remainingCents, 3);
+            $remainderCents = $remainingCents % 3;
+            $firstInstallment = Installment::updateOrCreate(
+                ['allocation_id' => $allocation->id, 'sequence_no' => 1],
+                ['due_date' => $paymentDate->toDateString(), 'amount_due' => $paymentAmount, 'amount_paid' => $paymentAmount, 'currency_code' => 'USD', 'status' => 'paid', 'paid_at' => $paymentDate, 'notes' => 'Opening installment paid at allocation.'],
+            );
+            foreach (range(2, 4) as $sequence) {
+                $amountCents = $baseCents + (($sequence - 1) <= $remainderCents ? 1 : 0);
+                $installmentDue = $dueDate->copy()->addMonthsNoOverflow($sequence - 2);
+                $installment = Installment::updateOrCreate(
+                    ['allocation_id' => $allocation->id, 'sequence_no' => $sequence],
+                    ['due_date' => $installmentDue->toDateString(), 'amount_due' => $amountCents / 100, 'amount_paid' => 0, 'currency_code' => 'USD', 'status' => 'scheduled', 'paid_at' => null, 'notes' => 'Demo monthly installment.'],
+                );
+                InstallmentReminder::updateOrCreate(
+                    ['installment_id' => $installment->id, 'channel' => 'in_app', 'remind_at' => $installmentDue->copy()->subDays(7)],
+                    ['status' => $installmentDue->isPast() ? 'sent' : 'scheduled', 'sent_at' => $installmentDue->isPast() ? $installmentDue->copy()->subDays(7) : null, 'notes' => 'Automatic seven-day installment reminder.', 'created_by' => $admin->id],
+                );
+            }
+            PaymentAllocation::updateOrCreate(
+                ['payment_id' => $payment->id, 'charge_id' => $charge->id],
+                ['installment_id' => $firstInstallment->id, 'amount' => $paymentAmount],
+            );
             Receipt::updateOrCreate(
                 ['payment_id' => $payment->id],
                 ['organization_id' => $organization->id, 'receipt_no' => 'DEMO-RCT-'.str_pad((string) ($index + 1), 5, '0', STR_PAD_LEFT), 'issued_at' => $paymentDate, 'content_hash' => hash('sha256', "receipt-{$payment->id}"), 'qr_token_hash' => hash('sha256', "qr-{$payment->id}"), 'snapshot_json' => ['client' => "{$firstName} {$lastName}", 'amount' => $paymentAmount], 'issued_by' => $admin->id],

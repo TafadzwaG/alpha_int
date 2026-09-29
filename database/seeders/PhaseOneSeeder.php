@@ -55,6 +55,7 @@ class PhaseOneSeeder extends Seeder
             ['name' => 'expenses.manage', 'code' => 'EXPENSES_MANAGE', 'description' => 'Capture expenses and petty cash entries.', 'risk_level' => 'sensitive'],
             ['name' => 'expenses.approve', 'code' => 'EXPENSES_APPROVE', 'description' => 'Approve or reject submitted expenses.', 'risk_level' => 'critical'],
             ['name' => 'reports.view', 'code' => 'REPORTS_VIEW', 'description' => 'View operational and management reports.', 'risk_level' => 'standard'],
+            ['name' => 'accounting.view', 'code' => 'ACCOUNTING_VIEW', 'description' => 'View accounting dashboards, debtors and receivables ageing.', 'risk_level' => 'sensitive'],
         ] as $permission) {
             Permission::updateOrCreate(
                 ['name' => $permission['name'], 'guard_name' => 'web'],
@@ -71,15 +72,16 @@ class PhaseOneSeeder extends Seeder
         $expenseManagePermission = Permission::findByName('expenses.manage', 'web');
         $expenseApprovePermission = Permission::findByName('expenses.approve', 'web');
         $reportsPermission = Permission::findByName('reports.view', 'web');
+        $accountingPermission = Permission::findByName('accounting.view', 'web');
 
         $roleBlueprints = [
             ['name' => 'Super Administrator', 'code' => 'SUPER_ADMIN', 'scope_type' => 'organization', 'permissions' => $allPermissions],
             ['name' => 'System Administrator', 'code' => 'SYSTEM_ADMIN', 'scope_type' => 'organization', 'permissions' => $allPermissions],
             ['name' => 'Branch Manager', 'code' => 'BRANCH_MANAGER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseApprovePermission, $reportsPermission])],
             ['name' => 'Sales Officer', 'code' => 'SALES_OFFICER', 'scope_type' => 'branch', 'permissions' => collect()],
-            ['name' => 'Accounts Officer', 'code' => 'ACCOUNTS_OFFICER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseManagePermission, $reportsPermission])],
+            ['name' => 'Accounts Officer', 'code' => 'ACCOUNTS_OFFICER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseManagePermission, $reportsPermission, $accountingPermission])],
             ['name' => 'Cashier', 'code' => 'CASHIER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseManagePermission])],
-            ['name' => 'Auditor', 'code' => 'AUDITOR', 'scope_type' => 'organization', 'permissions' => collect([$viewPermission, $auditPermission, $expenseViewPermission, $reportsPermission])],
+            ['name' => 'Auditor', 'code' => 'AUDITOR', 'scope_type' => 'organization', 'permissions' => collect([$viewPermission, $auditPermission, $expenseViewPermission, $reportsPermission, $accountingPermission])],
         ];
 
         foreach ($roleBlueprints as $blueprint) {

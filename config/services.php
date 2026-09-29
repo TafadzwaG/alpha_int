@@ -28,6 +28,12 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'zimrate' => [
+        'base_url' => env('ZIMRATE_BASE_URL', 'https://zimrate.com'),
+        'cache_ttl' => (int) env('ZIMRATE_CACHE_TTL', 1800),
+        'timeout' => (int) env('ZIMRATE_TIMEOUT', 6),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

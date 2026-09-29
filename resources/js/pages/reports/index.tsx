@@ -5,11 +5,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { ArrowLeft, Banknote, ChartNoAxesCombined, CircleDollarSign, ReceiptText, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Banknote, ChartNoAxesCombined, CircleDollarSign, FileDown, FileSpreadsheet, ReceiptText, TrendingUp } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Reports', href: '/reports' }];
 
 type Props = {
+    organization: { code: string; name: string };
+    generatedAt: string;
     summary: { billed: number; collected: number; expenses: number; outstanding: number; collectionRate: number };
     monthly: Array<{ month: string; label: string; billed: number; collected: number; expenses: number }>;
     receivablesAging: Array<{ bucket: string; total: number }>;
@@ -61,12 +63,26 @@ export default function Reports({
                             Twelve-month financial performance, receivables exposure, property sales, expenses and branch cash controls.
                         </p>
                     </div>
-                    <Button variant="outline" asChild>
-                        <Link href="/dashboard">
-                            <ArrowLeft data-icon="inline-start" />
-                            Back to dashboard
-                        </Link>
-                    </Button>
+                    <div className="flex flex-wrap gap-2">
+                        <Button variant="outline" asChild>
+                            <a href="/reports/export/pdf">
+                                <FileDown data-icon="inline-start" />
+                                Export PDF
+                            </a>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <a href="/reports/export/excel">
+                                <FileSpreadsheet data-icon="inline-start" />
+                                Export Excel
+                            </a>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link href="/dashboard">
+                                <ArrowLeft data-icon="inline-start" />
+                                Back to dashboard
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">

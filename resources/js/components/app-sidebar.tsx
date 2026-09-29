@@ -15,6 +15,7 @@ import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     Banknote,
+    BookOpenCheck,
     Building2,
     ChartNoAxesCombined,
     CircleDollarSign,
@@ -64,6 +65,10 @@ export function AppSidebar() {
         { title: 'Payment allocations', url: '/administration/payment-allocations', icon: ListChecks },
         { title: 'Receipts', url: '/administration/receipts', icon: ReceiptText },
     ];
+    const accountingItems: NavItem[] = [
+        { title: 'Accounting dashboard', url: '/accounting', icon: BookOpenCheck },
+        { title: 'Debtors & ageing', url: '/accounting/debtors', icon: FileClock },
+    ];
     const cashControlItems: NavItem[] = [
         { title: 'Cash sessions', url: '/administration/cash-sessions', icon: Wallet },
         { title: 'Bank deposits', url: '/administration/bank-deposits', icon: Landmark },
@@ -110,13 +115,14 @@ export function AppSidebar() {
                 <NavMain items={mainNavItems} />
                 {permissions.includes('phase-one.view') && (
                     <>
-                        <NavSection title="Property operations" items={operationsItems} />
+                        <NavMain items={operationsItems} label="Property operations" />
+                        {permissions.includes('accounting.view') && <NavSection title="Accounting" items={accountingItems} />}
                         <NavSection title="Charges & payments" items={receivablesItems} />
                         <NavSection title="Cash control" items={cashControlItems} />
                         {permissions.includes('expenses.view') && <NavSection title="Expenses & approvals" items={expenseItems} />}
                         {permissions.includes('reports.view') && <NavSection title="Reporting" items={reportingItems} />}
                         <div className="mt-auto">
-                            <NavSection title="Administration & access" items={administrationItems} />
+                            <NavSection title="Administration & access" items={administrationItems} defaultOpen={false} />
                         </div>
                     </>
                 )}

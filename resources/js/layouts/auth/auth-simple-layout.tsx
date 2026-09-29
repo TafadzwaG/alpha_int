@@ -92,7 +92,6 @@ export default function AuthSimpleLayout({ children, title, description }: AuthL
                         </div>
 
                         <section className="overflow-hidden rounded-2xl border border-[#DDE5E1] bg-white shadow-[0_24px_70px_rgba(30,38,65,0.10)]">
-                            <div className="h-1 bg-[linear-gradient(90deg,#1E2641,#759987)]" />
                             <div className="px-6 pt-8 pb-7 sm:px-9 sm:pt-9">
                                 <div className="flex items-start gap-4">
                                     <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EDF3F0] sm:flex">
