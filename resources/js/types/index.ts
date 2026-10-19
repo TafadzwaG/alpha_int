@@ -1,6 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 
 export interface Auth {
+    navigationUrls: string[];
     user: User;
     permissions: string[];
 }
@@ -26,6 +27,17 @@ export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    branchContext: {
+        active: {
+            id: number;
+            code: string;
+            name: string;
+        } | null;
+    };
+    impersonation: {
+        active: boolean;
+        impersonator: Pick<User, 'id' | 'name' | 'email'> | null;
+    };
     flash?: { success?: string };
     [key: string]: unknown;
 }

@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserBranchAccess;
+use App\Services\BranchAccessService;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -26,22 +27,24 @@ class AccountingDashboardTest extends TestCase
         $admin = User::where('email', 'test@example.com')->firstOrFail();
 
         $this->actingAs($admin)
+            ->withSession([BranchAccessService::SESSION_KEY => $admin->home_branch_id])
             ->get('/accounting')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('accounting/index')
                 ->where('currency', 'USD')
-                ->where('summary.debtorCount', 8)
-                ->where('summary.overdueDebtorCount', 6)
+                ->where('summary.debtorCount', 3)
+                ->where('summary.overdueDebtorCount', 2)
                 ->where('summary.totalReceivables', fn (float $total): bool => $total > 0)
                 ->where('summary.over90', fn (float $total): bool => $total > 0)
-                ->has('aging', 5)
+                ->has('aging', 7)
                 ->where('aging.0.key', 'current')
-                ->where('aging.4.key', '90-plus')
-                ->where('aging.4.accounts', 2)
+                ->where('aging.6.key', '180')
+                ->where('aging.5.key', '150')
+                ->where('aging.5.accounts', 1)
                 ->has('monthly', 6)
-                ->has('topDebtors', 8)
-                ->has('recentPayments', 6));
+                ->has('topDebtors', 3)
+                ->has('recentPayments', 3));
     }
 
     public function test_debtors_can_be_filtered_by_ageing_bucket_and_search_term(): void
@@ -49,16 +52,20 @@ class AccountingDashboardTest extends TestCase
         $admin = User::where('email', 'test@example.com')->firstOrFail();
 
         $this->actingAs($admin)
-            ->get('/accounting/debtors?bucket=90-plus')
+            ->withSession([BranchAccessService::SESSION_KEY => $admin->home_branch_id])
+            ->get('/accounting/debtors?bucket=150')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('accounting/debtors')
-                ->where('filters.bucket', '90-plus')
-                ->has('debtors.data', 2)
-                ->where('debtors.data.0.aging.90-plus', fn (float $total): bool => $total > 0)
-                ->where('debtors.data.1.aging.90-plus', fn (float $total): bool => $total > 0));
+                ->where('filters.bucket', '150')
+                ->has('debtors.data', 1)
+                ->where('debtors.data.0.aging.150', fn (float $total): bool => $total > 0)
+                ->where('statement.customer.account_no', 'ACC-CLI-1001')
+                ->has('statement.transactions', 3)
+                ->has('statement.aging', 7));
 
         $this->actingAs($admin)
+            ->withSession([BranchAccessService::SESSION_KEY => $admin->home_branch_id])
             ->get('/accounting/debtors?search=ACC-CLI-1001')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
@@ -86,6 +93,7 @@ class AccountingDashboardTest extends TestCase
         ]);
 
         $this->actingAs($officer)
+            ->withSession([BranchAccessService::SESSION_KEY => $branch->id])
             ->get('/accounting')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
@@ -100,7 +108,13 @@ class AccountingDashboardTest extends TestCase
     {
         $manager = User::where('email', 'rudo.moyo@alphaland.test')->firstOrFail();
 
-        $this->actingAs($manager)->get('/accounting')->assertForbidden();
-        $this->actingAs($manager)->get('/accounting/debtors')->assertForbidden();
+        $this->actingAs($manager)
+            ->withSession([BranchAccessService::SESSION_KEY => $manager->home_branch_id])
+            ->get('/accounting')
+            ->assertForbidden();
+        $this->actingAs($manager)
+            ->withSession([BranchAccessService::SESSION_KEY => $manager->home_branch_id])
+            ->get('/accounting/debtors')
+            ->assertForbidden();
     }
 }

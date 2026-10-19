@@ -22,8 +22,20 @@ class Client extends Model
         'national_id_hash',
         'national_id_encrypted',
         'phone_normalized',
+        'sms_consent',
+        'sms_consent_at',
+        'sms_opted_out_at',
         'status',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'sms_consent' => 'boolean',
+            'sms_consent_at' => 'datetime',
+            'sms_opted_out_at' => 'datetime',
+        ];
+    }
 
     public function organization()
     {
@@ -38,5 +50,35 @@ class Client extends Model
     public function files()
     {
         return $this->hasMany(ClientFile::class, 'client_id');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(ClientContact::class);
+    }
+
+    public function interactions()
+    {
+        return $this->hasMany(ClientInteraction::class);
+    }
+
+    public function followUpTasks()
+    {
+        return $this->hasMany(FollowUpTask::class);
+    }
+
+    public function promisesToPay()
+    {
+        return $this->hasMany(PromiseToPay::class);
+    }
+
+    public function campaignMemberships()
+    {
+        return $this->hasMany(CallCentreCampaignMember::class);
+    }
+
+    public function gapRegisterEntries()
+    {
+        return $this->hasMany(GapRegisterEntry::class);
     }
 }

@@ -29,6 +29,11 @@ class ErpSchemaTest extends TestCase
             'reconciliation_items', 'expenses', 'expense_lines', 'petty_cash_entries', 'documents',
             'client_interactions', 'follow_up_tasks', 'approval_requests', 'approval_steps',
             'workflow_actions', 'audit_events', 'outbox_events', 'report_refresh_log',
+            'call_centre_campaigns', 'call_centre_campaign_members', 'promises_to_pay', 'notifications',
+            'sms_campaigns', 'sms_recipients',
+            'gl_accounts', 'fiscal_years', 'accounting_periods', 'tax_codes',
+            'journal_entries', 'journal_lines', 'suppliers', 'supplier_bills',
+            'supplier_bill_lines', 'supplier_payments',
         ];
 
         foreach ($tables as $table) {

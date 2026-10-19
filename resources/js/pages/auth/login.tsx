@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
 interface LoginForm {
+    [key: string]: string | boolean;
     email: string;
     password: string;
     remember: boolean;
@@ -22,6 +23,7 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
+    const [showPassword, setShowPassword] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm<LoginForm>({
         email: '',
         password: '',
@@ -73,23 +75,37 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 <TextLink
                                     href={route('password.request')}
                                     className="ml-auto text-xs font-semibold text-[#5A7A6D] no-underline hover:text-[#1E2641]"
-                                    tabIndex={5}
+                                    tabIndex={4}
                                 >
                                     Forgot password?
                                 </TextLink>
                             )}
                         </div>
-                        <Input
-                            id="password"
-                            type="password"
-                            required
-                            tabIndex={2}
-                            autoComplete="current-password"
-                            value={data.password}
-                            onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
-                            className="h-9 border-[#D7DEDA] bg-[#FBFCFB] px-3.5 text-sm shadow-none focus-visible:border-[#759987] focus-visible:ring-[#759987]/20"
-                        />
+                        <div className="relative">
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                tabIndex={2}
+                                autoComplete="current-password"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                placeholder="Password"
+                                className="h-9 border-[#D7DEDA] bg-[#FBFCFB] px-3.5 pr-10 text-sm shadow-none focus-visible:border-[#759987] focus-visible:ring-[#759987]/20"
+                            />
+                            <button
+                                type="button"
+                                tabIndex={3}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                aria-pressed={showPassword}
+                                aria-controls="password"
+                                onMouseDown={(event) => event.preventDefault()}
+                                onClick={() => setShowPassword((visible) => !visible)}
+                                className="absolute inset-y-0 right-0 flex w-10 cursor-pointer items-center justify-center rounded-r-md text-[#7B8492] transition-colors hover:text-[#1E2641] focus-visible:ring-2 focus-visible:ring-[#759987]/30 focus-visible:outline-none"
+                            >
+                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                        </div>
                         <InputError message={errors.password} />
                     </div>
 
@@ -97,7 +113,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <Checkbox
                             id="remember"
                             name="remember"
-                            tabIndex={3}
+                            tabIndex={5}
                             checked={data.remember}
                             onCheckedChange={(checked) => setData('remember', checked === true)}
                             className="border-[#BFCAC5] data-[state=checked]:border-[#759987] data-[state=checked]:bg-[#759987] data-[state=checked]:text-white"
@@ -110,7 +126,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     <Button
                         type="submit"
                         className="mt-2 h-11 w-full bg-[#1E2641] font-semibold text-white shadow-sm hover:bg-[#2A3454]"
-                        tabIndex={4}
+                        tabIndex={6}
                         disabled={processing}
                     >
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
@@ -118,12 +134,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     </Button>
                 </div>
 
-                <div className="text-center text-sm text-[#737B8C]">
-                    Don't have an account?{' '}
-                    <TextLink href={route('register')} className="font-semibold text-[#5A7A6D] no-underline hover:text-[#1E2641]" tabIndex={5}>
-                        Sign up
-                    </TextLink>
-                </div>
+                <div className="text-center text-sm text-[#737B8C]">Need access? Contact your system administrator for an invitation.</div>
             </form>
         </AuthLayout>
     );

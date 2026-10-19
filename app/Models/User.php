@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Lab404\Impersonate\Models\Impersonate;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, Notifiable;
+    use HasFactory, HasRoles, Impersonate, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -67,5 +68,25 @@ class User extends Authenticatable
     public function branchAccess()
     {
         return $this->hasMany(UserBranchAccess::class);
+    }
+
+    public function assignedCallCentreTasks()
+    {
+        return $this->hasMany(FollowUpTask::class, 'assigned_to');
+    }
+
+    public function createdClientInteractions()
+    {
+        return $this->hasMany(ClientInteraction::class, 'created_by');
+    }
+
+    public function canImpersonate(): bool
+    {
+        return $this->can('phase-one.manage');
+    }
+
+    public function canBeImpersonated(): bool
+    {
+        return $this->status === 'active';
     }
 }

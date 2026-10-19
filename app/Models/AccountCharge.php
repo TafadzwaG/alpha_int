@@ -13,6 +13,8 @@ class AccountCharge extends Model
         'account_id',
         'charge_type',
         'description',
+        'source_type',
+        'source_id',
         'amount',
         'currency_code',
         'due_date',

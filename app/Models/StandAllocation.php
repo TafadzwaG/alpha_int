@@ -65,4 +65,9 @@ class StandAllocation extends Model
     {
         return $this->hasMany(Installment::class, 'allocation_id');
     }
+
+    public function gapRegisterEntries()
+    {
+        return $this->hasMany(GapRegisterEntry::class);
+    }
 }

@@ -4,21 +4,21 @@ namespace App\Services;
 
 use App\Models\AccountCharge;
 use App\Models\CashSession;
-use App\Models\DocumentSequence;
 use App\Models\Installment;
 use App\Models\Payment;
 use App\Models\PaymentAllocation;
 use App\Models\PaymentMethod;
-use App\Models\Receipt;
 use App\Models\StandAllocation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AllocationPaymentService
 {
-    public function __construct(private readonly AuditLogger $auditLogger) {}
+    public function __construct(
+        private readonly AuditLogger $auditLogger,
+        private readonly PaymentWorkflowService $paymentWorkflow,
+    ) {}
 
     public function record(StandAllocation $allocation, Installment $installment, array $data, Request $request): Payment
     {
@@ -77,12 +77,13 @@ class AllocationPaymentService
                 'amount' => $amount,
                 'currency_code' => $account->currency_code,
                 'method_id' => $method->id,
-                'external_reference' => $data['external_reference'] ?: null,
+                'external_reference' => $method->cash_equivalent ? null : ($data['external_reference'] ?: null),
+                'notes' => filled($data['notes'] ?? null) ? trim($data['notes']) : null,
                 'received_at' => $data['received_at'] ?? now(),
-                'status' => 'approved',
+                'status' => 'pending',
                 'made_by' => $request->user()->id,
-                'approved_by' => $request->user()->id,
-                'approved_at' => now(),
+                'approved_by' => null,
+                'approved_at' => null,
             ]);
             $paymentAllocation = PaymentAllocation::create([
                 'payment_id' => $payment->id,
@@ -91,88 +92,11 @@ class AllocationPaymentService
                 'amount' => $amount,
             ]);
 
-            $installmentPaid = (float) PaymentAllocation::query()
-                ->where('installment_id', $installment->id)
-                ->whereHas('payment', fn ($query) => $query->where('status', 'approved'))
-                ->sum('amount');
-            $installment->forceFill([
-                'amount_paid' => $installmentPaid,
-                'status' => $installmentPaid >= (float) $installment->amount_due ? 'paid' : 'partially_paid',
-                'paid_at' => $installmentPaid >= (float) $installment->amount_due ? now() : null,
-            ])->save();
-
-            $chargePaid += $amount;
-            $charge->forceFill([
-                'status' => $chargePaid >= (float) $charge->amount ? 'paid' : 'partially_paid',
-                'posted_at' => $charge->posted_at ?? now(),
-            ])->save();
-
-            if ($cashSession) {
-                $received = (float) Payment::query()
-                    ->where('cash_session_id', $cashSession->id)
-                    ->where('status', 'approved')
-                    ->whereHas('method', fn ($query) => $query->where('cash_equivalent', true))
-                    ->sum('amount');
-                $cashSession->forceFill(['expected_cash' => (float) $cashSession->opening_float + $received])->save();
-            }
-
             $this->auditLogger->record($request, 'payments.created', $payment, null, $payment->getAttributes());
             $this->auditLogger->record($request, 'payment-allocations.created', $paymentAllocation, null, $paymentAllocation->getAttributes());
-            $this->issueReceipt($payment, $request);
+            $this->paymentWorkflow->submit($payment, $request);
 
             return $payment;
         });
-    }
-
-    private function issueReceipt(Payment $payment, Request $request): Receipt
-    {
-        $payment->loadMissing(['account.clientFile.client', 'branch', 'method', 'allocations.charge', 'allocations.installment']);
-        $issuedAt = now();
-        $sequence = DocumentSequence::firstOrCreate(
-            [
-                'organization_id' => $request->user()->organization_id,
-                'branch_id' => $payment->branch_id,
-                'document_type' => 'RECEIPT',
-                'period_key' => (string) $issuedAt->year,
-            ],
-            ['prefix' => 'RCT', 'next_value' => 1, 'padding' => 6],
-        );
-        $sequence = DocumentSequence::query()->lockForUpdate()->findOrFail($sequence->id);
-        $receiptNo = ($sequence->prefix ? $sequence->prefix.'-' : '')
-            .str_pad((string) $sequence->next_value, $sequence->padding, '0', STR_PAD_LEFT);
-        $sequence->increment('next_value');
-        $client = $payment->account->clientFile->client;
-        $snapshot = [
-            'receipt_no' => $receiptNo,
-            'payment_public_id' => $payment->public_id,
-            'client' => ['number' => $client->client_no, 'name' => trim("{$client->first_name} {$client->last_name}")],
-            'account_no' => $payment->account->account_no,
-            'branch' => $payment->branch->name,
-            'amount' => $payment->amount,
-            'currency' => $payment->currency_code,
-            'method' => $payment->method->name,
-            'reference' => $payment->external_reference,
-            'received_at' => $payment->received_at?->toIso8601String(),
-            'issued_at' => $issuedAt->toIso8601String(),
-            'allocations' => $payment->allocations->map(fn (PaymentAllocation $allocation) => [
-                'charge' => $allocation->charge->charge_type,
-                'installment' => $allocation->installment?->sequence_no,
-                'amount' => $allocation->amount,
-            ])->values()->all(),
-        ];
-        $encodedSnapshot = json_encode($snapshot, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
-        $receipt = Receipt::create([
-            'organization_id' => $request->user()->organization_id,
-            'payment_id' => $payment->id,
-            'receipt_no' => $receiptNo,
-            'issued_at' => $issuedAt,
-            'content_hash' => hash('sha256', $encodedSnapshot),
-            'qr_token_hash' => hash('sha256', Str::random(64)),
-            'snapshot_json' => $snapshot,
-            'issued_by' => $request->user()->id,
-        ]);
-        $this->auditLogger->record($request, 'receipts.issued', $receipt, null, $receipt->getAttributes());
-
-        return $receipt;
     }
 }

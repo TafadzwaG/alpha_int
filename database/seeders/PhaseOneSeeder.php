@@ -50,12 +50,24 @@ class PhaseOneSeeder extends Seeder
         foreach ([
             ['name' => 'phase-one.view', 'code' => 'PHASE_ONE_VIEW', 'description' => 'View organization setup, access control and master data.', 'risk_level' => 'standard'],
             ['name' => 'phase-one.manage', 'code' => 'PHASE_ONE_MANAGE', 'description' => 'Create and change Phase 1 configuration records.', 'risk_level' => 'critical'],
+            ['name' => 'payments.capture', 'code' => 'PAYMENTS_CAPTURE', 'description' => 'Record client payments and propose how they should be applied.', 'risk_level' => 'sensitive'],
+            ['name' => 'payments.approve', 'code' => 'PAYMENTS_APPROVE', 'description' => 'Independently approve or reject recorded client payments.', 'risk_level' => 'critical'],
             ['name' => 'audit.view', 'code' => 'AUDIT_VIEW', 'description' => 'View immutable audit events and integrity hashes.', 'risk_level' => 'sensitive'],
             ['name' => 'expenses.view', 'code' => 'EXPENSES_VIEW', 'description' => 'View expenses, approvals and petty cash.', 'risk_level' => 'standard'],
             ['name' => 'expenses.manage', 'code' => 'EXPENSES_MANAGE', 'description' => 'Capture expenses and petty cash entries.', 'risk_level' => 'sensitive'],
             ['name' => 'expenses.approve', 'code' => 'EXPENSES_APPROVE', 'description' => 'Approve or reject submitted expenses.', 'risk_level' => 'critical'],
             ['name' => 'reports.view', 'code' => 'REPORTS_VIEW', 'description' => 'View operational and management reports.', 'risk_level' => 'standard'],
             ['name' => 'accounting.view', 'code' => 'ACCOUNTING_VIEW', 'description' => 'View accounting dashboards, debtors and receivables ageing.', 'risk_level' => 'sensitive'],
+            ['name' => 'accounting.manage', 'code' => 'ACCOUNTING_MANAGE', 'description' => 'Manage suppliers, bills, journals and accounting configuration.', 'risk_level' => 'sensitive'],
+            ['name' => 'accounting.post', 'code' => 'ACCOUNTING_POST', 'description' => 'Post and reverse balanced general-ledger journals.', 'risk_level' => 'critical'],
+            ['name' => 'accounting.close-period', 'code' => 'ACCOUNTING_CLOSE_PERIOD', 'description' => 'Close and reopen accounting periods.', 'risk_level' => 'critical'],
+            ['name' => 'call-centre.view', 'code' => 'CALL_CENTRE_VIEW', 'description' => 'View the branch call centre workspace and client contact history.', 'risk_level' => 'standard'],
+            ['name' => 'call-centre.interactions.create', 'code' => 'CALL_CENTRE_INTERACTIONS_CREATE', 'description' => 'Record client calls, outcomes and promises to pay.', 'risk_level' => 'sensitive'],
+            ['name' => 'call-centre.tasks.manage', 'code' => 'CALL_CENTRE_TASKS_MANAGE', 'description' => 'Create and complete call centre follow-up tasks.', 'risk_level' => 'sensitive'],
+            ['name' => 'call-centre.tasks.assign', 'code' => 'CALL_CENTRE_TASKS_ASSIGN', 'description' => 'Assign and reassign agent work queues.', 'risk_level' => 'sensitive'],
+            ['name' => 'call-centre.campaigns.manage', 'code' => 'CALL_CENTRE_CAMPAIGNS_MANAGE', 'description' => 'Create campaigns and generate collection call lists.', 'risk_level' => 'sensitive'],
+            ['name' => 'call-centre.reports.view', 'code' => 'CALL_CENTRE_REPORTS_VIEW', 'description' => 'View and export call centre performance reports.', 'risk_level' => 'standard'],
+            ['name' => 'call-centre.supervise', 'code' => 'CALL_CENTRE_SUPERVISE', 'description' => 'Review escalations and branch agent performance.', 'risk_level' => 'critical'],
         ] as $permission) {
             Permission::updateOrCreate(
                 ['name' => $permission['name'], 'guard_name' => 'web'],
@@ -67,21 +79,34 @@ class PhaseOneSeeder extends Seeder
 
         $allPermissions = Permission::query()->get();
         $viewPermission = Permission::findByName('phase-one.view', 'web');
+        $paymentCapturePermission = Permission::findByName('payments.capture', 'web');
+        $paymentApprovePermission = Permission::findByName('payments.approve', 'web');
         $auditPermission = Permission::findByName('audit.view', 'web');
         $expenseViewPermission = Permission::findByName('expenses.view', 'web');
         $expenseManagePermission = Permission::findByName('expenses.manage', 'web');
         $expenseApprovePermission = Permission::findByName('expenses.approve', 'web');
         $reportsPermission = Permission::findByName('reports.view', 'web');
         $accountingPermission = Permission::findByName('accounting.view', 'web');
+        $accountingManagePermission = Permission::findByName('accounting.manage', 'web');
+        $accountingPostPermission = Permission::findByName('accounting.post', 'web');
+        $accountingClosePeriodPermission = Permission::findByName('accounting.close-period', 'web');
+        $callCentreViewPermission = Permission::findByName('call-centre.view', 'web');
+        $callCentreInteractionPermission = Permission::findByName('call-centre.interactions.create', 'web');
+        $callCentreTaskPermission = Permission::findByName('call-centre.tasks.manage', 'web');
+        $callCentreAssignPermission = Permission::findByName('call-centre.tasks.assign', 'web');
+        $callCentreCampaignPermission = Permission::findByName('call-centre.campaigns.manage', 'web');
+        $callCentreReportPermission = Permission::findByName('call-centre.reports.view', 'web');
+        $callCentreSupervisePermission = Permission::findByName('call-centre.supervise', 'web');
 
         $roleBlueprints = [
             ['name' => 'Super Administrator', 'code' => 'SUPER_ADMIN', 'scope_type' => 'organization', 'permissions' => $allPermissions],
             ['name' => 'System Administrator', 'code' => 'SYSTEM_ADMIN', 'scope_type' => 'organization', 'permissions' => $allPermissions],
-            ['name' => 'Branch Manager', 'code' => 'BRANCH_MANAGER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseApprovePermission, $reportsPermission])],
-            ['name' => 'Sales Officer', 'code' => 'SALES_OFFICER', 'scope_type' => 'branch', 'permissions' => collect()],
-            ['name' => 'Accounts Officer', 'code' => 'ACCOUNTS_OFFICER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseManagePermission, $reportsPermission, $accountingPermission])],
-            ['name' => 'Cashier', 'code' => 'CASHIER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $expenseViewPermission, $expenseManagePermission])],
-            ['name' => 'Auditor', 'code' => 'AUDITOR', 'scope_type' => 'organization', 'permissions' => collect([$viewPermission, $auditPermission, $expenseViewPermission, $reportsPermission, $accountingPermission])],
+            ['name' => 'Branch Manager', 'code' => 'BRANCH_MANAGER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $paymentApprovePermission, $expenseViewPermission, $expenseApprovePermission, $reportsPermission, $callCentreViewPermission, $callCentreInteractionPermission, $callCentreTaskPermission, $callCentreAssignPermission, $callCentreCampaignPermission, $callCentreReportPermission, $callCentreSupervisePermission])],
+            ['name' => 'Sales Officer', 'code' => 'SALES_OFFICER', 'scope_type' => 'branch', 'permissions' => collect([$callCentreViewPermission, $callCentreInteractionPermission, $callCentreTaskPermission])],
+            ['name' => 'Accounts Officer', 'code' => 'ACCOUNTS_OFFICER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $paymentCapturePermission, $expenseViewPermission, $expenseManagePermission, $reportsPermission, $accountingPermission, $accountingManagePermission, $accountingPostPermission, $accountingClosePeriodPermission, $callCentreViewPermission, $callCentreInteractionPermission, $callCentreTaskPermission, $callCentreCampaignPermission, $callCentreReportPermission])],
+            ['name' => 'Call Centre', 'code' => 'CALL_CENTRE', 'scope_type' => 'branch', 'permissions' => collect([$callCentreViewPermission, $callCentreInteractionPermission, $callCentreTaskPermission])],
+            ['name' => 'Cashier', 'code' => 'CASHIER', 'scope_type' => 'branch', 'permissions' => collect([$viewPermission, $paymentCapturePermission, $expenseViewPermission, $expenseManagePermission])],
+            ['name' => 'Auditor', 'code' => 'AUDITOR', 'scope_type' => 'organization', 'permissions' => collect([$viewPermission, $auditPermission, $expenseViewPermission, $reportsPermission, $accountingPermission, $callCentreViewPermission, $callCentreReportPermission])],
         ];
 
         foreach ($roleBlueprints as $blueprint) {

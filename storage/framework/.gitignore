@@ -2,6 +2,7 @@ compiled.php
 config.php
 down
 events.scanned.php
+exports
 maintenance.php
 routes.php
 routes.scanned.php

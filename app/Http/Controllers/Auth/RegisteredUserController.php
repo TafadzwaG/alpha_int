@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Organization;
 use App\Models\User;
+use App\Models\UserBranchAccess;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -64,6 +65,15 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return to_route('dashboard');
+        if ($homeBranch) {
+            UserBranchAccess::create([
+                'user_id' => $user->id,
+                'branch_id' => $homeBranch->id,
+                'access_level' => 'operational',
+                'active' => true,
+            ]);
+        }
+
+        return to_route('branch-selection.index');
     }
 }

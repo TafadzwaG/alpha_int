@@ -11,13 +11,19 @@ class FollowUpTask extends Model
 
     protected $fillable = [
         'client_id',
+        'branch_id',
         'source_interaction_id',
+        'task_type',
+        'reference_type',
+        'reference_id',
         'assigned_to',
         'due_at',
         'priority',
         'status',
         'completed_at',
         'completed_by',
+        'reminder_sent_at',
+        'escalated_at',
         'notes',
     ];
 
@@ -26,6 +32,8 @@ class FollowUpTask extends Model
         return [
             'due_at' => 'datetime',
             'completed_at' => 'datetime',
+            'reminder_sent_at' => 'datetime',
+            'escalated_at' => 'datetime',
         ];
     }
 
@@ -37,6 +45,11 @@ class FollowUpTask extends Model
     public function sourceInteraction()
     {
         return $this->belongsTo(ClientInteraction::class, 'source_interaction_id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 
     public function assignee()

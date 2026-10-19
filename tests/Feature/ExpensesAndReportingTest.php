@@ -8,6 +8,7 @@ use App\Models\ExchangeRate;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
 use App\Models\User;
+use App\Services\BranchAccessService;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
@@ -65,15 +66,22 @@ class ExpensesAndReportingTest extends TestCase
         ]);
 
         $this->actingAs($admin)
+            ->withSession([BranchAccessService::SESSION_KEY => $admin->home_branch_id])
             ->get('/dashboard')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('dashboard')
-                ->where('metrics.activeClients', 8)
-                ->where('metrics.pendingApprovals', 2)
+                ->where('metrics.activeClients', 3)
+                ->where('metrics.pendingApprovals', 1)
+                ->where('canApprovePayments', true)
                 ->where('metrics.availableStands', 4)
+                ->has('inventoryRegisters', 3)
+                ->where('inventoryRegisters.0.key', 'on_ground')
+                ->where('inventoryRegisters.1.key', 'double_allocation')
+                ->where('inventoryRegisters.2.key', 'waiting_list')
+                ->has('inventory.0.branch_total')
                 ->has('financialTrend', 6)
-                ->has('recentPayments', 6)
+                ->has('recentPayments', 3)
                 ->has('exchangeRates', 2)
                 ->where('exchangeRates.0.base', 'USD')
                 ->where('exchangeRates.0.quote', 'ZWG')
@@ -112,6 +120,7 @@ class ExpensesAndReportingTest extends TestCase
         ]);
 
         $this->actingAs($admin)
+            ->withSession([BranchAccessService::SESSION_KEY => $admin->home_branch_id])
             ->get('/dashboard')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
@@ -132,7 +141,8 @@ class ExpensesAndReportingTest extends TestCase
         $north = Branch::where('organization_id', $admin->organization_id)->where('code', 'NORTH')->firstOrFail();
 
         $this->actingAs($admin)
-            ->get("/dashboard?branch={$north->id}")
+            ->withSession([BranchAccessService::SESSION_KEY => $north->id])
+            ->get('/dashboard')
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->where('branchFilter.selected', (string) $north->id)
@@ -146,10 +156,11 @@ class ExpensesAndReportingTest extends TestCase
         $bulawayo = Branch::where('organization_id', $admin->organization_id)->where('code', 'BYO')->firstOrFail();
 
         $this->actingAs($manager)
+            ->withSession([BranchAccessService::SESSION_KEY => $manager->home_branch_id])
             ->get("/dashboard?branch={$bulawayo->id}")
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->where('branchFilter.selected', 'all')
+                ->where('branchFilter.selected', (string) $manager->home_branch_id)
                 ->where('branchFilter.label', 'Northern Sales Office')
                 ->where('branchFilter.canViewAll', false)
                 ->has('branchFilter.options', 1)

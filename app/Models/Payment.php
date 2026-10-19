@@ -18,6 +18,7 @@ class Payment extends Model
         'currency_code',
         'method_id',
         'external_reference',
+        'notes',
         'received_at',
         'status',
         'made_by',
@@ -79,5 +80,10 @@ class Payment extends Model
     public function receipt()
     {
         return $this->hasOne(Receipt::class, 'payment_id');
+    }
+
+    public function reversal()
+    {
+        return $this->hasOne(PaymentReversal::class, 'payment_id');
     }
 }

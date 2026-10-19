@@ -2,15 +2,19 @@
 
 namespace Tests\Feature;
 
+use App\Models\ApprovalRequest;
 use App\Models\Branch;
 use App\Models\Installment;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Receipt;
+use App\Models\Role;
 use App\Models\StandAllocation;
 use App\Models\User;
+use App\Models\UserBranchAccess;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\URL;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
@@ -110,10 +114,49 @@ class InstallmentTrackingTest extends TestCase
             'amount' => $amount,
             'method_id' => $method->id,
             'external_reference' => 'TEST-INSTALLMENT-001',
+            'notes' => 'Partial payment agreed during branch visit.',
             'received_at' => now()->toDateTimeString(),
         ])->assertRedirect()->assertSessionHas('success');
 
         $payment = Payment::where('external_reference', 'TEST-INSTALLMENT-001')->firstOrFail();
+        $this->assertSame('Partial payment agreed during branch visit.', $payment->notes);
+        $this->assertSame('pending', $payment->status);
+        $this->assertFalse(Receipt::where('payment_id', $payment->id)->exists());
+        $this->assertEqualsWithDelta(0, (float) $installment->fresh()->amount_paid, 0.01);
+
+        $approver = User::factory()->create([
+            'organization_id' => $admin->organization_id,
+            'home_branch_id' => $allocation->branch_id,
+            'status' => 'active',
+        ]);
+        setPermissionsTeamId($admin->organization_id);
+        $approver->assignRole(Role::where('code', 'SUPER_ADMIN')->firstOrFail());
+        $approval = ApprovalRequest::whereKey($payment->approval_request_id)->firstOrFail();
+        $this->actingAs($approver)->post("/approvals/{$approval->id}/decision", [
+            'action' => 'approve',
+            'note' => 'Bank receipt independently checked.',
+        ])->assertRedirect();
+        $payment->refresh();
+
+        $this->actingAs($admin)->get('/administration/payments/'.$payment->id)->assertOk()->assertInertia(fn (Assert $page) => $page->component('payments/show')->where('payment.receipt_available', true)->where('payment.notes', $payment->notes));
+        $pdf = $this->actingAs($admin)->get('/administration/payments/'.$payment->id.'/receipt')->assertOk()->assertHeader('content-type', 'application/pdf');
+        $this->assertStringStartsWith('%PDF', $pdf->getContent());
+        preg_match('/\/MediaBox\s*\[\s*0(?:\.0+)?\s+0(?:\.0+)?\s+([0-9.]+)/', $pdf->getContent(), $mediaBox);
+        $this->assertNotEmpty($mediaBox);
+        $this->assertLessThan(240, (float) $mediaBox[1], 'POS receipt should use narrow 80 mm paper, not A4.');
+        $verify = URL::signedRoute('administration.payments.verify', ['payment' => $payment->id, 'receipt' => $payment->receipt->public_id]);
+        $this->actingAs($admin)->get($verify)->assertOk()->assertInertia(fn (Assert $page) => $page->where('verified', true));
+        $this->actingAs($admin)->get($verify.'&tampered=1')->assertForbidden();
+        $this->actingAs($admin)->get('/administration/payments?search=TEST-INSTALLMENT-001&status=approved')->assertOk()->assertInertia(fn (Assert $page) => $page->where('records.total', 1)->where('paymentStats.total', 1));
+        $this->actingAs($admin)->get('/administration/payments/export/pdf?ids[]='.$payment->id)->assertOk()->assertHeader('content-type', 'application/pdf');
+        $excel = $this->actingAs($admin)->get('/administration/payments/export/excel?ids[]='.$payment->id)->assertOk();
+        $path = $excel->baseResponse->getFile()->getPathname();
+        $zip = new \ZipArchive;
+        $zip->open($path);
+        $this->assertStringContainsString('TEST-INSTALLMENT-001', $zip->getFromName('xl/worksheets/sheet2.xml'));
+        $zip->close();
+        unlink($path);
+
         $this->assertDatabaseHas('payment_allocations', [
             'payment_id' => $payment->id,
             'installment_id' => $installment->id,
@@ -121,6 +164,68 @@ class InstallmentTrackingTest extends TestCase
         ]);
         $this->assertEqualsWithDelta($amount, (float) $installment->fresh()->amount_paid, 0.01);
         $this->assertTrue(Receipt::where('payment_id', $payment->id)->exists());
+    }
+
+    public function test_cashier_can_record_a_payment_from_the_client_detail_page(): void
+    {
+        $admin = User::where('email', 'test@example.com')->firstOrFail();
+        $homeBranch = Branch::where('organization_id', $admin->organization_id)->where('code', 'HQ')->firstOrFail();
+        $cashier = User::factory()->create([
+            'name' => 'Client Page Cashier',
+            'email' => 'client-page-cashier@example.test',
+            'organization_id' => $admin->organization_id,
+            'home_branch_id' => $homeBranch->id,
+            'status' => 'active',
+        ]);
+        setPermissionsTeamId($admin->organization_id);
+        $cashier->assignRole(Role::where('code', 'CASHIER')->firstOrFail());
+        UserBranchAccess::create([
+            'user_id' => $cashier->id,
+            'branch_id' => $homeBranch->id,
+            'access_level' => 'operational',
+            'active' => true,
+        ]);
+        $allocation = StandAllocation::query()
+            ->where('branch_id', $cashier->home_branch_id)
+            ->whereHas('installments', fn ($query) => $query->where('status', 'scheduled'))
+            ->with('clientFile.client')
+            ->firstOrFail();
+        $installment = $allocation->installments()->where('status', 'scheduled')->firstOrFail();
+        $method = PaymentMethod::where('code', 'BANK')->firstOrFail();
+
+        $this->actingAs($cashier)
+            ->get("/administration/clients/{$allocation->clientFile->client_id}")
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('property-operations/client-show')
+                ->where('actions.capturePayment', true)
+                ->has('paymentOptions.accounts', 1)
+                ->where('paymentOptions.accounts.0.id', (string) $allocation->account->id)
+                ->has('paymentOptions.accounts.0.charges')
+                ->where('paymentOptions.methods', fn ($methods) => collect($methods)->contains(
+                    fn ($item) => $item['id'] === (string) $method->id
+                        && array_key_exists('requires_reference', $item)
+                        && array_key_exists('cash_equivalent', $item)
+                )));
+
+        $this->actingAs($cashier)
+            ->post('/administration/payments', [
+                'account_id' => $allocation->account->id,
+                'amount' => min(25, (float) $installment->amount_due),
+                'method_id' => $method->id,
+                'external_reference' => 'CASHIER-CLIENT-PAYMENT-001',
+                'received_at' => now()->subMinute()->format('Y-m-d H:i:s'),
+                'notes' => 'Captured from the client detail page.',
+                'allocations' => [],
+            ])
+            ->assertRedirect()
+            ->assertSessionHas('success');
+
+        $this->assertDatabaseHas('payments', [
+            'external_reference' => 'CASHIER-CLIENT-PAYMENT-001',
+            'made_by' => $cashier->id,
+            'status' => 'pending',
+        ]);
     }
 
     public function test_branch_manager_cannot_view_or_change_another_branch_allocation(): void

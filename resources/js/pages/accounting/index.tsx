@@ -1,3 +1,4 @@
+import { DashboardQuickActions } from '@/components/dashboard-quick-actions';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -91,11 +92,23 @@ export default function AccountingDashboard({ currency, summary, aging, monthly,
                     </div>
                     <div className="flex flex-wrap gap-2">
                         <Button variant="outline" asChild>
+                            <Link href="/accounting/general-ledger">General ledger</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link href="/accounting/cash-movement">Cash movement</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link href="/accounting/payables">Suppliers & payables</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link href="/accounting/interest-review">Interest review</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
                             <Link href="/administration/payments">View payments</Link>
                         </Button>
                         <Button asChild>
-                            <Link href="/accounting/debtors">
-                                View debtors <ArrowRight data-icon="inline-end" />
+                            <Link href="/accounting/financial-reports">
+                                Financial reports <ArrowRight data-icon="inline-end" />
                             </Link>
                         </Button>
                     </div>
@@ -115,6 +128,8 @@ export default function AccountingDashboard({ currency, summary, aging, monthly,
                         </Card>
                     ))}
                 </div>
+
+                <DashboardQuickActions workspace="accounting" />
 
                 <div className="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.8fr)]">
                     <Card>

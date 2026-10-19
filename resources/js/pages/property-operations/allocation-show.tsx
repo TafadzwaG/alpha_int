@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
-import { ArrowLeft, BellRing, CalendarPlus, CircleDollarSign, Clock3, ReceiptText, UserRound } from 'lucide-react';
+import { ArrowLeft, BellRing, CalendarPlus, CircleDollarSign, Clock3, FileDown, ReceiptText, Sheet, UserRound } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 
 type Allocation = {
@@ -61,6 +61,7 @@ type Payment = {
     received_at: string;
     status: string;
     receipt_no: string | null;
+    notes: string | null;
     installment_numbers: number[];
 };
 type Reminder = {
@@ -94,22 +95,13 @@ const date = (value: string | null, withTime = false) =>
         : '—';
 const badgeVariant = (status: string) => (status === 'paid' || status === 'sent' ? 'default' : status === 'overdue' ? 'destructive' : 'secondary');
 
-export default function AllocationShow({
-    allocation,
-    installments,
-    payments,
-    reminders,
-    timeline,
-    paymentMethods,
-    cashSessions,
-    canManage,
-}: Props) {
+export default function AllocationShow({ allocation, installments, payments, reminders, timeline, paymentMethods, cashSessions, canManage }: Props) {
     const { flash } = usePage<SharedData>().props;
     const [scheduleOpen, setScheduleOpen] = useState(false);
     const [paymentInstallment, setPaymentInstallment] = useState<Installment | null>(null);
     const [reminderInstallment, setReminderInstallment] = useState<Installment | null>(null);
     const schedule = useForm({ first_due_date: '', installment_count: '12', frequency_months: '1', notes: '' });
-    const payment = useForm({ amount: '', method_id: '', cash_session_id: '', external_reference: '', received_at: '' });
+    const payment = useForm({ amount: '', method_id: '', cash_session_id: '', external_reference: '', received_at: '', notes: '' });
     const reminder = useForm({ channel: 'in_app', remind_at: '', notes: '' });
     const baseUrl = `/administration/stand-allocations/${allocation.id}`;
     const breadcrumbs: BreadcrumbItem[] = [
@@ -177,6 +169,19 @@ export default function AllocationShow({
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
+                        <Button variant="excel" asChild>
+                            <a href={`${baseUrl}/export/excel`}>
+                                <Sheet data-icon="inline-start" />
+                                Export Excel
+                            </a>
+                        </Button>
+                        <Button variant="pdf" asChild>
+                            <a href={`${baseUrl}/export/pdf`}>
+                                <FileDown data-icon="inline-start" />
+                                Export PDF
+                            </a>
+                        </Button>
+
                         <Button variant="outline" asChild>
                             <Link href={`/administration/clients/${allocation.client_id}`}>
                                 <UserRound data-icon="inline-start" /> Client
@@ -337,7 +342,12 @@ export default function AllocationShow({
                                         <TableRow key={item.id}>
                                             <TableCell>{date(item.received_at, true)}</TableCell>
                                             <TableCell>{item.method}</TableCell>
-                                            <TableCell>{item.reference || '—'}</TableCell>
+                                            <TableCell>
+                                                <p>{item.reference || '—'}</p>
+                                                {item.notes && (
+                                                    <p className="text-muted-foreground mt-1 max-w-xs text-xs whitespace-normal">{item.notes}</p>
+                                                )}
+                                            </TableCell>
                                             <TableCell>
                                                 {item.installment_numbers.length
                                                     ? item.installment_numbers.map((number) => `#${number}`).join(', ')
@@ -493,7 +503,7 @@ export default function AllocationShow({
             </Dialog>
 
             <Dialog open={Boolean(paymentInstallment)} onOpenChange={(open) => !open && setPaymentInstallment(null)}>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl">
                     <DialogHeader>
                         <DialogTitle>Record installment payment</DialogTitle>
                         <DialogDescription>
@@ -502,8 +512,8 @@ export default function AllocationShow({
                             are recorded automatically.
                         </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={submitPayment} className="space-y-4">
-                        <FieldGroup>
+                    <form onSubmit={submitPayment} className="flex flex-col gap-4">
+                        <FieldGroup className="grid gap-4 sm:grid-cols-2">
                             <Field data-invalid={Boolean(payment.errors.amount)}>
                                 <FieldLabel htmlFor="payment_amount">Amount</FieldLabel>
                                 <Input
@@ -576,6 +586,18 @@ export default function AllocationShow({
                                     value={payment.data.received_at}
                                     onChange={(event) => payment.setData('received_at', event.target.value)}
                                 />
+                            </Field>
+                            <Field className="sm:col-span-2" data-invalid={Boolean(payment.errors.notes)}>
+                                <FieldLabel htmlFor="payment-notes">Additional notes</FieldLabel>
+                                <Textarea
+                                    id="payment-notes"
+                                    rows={4}
+                                    maxLength={4000}
+                                    placeholder="Add payment details or other relevant information..."
+                                    value={payment.data.notes}
+                                    onChange={(event) => payment.setData('notes', event.target.value)}
+                                />
+                                <FieldError>{payment.errors.notes}</FieldError>
                             </Field>
                         </FieldGroup>
                         <DialogFooter>

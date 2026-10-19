@@ -14,8 +14,12 @@ class ClientInteraction extends Model
     protected $fillable = [
         'client_id',
         'branch_id',
+        'campaign_id',
+        'direction',
+        'channel',
         'interaction_type',
         'occurred_at',
+        'duration_seconds',
         'summary',
         'outcome',
         'promise_date',
@@ -40,6 +44,21 @@ class ClientInteraction extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(CallCentreCampaign::class, 'campaign_id');
+    }
+
+    public function followUpTasks()
+    {
+        return $this->hasMany(FollowUpTask::class, 'source_interaction_id');
+    }
+
+    public function promises()
+    {
+        return $this->hasMany(PromiseToPay::class, 'interaction_id');
     }
 
     public function creator()

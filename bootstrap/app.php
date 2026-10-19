@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\EnsureActiveBranch;
+use App\Http\Middleware\EnsureMfaCompleted;
+use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\SetPermissionTeam;
 use Illuminate\Foundation\Application;
@@ -17,13 +20,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: ['webhooks/twilio/*']);
         $middleware->web(append: [
+            EnsureUserIsActive::class,
+            EnsureMfaCompleted::class,
             SetPermissionTeam::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
         $middleware->alias([
+            'branch.selected' => EnsureActiveBranch::class,
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,

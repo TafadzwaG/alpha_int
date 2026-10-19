@@ -25,6 +25,7 @@ class AuditEvent extends Model
         'occurred_at',
         'previous_hash',
         'event_hash',
+        'hash_version',
     ];
 
     protected function casts(): array

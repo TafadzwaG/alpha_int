@@ -22,6 +22,37 @@ export type Debtor = {
     open_charges: number;
 };
 
+export type DebtorStatement = {
+    organization: {
+        name: string;
+        branch: string | null;
+        address: string | null;
+        telephone: string | null;
+        email: string | null;
+    };
+    customer: {
+        account_no: string;
+        client_no: string | null;
+        name: string;
+        address: string | null;
+        phone: string | null;
+    };
+    statement_date: string;
+    status: 'Current' | 'Overdue';
+    amount_due: number;
+    last_payment_at: string | null;
+    transactions: Array<{
+        date: string;
+        reference: string;
+        description: string;
+        allocated_to: string | null;
+        debit: number;
+        credit: number;
+        balance: number;
+    }>;
+    aging: Array<AgingBucket>;
+};
+
 export type PaginationLink = {
     url: string | null;
     label: string;

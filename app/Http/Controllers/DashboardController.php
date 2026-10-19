@@ -12,7 +12,8 @@ use App\Models\PaymentAllocation;
 use App\Models\PettyCashEntry;
 use App\Models\Stand;
 use App\Models\StandAllocation;
-use App\Models\UserBranchAccess;
+use App\Services\BranchAccessService;
+use App\Services\CurrencyConversionService;
 use App\Services\ZimRateService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -21,41 +22,37 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function __construct(private readonly ZimRateService $zimRateService) {}
+    public function __construct(
+        private readonly ZimRateService $zimRateService,
+        private readonly BranchAccessService $branchAccess,
+        private readonly CurrencyConversionService $currencyConverter,
+    ) {}
 
     public function index(Request $request): Response
     {
         $user = $request->user();
+        // Higher-level roles take precedence when an account has several roles.
+        if (! $user->hasAnyRole(['Super Administrator', 'System Administrator', 'Branch Manager'])) {
+            if ($user->hasRole('Accounts Officer') && $user->can('accounting.view') && $user->can('phase-one.view')) {
+                return app(AccountingController::class)->index($request);
+            }
+            if ($user->hasRole('Call Centre') && $user->can('call-centre.view')) {
+                return app(CallCentreController::class)->index($request);
+            }
+
+            return app(RoleDashboardController::class)->index($request);
+        }
         $organizationId = (int) $user->organization_id;
         $baseCurrency = $user->organization?->base_currency_code ?? 'USD';
         $canViewExpenses = $user->can('expenses.view');
         $canViewAllBranches = $user->can('phase-one.manage');
-        $accessibleBranchIds = $canViewAllBranches
-            ? null
-            : UserBranchAccess::query()
-                ->where('user_id', $user->id)
-                ->where('active', true)
-                ->where(fn (Builder $query) => $query->whereNull('valid_from')->orWhere('valid_from', '<=', now()))
-                ->where(fn (Builder $query) => $query->whereNull('valid_to')->orWhere('valid_to', '>=', now()))
-                ->pluck('branch_id');
-
-        $branchOptions = Branch::query()
-            ->where('organization_id', $organizationId)
-            ->where('status', 'active')
-            ->when($accessibleBranchIds !== null, fn (Builder $query) => $query->whereIn('id', $accessibleBranchIds))
-            ->orderBy('name')
-            ->get(['id', 'code', 'name']);
-        $requestedBranch = (string) $request->query('branch', 'all');
-        $selectedBranch = ctype_digit($requestedBranch)
-            ? $branchOptions->firstWhere('id', (int) $requestedBranch)
-            : null;
-        $branchIds = $selectedBranch
-            ? collect([$selectedBranch->id])
-            : ($canViewAllBranches ? null : $accessibleBranchIds);
-        $scopeLabel = $selectedBranch?->name
-            ?? ($canViewAllBranches
-                ? 'All branches'
-                : ($branchOptions->count() === 1 ? $branchOptions->first()->name : 'All assigned branches'));
+        $branchOptions = $this->branchAccess->availableBranches($user);
+        $selectedBranch = $branchOptions->firstWhere(
+            'id',
+            (int) $request->session()->get(BranchAccessService::SESSION_KEY),
+        );
+        abort_unless($selectedBranch, 403, 'Select an accessible branch before opening the dashboard.');
+        $branchIds = collect([$selectedBranch->id]);
 
         $chargeScope = fn (Builder $query) => $query->whereHas('account.clientFile', fn (Builder $builder) => $builder
             ->whereHas('client', fn (Builder $client) => $client->where('organization_id', $organizationId))
@@ -67,21 +64,27 @@ class DashboardController extends Controller
             ->whereHas('branch', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
             ->when($branchIds !== null, fn (Builder $builder) => $builder->whereIn('branch_id', $branchIds));
 
-        $totalCharges = (float) AccountCharge::query()->tap($chargeScope)->whereNot('status', 'void')->sum('amount');
-        $totalAllocated = (float) PaymentAllocation::query()
+        $totalCharges = AccountCharge::query()->tap($chargeScope)->whereNot('status', 'void')->get(['amount', 'currency_code', 'posted_at'])
+            ->sum(fn (AccountCharge $charge) => $this->currencyConverter->convert((float) $charge->amount, $charge->currency_code, $baseCurrency, $charge->posted_at));
+        $totalAllocated = PaymentAllocation::query()
             ->whereHas('charge.account.clientFile', fn (Builder $builder) => $builder
                 ->whereHas('client', fn (Builder $client) => $client->where('organization_id', $organizationId))
                 ->when($branchIds !== null, fn (Builder $file) => $file->whereIn('branch_id', $branchIds)))
-            ->sum('amount');
-        $totalCollections = (float) Payment::query()->tap($paymentScope)->where('status', 'approved')->sum('amount');
-        $approvedExpenses = (float) Expense::query()->tap($expenseScope)->whereIn('status', ['approved', 'paid'])->sum('total_amount');
+            ->whereHas('payment', fn (Builder $payment) => $payment->where('status', 'approved'))
+            ->with('payment:id,currency_code,received_at')
+            ->get()
+            ->sum(fn (PaymentAllocation $allocation) => $this->currencyConverter->convert((float) $allocation->amount, $allocation->payment->currency_code, $baseCurrency, $allocation->payment->received_at));
+        $totalCollections = Payment::query()->tap($paymentScope)->where('status', 'approved')->get(['amount', 'currency_code', 'received_at'])
+            ->sum(fn (Payment $payment) => $this->currencyConverter->convert((float) $payment->amount, $payment->currency_code, $baseCurrency, $payment->received_at));
+        $approvedExpenses = Expense::query()->tap($expenseScope)->whereIn('status', ['approved', 'paid'])->get(['total_amount', 'currency_code', 'incurred_at'])
+            ->sum(fn (Expense $expense) => $this->currencyConverter->convert((float) $expense->total_amount, $expense->currency_code, $baseCurrency, $expense->incurred_at));
 
         $pettyCashBalance = PettyCashEntry::query()
             ->tap($expenseScope)
-            ->get(['entry_type', 'amount'])
+            ->get(['entry_type', 'amount', 'currency_code', 'posted_at'])
             ->sum(fn (PettyCashEntry $entry) => in_array($entry->entry_type, ['replenishment', 'refund', 'adjustment'], true)
-                ? (float) $entry->amount
-                : -1 * (float) $entry->amount);
+                ? $this->currencyConverter->convert((float) $entry->amount, $entry->currency_code, $baseCurrency, $entry->posted_at)
+                : -1 * $this->currencyConverter->convert((float) $entry->amount, $entry->currency_code, $baseCurrency, $entry->posted_at));
 
         $inventory = Stand::query()
             ->whereHas('phase.development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
@@ -89,22 +92,66 @@ class DashboardController extends Controller
             ->groupBy('physical_status')
             ->pluck('total', 'physical_status');
 
-        $financialTrend = collect(range(5, 0))->map(function (int $offset) use ($chargeScope, $paymentScope, $expenseScope) {
+        $branchInventory = Stand::query()
+            ->whereHas('phase.development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
+            ->whereHas('allocations', fn (Builder $builder) => $builder
+                ->where('branch_id', $selectedBranch->id)
+                ->where('status', '!=', 'cancelled'))
+            ->selectRaw('physical_status, count(*) as total')
+            ->groupBy('physical_status')
+            ->pluck('total', 'physical_status');
+
+        $allocationRegister = StandAllocation::query()
+            ->whereHas('branch', fn (Builder $builder) => $builder->where('organization_id', $organizationId));
+        $waitingList = Client::query()
+            ->where('organization_id', $organizationId)
+            ->where('status', 'prospect');
+        $registerInventory = collect([
+            [
+                'key' => 'on_ground',
+                'label' => 'On ground',
+                'description' => 'Allocated stand records',
+                'total' => (clone $allocationRegister)->where('status', 'allocated')->where('category', '!=', 'special')->count(),
+                'branch_total' => (clone $allocationRegister)->where('branch_id', $selectedBranch->id)->where('status', 'allocated')->where('category', '!=', 'special')->count(),
+                'href' => '/administration/stand-allocations?status=allocated',
+            ],
+            [
+                'key' => 'double_allocation',
+                'label' => 'Double allocation',
+                'description' => 'Disputed special allocations',
+                'total' => (clone $allocationRegister)->where('category', 'special')->where('status', '!=', 'cancelled')->count(),
+                'branch_total' => (clone $allocationRegister)->where('branch_id', $selectedBranch->id)->where('category', 'special')->where('status', '!=', 'cancelled')->count(),
+                'href' => '/administration/stand-allocations?search=special',
+            ],
+            [
+                'key' => 'waiting_list',
+                'label' => 'Waiting list',
+                'description' => 'Prospective clients awaiting allocation',
+                'total' => (clone $waitingList)->count(),
+                'branch_total' => (clone $waitingList)->where('owning_branch_id', $selectedBranch->id)->count(),
+                'href' => '/administration/clients?status=prospect',
+            ],
+        ]);
+
+        $financialTrend = collect(range(5, 0))->map(function (int $offset) use ($chargeScope, $paymentScope, $expenseScope, $baseCurrency) {
             $month = now()->startOfMonth()->subMonths($offset);
             $range = [$month->copy()->startOfMonth(), $month->copy()->endOfMonth()];
 
             return [
                 'month' => $month->format('M'),
                 'label' => $month->format('F Y'),
-                'charges' => (float) AccountCharge::query()->tap($chargeScope)->whereNot('status', 'void')->whereBetween('posted_at', $range)->sum('amount'),
-                'collections' => (float) Payment::query()->tap($paymentScope)->where('status', 'approved')->whereBetween('received_at', $range)->sum('amount'),
-                'expenses' => (float) Expense::query()->tap($expenseScope)->whereIn('status', ['approved', 'paid'])->whereBetween('incurred_at', $range)->sum('total_amount'),
+                'charges' => AccountCharge::query()->tap($chargeScope)->whereNot('status', 'void')->whereBetween('posted_at', $range)->get()->sum(fn (AccountCharge $charge) => $this->currencyConverter->convert((float) $charge->amount, $charge->currency_code, $baseCurrency, $charge->posted_at)),
+                'collections' => Payment::query()->tap($paymentScope)->where('status', 'approved')->whereBetween('received_at', $range)->get()->sum(fn (Payment $payment) => $this->currencyConverter->convert((float) $payment->amount, $payment->currency_code, $baseCurrency, $payment->received_at)),
+                'expenses' => Expense::query()->tap($expenseScope)->whereIn('status', ['approved', 'paid'])->whereBetween('incurred_at', $range)->get()->sum(fn (Expense $expense) => $this->currencyConverter->convert((float) $expense->total_amount, $expense->currency_code, $baseCurrency, $expense->incurred_at)),
             ];
         });
 
         return Inertia::render('dashboard', [
+            'dashboardTitle' => $user->hasAnyRole(['Super Administrator', 'System Administrator']) ? 'Operations dashboard' : 'Branch manager dashboard',
+            'dashboardAudience' => $user->hasAnyRole(['Super Administrator', 'System Administrator']) ? 'Executive overview' : 'Branch oversight',
             'metrics' => [
-                'portfolioValue' => (float) Stand::query()->whereHas('phase.development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))->whereNot('physical_status', 'withdrawn')->sum('list_price'),
+                'portfolioValue' => Stand::query()->whereHas('phase.development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))->whereNot('physical_status', 'withdrawn')->get(['list_price', 'currency_code', 'created_at'])
+                    ->sum(fn (Stand $stand) => $this->currencyConverter->convert((float) $stand->list_price, $stand->currency_code, $baseCurrency, $stand->created_at)),
                 'activeClients' => Client::query()
                     ->where('organization_id', $organizationId)
                     ->when($branchIds !== null, fn (Builder $query) => $query->whereIn('owning_branch_id', $branchIds))
@@ -131,7 +178,9 @@ class DashboardController extends Controller
             'inventory' => collect(['available', 'allocated', 'reserved', 'planned', 'withdrawn'])->map(fn (string $status) => [
                 'status' => $status,
                 'total' => (int) ($inventory[$status] ?? 0),
+                'branch_total' => (int) ($branchInventory[$status] ?? 0),
             ]),
+            'inventoryRegisters' => $registerInventory,
             'exchangeRates' => $this->zimRateService->latestForDashboard(),
             'recentPayments' => Payment::query()
                 ->tap($paymentScope)
@@ -149,6 +198,7 @@ class DashboardController extends Controller
                     'status' => $payment->status,
                     'received_at' => $payment->received_at?->toIso8601String(),
                 ]),
+            'canApprovePayments' => $user->can('payments.approve'),
             'approvalQueue' => $canViewExpenses
                 ? ApprovalRequest::query()
                     ->where('organization_id', $organizationId)
@@ -171,7 +221,7 @@ class DashboardController extends Controller
                 : [],
             'branchFilter' => [
                 'selected' => $selectedBranch ? (string) $selectedBranch->id : 'all',
-                'label' => $scopeLabel,
+                'label' => $selectedBranch->name,
                 'canViewAll' => $canViewAllBranches,
                 'options' => $branchOptions->map(fn (Branch $branch) => [
                     'id' => (string) $branch->id,

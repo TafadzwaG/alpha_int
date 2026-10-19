@@ -44,4 +44,14 @@ class Stand extends Model
     {
         return $this->hasMany(StandAllocation::class, 'stand_id');
     }
+
+    public function legalCases()
+    {
+        return $this->hasMany(StandLegalCase::class, 'stand_id');
+    }
+
+    public function activeLegalCases()
+    {
+        return $this->legalCases()->whereIn('status', StandLegalCase::ACTIVE_STATUSES);
+    }
 }

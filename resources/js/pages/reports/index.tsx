@@ -64,19 +64,19 @@ export default function Reports({
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        <Button variant="outline" asChild>
+                        <Button variant="pdf" asChild>
                             <a href="/reports/export/pdf">
                                 <FileDown data-icon="inline-start" />
                                 Export PDF
                             </a>
                         </Button>
-                        <Button variant="outline" asChild>
+                        <Button variant="excel" asChild>
                             <a href="/reports/export/excel">
                                 <FileSpreadsheet data-icon="inline-start" />
                                 Export Excel
                             </a>
                         </Button>
-                        <Button variant="outline" asChild>
+                        <Button variant="secondary" asChild>
                             <Link href="/dashboard">
                                 <ArrowLeft data-icon="inline-start" />
                                 Back to dashboard

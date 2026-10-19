@@ -1,0 +1,1 @@
+<div class="report-brand"><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/alpha-land-logo.png'))) }}" alt="Alpha Land"><div class="identity"><div class="name">Alpha Land</div><div class="legal">Alpha International Land Developers Private Limited</div></div></div>

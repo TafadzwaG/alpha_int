@@ -7,7 +7,7 @@ import { ChevronDown } from 'lucide-react';
 export function NavSection({ title, items, defaultOpen = true }: { title: string; items: NavItem[]; defaultOpen?: boolean }) {
     const page = usePage();
     const currentPath = page.url.split(/[?#]/)[0];
-    const isSectionRoot = (url: string) => ['/administration', '/accounting'].includes(url);
+    const isSectionRoot = (url: string) => ['/administration', '/accounting', '/call-centre'].includes(url);
     const isActive = (url: string) => currentPath === url || (!isSectionRoot(url) && currentPath.startsWith(`${url}/`));
 
     return (

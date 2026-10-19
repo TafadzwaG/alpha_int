@@ -12,6 +12,7 @@ class BankAccount extends Model
     protected $fillable = [
         'organization_id',
         'branch_id',
+        'gl_account_id',
         'bank_name',
         'account_name',
         'account_mask',
@@ -35,5 +36,10 @@ class BankAccount extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
+    public function ledgerAccount()
+    {
+        return $this->belongsTo(GlAccount::class, 'gl_account_id');
     }
 }

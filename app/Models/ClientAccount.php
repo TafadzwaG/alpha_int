@@ -46,4 +46,9 @@ class ClientAccount extends Model
     {
         return $this->hasMany(Payment::class, 'account_id');
     }
+
+    public function interestExemptions()
+    {
+        return $this->hasMany(InterestExemption::class, 'client_account_id');
+    }
 }

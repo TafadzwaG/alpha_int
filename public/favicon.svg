@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="house" x1="12" y1="18" x2="52" y2="58" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#08b868" />
+            <stop offset="1" stop-color="#009f55" />
+        </linearGradient>
+    </defs>
+    <path d="M11 31.5 32 14l21 17.5V58H40V43H30v15H11V31.5Z" fill="url(#house)" />
+    <path d="M5 31 32 8l15 12.5V10h6v15.5L59 31" fill="none" stroke="#0639a6" stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" />
+    <path d="M27 28h12v9H27z" fill="#f7fbf9" stroke="#0639a6" stroke-width="1.5" />
+    <path d="M33 28v9M27 32.5h12" stroke="#0639a6" stroke-width="1.25" />
+</svg>

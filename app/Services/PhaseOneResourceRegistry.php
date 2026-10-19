@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\AccountCharge;
+use App\Models\AccountingDimension;
 use App\Models\ApprovalRequest;
 use App\Models\ApprovalStep;
 use App\Models\AuditEvent;
@@ -49,7 +50,10 @@ use Illuminate\Validation\ValidationException;
 
 class PhaseOneResourceRegistry
 {
-    public function __construct(private readonly AuditLogger $auditLogger) {}
+    public function __construct(
+        private readonly AuditLogger $auditLogger,
+        private readonly GapRegisterView $gapRegisterView,
+    ) {}
 
     public function keys(): array
     {
@@ -63,31 +67,45 @@ class PhaseOneResourceRegistry
         return $this->definitions()[$key];
     }
 
-    public function page(string $key, Request $request): array
+    public function page(string $key, Request $request, bool $export = false): array
     {
         $definition = $this->definition($key);
         $query = $this->query($key, $request);
         $search = trim((string) $request->string('search'));
         $status = Str::lower(trim((string) $request->string('status')));
         $branchId = $request->integer('branch');
+        $register = Str::lower(trim((string) $request->string('register')));
+        if (! in_array($key, ['clients', 'stand-allocations'], true) || ! in_array($register, GapRegisterView::TYPES, true)) {
+            $register = '';
+        }
+        $registerView = $register !== '' && ! $export;
+        $registerStats = in_array($key, ['clients', 'stand-allocations'], true)
+            ? $this->gapRegisterView->stats($request)
+            : null;
         $statusOptions = [
             'stands' => ['planned', 'available', 'reserved', 'allocated', 'withdrawn'],
             'clients' => ['prospect', 'active', 'inactive', 'blocked'],
+            'payments' => ['draft', 'pending', 'approved', 'rejected', 'reversed'],
             'stand-allocations' => ['pending', 'approved', 'allocated', 'cancelled'],
+            'cash-sessions' => ['open', 'closing', 'closed', 'void'],
+            'bank-deposits' => ['draft', 'submitted', 'approved', 'cleared', 'void'],
+            'expenses' => ['draft', 'submitted', 'approved', 'rejected', 'paid', 'cancelled'],
         ];
 
         if (! in_array($status, $statusOptions[$key] ?? [], true)) {
             $status = '';
         }
 
-        if ($status !== '') {
+        if ($registerView) {
+            $status = '';
+        } elseif ($status !== '') {
             $query->where(match ($key) {
                 'stands' => 'physical_status',
                 default => 'status',
             }, $status);
         }
 
-        if ($branchId && in_array($key, ['stands', 'clients', 'stand-allocations'], true)) {
+        if ($branchId && in_array($key, ['stands', 'clients', 'stand-allocations', 'payments', ...FinanceRegister::KEYS], true)) {
             if ($key === 'stands') {
                 $query->whereHas('allocations', fn (Builder $builder) => $builder->where('branch_id', $branchId));
             } elseif ($key === 'clients') {
@@ -97,7 +115,79 @@ class PhaseOneResourceRegistry
             }
         }
 
-        if ($search !== '' && $key === 'stand-allocations') {
+        $advanced = [];
+        if ($key === 'clients') {
+            $advanced = $request->validate([
+                'payment' => ['nullable', Rule::in(['all', 'overdue', 'upcoming', 'none'])],
+                'follow_up' => ['nullable', Rule::in(['all', 'overdue', 'upcoming', 'none'])],
+                'phone' => ['nullable', Rule::in(['all', 'with_phone', 'without_phone'])],
+                'created_from' => ['nullable', 'date_format:Y-m-d'],
+                'created_to' => ['nullable', 'date_format:Y-m-d', 'after_or_equal:created_from'],
+                'sort' => ['nullable', Rule::in(['newest', 'oldest', 'name_asc', 'name_desc'])],
+                'per_page' => ['nullable', Rule::in([10, 20, 50, 100])],
+            ]);
+            $branches = app(BranchAccessService::class)->branchIds($request->user());
+            foreach (['payment', 'follow_up'] as $filter) {
+                $value = $advanced[$filter] ?? 'all';
+                if ($value === 'all') {
+                    continue;
+                }
+                $method = $value === 'none' ? 'whereDoesntHave' : 'whereHas';
+                if ($filter === 'payment') {
+                    $query->{$method}('files.allocations.installments', function ($items) use ($value, $branches) {
+                        $items->whereNotIn('status', ['paid', 'waived'])->whereColumn('amount_due', '>', 'amount_paid')
+                            ->whereHas('allocation', fn ($allocation) => $allocation->where('status', '!=', 'cancelled')
+                                ->when($branches !== null, fn ($q) => $q->whereIn('branch_id', $branches)));
+                        if ($value === 'overdue') {
+                            $items->whereDate('due_date', '<', today());
+                        }
+                        if ($value === 'upcoming') {
+                            $items->whereDate('due_date', '>=', today());
+                        }
+                    });
+                } else {
+                    $query->{$method}('followUpTasks', function ($items) use ($value, $branches) {
+                        $items->whereIn('status', ['open', 'in_progress'])->when($branches !== null, fn ($q) => $q->whereIn('branch_id', $branches));
+                        if ($value === 'overdue') {
+                            $items->where('due_at', '<', now());
+                        }
+                        if ($value === 'upcoming') {
+                            $items->where('due_at', '>=', now());
+                        }
+                    });
+                }
+            }
+            if (! empty($advanced['created_from'])) {
+                $query->whereDate('clients.created_at', '>=', $advanced['created_from']);
+            }
+            if (! empty($advanced['created_to'])) {
+                $query->whereDate('clients.created_at', '<=', $advanced['created_to']);
+            }
+            if (($advanced['phone'] ?? 'all') === 'with_phone') {
+                $query->whereNotNull('phone_normalized')->where('phone_normalized', '!=', '')
+                    ->where('sms_consent', true)->whereNull('sms_opted_out_at');
+            }
+            if (($advanced['phone'] ?? 'all') === 'without_phone') {
+                $query->where(fn (Builder $builder) => $builder->whereNull('phone_normalized')->orWhere('phone_normalized', ''));
+            }
+        }
+        if ($search !== '' && $key === 'payments') {
+            $query->where(fn ($q) => $q->where('external_reference', 'like', "%{$search}%")
+                ->orWhereHas('receipt', fn ($r) => $r->where('receipt_no', 'like', "%{$search}%"))
+                ->orWhereHas('account', fn ($a) => $a->where('account_no', 'like', "%{$search}%")->orWhereHas('clientFile.client', fn ($c) => $c->where('search_name', 'like', "%{$search}%")->orWhere('client_no', 'like', "%{$search}%")->orWhere('first_name', 'like', "%{$search}%")->orWhere('last_name', 'like', "%{$search}%")->orWhere('phone_normalized', 'like', "%{$search}%"))));
+        } elseif ($search !== '' && $key === 'clients') {
+            foreach (array_slice(preg_split('/\s+/', mb_substr($search, 0, 200)), 0, 10) as $term) {
+                $query->where(function ($builder) use ($term, $branches) {
+                    foreach (['client_no', 'first_name', 'middle_names', 'last_name', 'phone_normalized'] as $column) {
+                        $builder->orWhere($column, 'like', "%{$term}%");
+                    }
+                    $builder->orWhereHas('files.allocations', fn ($allocation) => $allocation
+                        ->when($branches !== null, fn ($q) => $q->whereIn('branch_id', $branches))
+                        ->whereHas('stand', fn ($stand) => $stand->where('stand_no', 'like', "%{$term}%")
+                            ->orWhereHas('phase.development', fn ($development) => $development->where('name', 'like', "%{$term}%"))));
+                });
+            }
+        } elseif ($search !== '' && $key === 'stand-allocations') {
             $query->where(function (Builder $builder) use ($search) {
                 $builder->where('category', 'like', "%{$search}%")
                     ->orWhere('status', 'like', "%{$search}%")
@@ -108,7 +198,7 @@ class PhaseOneResourceRegistry
                         ->orWhere('last_name', 'like', "%{$search}%")
                         ->orWhere('search_name', 'like', "%{$search}%"));
             });
-        } elseif ($search !== '' && $definition['searchable']) {
+        } elseif ($search !== '' && ! in_array($key, FinanceRegister::KEYS, true) && $definition['searchable']) {
             $query->where(function (Builder $builder) use ($definition, $search) {
                 foreach ($definition['searchable'] as $index => $column) {
                     $method = $index === 0 ? 'where' : 'orWhere';
@@ -117,20 +207,153 @@ class PhaseOneResourceRegistry
             });
         }
 
-        $records = $query->latest($query->getModel()->getQualifiedKeyName())
-            ->paginate(20)
-            ->withQueryString()
-            ->through(fn (Model $record) => $this->serialize($key, $record));
+        if ($key === 'stands') {
+            $advanced = $request->validate([
+                'phase_id' => ['nullable', 'integer'], 'stand_type_id' => ['nullable', 'integer'],
+                'currency_code' => ['nullable', 'string', 'size:3'],
+                'price_min' => ['nullable', 'numeric', 'min:0'], 'price_max' => ['nullable', 'numeric', 'gte:price_min'],
+                'area_min' => ['nullable', 'numeric', 'min:0'], 'area_max' => ['nullable', 'numeric', 'gte:area_min'],
+                'per_page' => ['nullable', Rule::in([10, 20, 50, 100])],
+                'sort' => ['nullable', Rule::in(['newest', 'oldest', 'price_asc', 'price_desc', 'stand_asc'])],
+                'ids' => ['nullable', 'array', 'max:1000'], 'ids.*' => ['integer'],
+            ]);
+            foreach (['phase_id', 'stand_type_id', 'currency_code'] as $column) {
+                if (filled($advanced[$column] ?? null)) {
+                    $query->where($column, $advanced[$column]);
+                }
+            }
+            foreach (['price' => 'list_price', 'area' => 'area_sqm'] as $prefix => $column) {
+                if (filled($advanced[$prefix.'_min'] ?? null)) {
+                    $query->where($column, '>=', $advanced[$prefix.'_min']);
+                }
+                if (filled($advanced[$prefix.'_max'] ?? null)) {
+                    $query->where($column, '<=', $advanced[$prefix.'_max']);
+                }
+            }
+            if ($export && ! empty($advanced['ids'])) {
+                $query->whereKey($advanced['ids']);
+            }
+            if (($advanced['sort'] ?? '') === 'stand_asc') {
+                $query->orderBy('stand_no');
+            }
+            if (in_array($advanced['sort'] ?? '', ['price_asc', 'price_desc'], true)) {
+                $query->orderBy('list_price', $advanced['sort'] === 'price_asc' ? 'asc' : 'desc');
+            }
+        }
+        if ($key === 'clients' && $export) {
+            $selected = $request->validate(['ids' => ['nullable', 'array', 'max:1000'], 'ids.*' => ['integer']]);
+            if (! empty($selected['ids'])) {
+                $query->whereKey($selected['ids']);
+            }
+        }
+        $paymentStats = null;
+        if ($key === 'payments') {
+            $advanced = $request->validate([
+                'method_id' => ['nullable', 'integer'], 'currency_code' => ['nullable', 'string', 'size:3'],
+                'received_from' => ['nullable', 'date_format:Y-m-d'], 'received_to' => ['nullable', 'date_format:Y-m-d', 'after_or_equal:received_from'],
+                'amount_min' => ['nullable', 'numeric', 'min:0'], 'amount_max' => ['nullable', 'numeric', 'gte:amount_min'],
+                'per_page' => ['nullable', Rule::in([10, 20, 50, 100])], 'sort' => ['nullable', Rule::in(['newest', 'oldest', 'amount_asc', 'amount_desc'])],
+                'ids' => ['nullable', 'array', 'max:1000'], 'ids.*' => ['integer'],
+            ]);
+            $visibleBranches = app(BranchAccessService::class)->branchIds($request->user());
+            if ($visibleBranches !== null) {
+                $query->whereIn('branch_id', $visibleBranches);
+            }
+            foreach (['method_id', 'currency_code'] as $field) {
+                if (filled($advanced[$field] ?? null)) {
+                    $query->where($field, $advanced[$field]);
+                }
+            }
+            if (filled($advanced['received_from'] ?? null)) {
+                $query->whereDate('received_at', '>=', $advanced['received_from']);
+            }
+            if (filled($advanced['received_to'] ?? null)) {
+                $query->whereDate('received_at', '<=', $advanced['received_to']);
+            }
+            if (filled($advanced['amount_min'] ?? null)) {
+                $query->where('amount', '>=', $advanced['amount_min']);
+            }
+            if (filled($advanced['amount_max'] ?? null)) {
+                $query->where('amount', '<=', $advanced['amount_max']);
+            }
+            if ($export && ! empty($advanced['ids'])) {
+                $query->whereKey($advanced['ids']);
+            }
+            $paymentStats = ['total' => (clone $query)->count(), 'approved' => (clone $query)->where('status', 'approved')->count(),
+                'pending' => (clone $query)->whereIn('status', ['draft', 'pending'])->count(),
+                'totals' => (clone $query)->where('status', 'approved')->selectRaw('currency_code, SUM(amount) as total')->groupBy('currency_code')->get()->map(fn ($row) => ['currency' => $row->currency_code, 'amount' => (float) $row->total])->all()];
+            if (in_array($advanced['sort'] ?? '', ['amount_asc', 'amount_desc'], true)) {
+                $query->orderBy('amount', $advanced['sort'] === 'amount_asc' ? 'asc' : 'desc');
+            }
+        }
+        $standStats = null;
+        if ($key === 'stands') {
+            $counts = (clone $query)->selectRaw('physical_status, COUNT(*) as aggregate')->groupBy('physical_status')->pluck('aggregate', 'physical_status');
+            $standStats = ['total' => (int) $counts->sum()];
+            foreach (['available', 'allocated', 'reserved', 'planned', 'withdrawn'] as $statusKey) {
+                $standStats[$statusKey] = (int) ($counts[$statusKey] ?? 0);
+            }
+        }
+        $clientStats = null;
+        if ($key === 'clients') {
+            $clientStats = [
+                'total' => (clone $query)->count(),
+                'active' => (clone $query)->where('status', 'active')->count(),
+                'prospects' => (clone $query)->where('status', 'prospect')->count(),
+                'branches' => (clone $query)->distinct()->count('owning_branch_id'),
+                'smsEligible' => (clone $query)->whereNotNull('phone_normalized')->where('phone_normalized', '!=', '')
+                    ->where('sms_consent', true)->whereNull('sms_opted_out_at')->count(),
+            ];
+        }
+
+        $financeCards = null;
+        if (in_array($key, FinanceRegister::KEYS, true)) {
+            $finance = app(FinanceRegister::class)->apply($key, $query, $request);
+            $advanced = $finance['filters'];
+            $financeCards = $finance['cards'];
+        }
+        if (! in_array($key, ['clients', 'stands', 'payments', ...FinanceRegister::KEYS], true)) {
+            $advanced = $request->validate(['per_page' => ['nullable', Rule::in([10, 20, 50, 100])]]);
+        }
+        $sort = $advanced['sort'] ?? 'newest';
+        if (in_array($sort, ['name_asc', 'name_desc'], true)) {
+            $query->orderBy('last_name', $sort === 'name_asc' ? 'asc' : 'desc')->orderBy('first_name');
+        }
+        $query->orderBy($query->getModel()->getQualifiedKeyName(), $sort === 'oldest' ? 'asc' : 'desc');
+        $records = $registerView
+            ? $this->gapRegisterView->paginate($request, $register)
+            : ($export
+                ? $query->limit(10001)->get()->map(fn (Model $record) => $this->serialize($key, $record))
+                : $query->paginate((int) ($advanced['per_page'] ?? 10))->withQueryString()->through(fn (Model $record) => $this->serialize($key, $record)));
+        if ($export && $records->count() > 10000) {
+            throw ValidationException::withMessages(['export' => 'Narrow the filters to 10,000 records or fewer before exporting.']);
+        }
+
+        $resource = [
+            'key' => $key,
+            'detailsEnabled' => ! $registerView && in_array($key, ['branches', 'stands', 'clients', 'stand-allocations', 'payments'], true),
+            ...Arr::except($definition, ['model', 'searchable']),
+        ];
+        if ($registerView) {
+            $resource['columns'] = GapRegisterView::COLUMNS;
+            $advanced = [...$advanced, ...$this->gapRegisterView->filters($request)];
+        }
 
         return [
-            'resource' => [
-                'key' => $key,
-                'detailsEnabled' => in_array($key, ['stands', 'clients', 'stand-allocations'], true),
-                ...Arr::except($definition, ['model', 'searchable']),
-            ],
+            'resource' => $resource,
             'records' => $records,
+            'financeCards' => $financeCards,
+            'clientStats' => $clientStats,
+            'registerStats' => $registerStats,
+            'registerView' => $registerView,
+            'smsProvider' => $key === 'clients' ? [
+                'enabled' => (bool) config('services.twilio.enabled'),
+                'name' => config('services.twilio.enabled') ? 'Twilio' : 'Simulation',
+            ] : null,
+            'standStats' => $standStats,
+            'paymentStats' => $paymentStats,
             'options' => $this->options($request),
-            'filters' => ['search' => $search, 'status' => $status, 'branch' => $branchId ? (string) $branchId : 'all'],
+            'filters' => ['search' => $search, 'status' => $status, 'branch' => $branchId ? (string) $branchId : 'all', 'register' => $register, ...$advanced],
         ];
     }
 
@@ -157,10 +380,22 @@ class PhaseOneResourceRegistry
         abort_if($definition['readOnly'], 405);
         $model = $this->find($key, $id, $request);
         $validated = $request->validate($this->rules($key, $request, $model));
+        if ($key === 'account-charges' && $model->status !== 'draft') {
+            abort_unless(($validated['status'] ?? null) === 'void', 422, 'Posted charges can only be voided.');
+            $validated = ['status' => 'void'];
+        } elseif ($key === 'payments') {
+            abort(422, 'Payments are immutable after capture. Use the approval queue or request a controlled reversal from the payment detail page.');
+        } elseif ($key === 'expenses' && in_array($model->status, ['approved', 'paid', 'cancelled'], true)) {
+            $target = $validated['status'] ?? null;
+            abort_unless($model->status === 'approved' && in_array($target, ['paid', 'cancelled'], true), 422, 'Approved expenses can only be marked paid or cancelled.');
+            $validated = ['status' => $target];
+        }
 
         return DB::transaction(function () use ($key, $request, $model, $validated) {
             $before = $this->auditData($model);
-            $model->fill($this->prepare($key, $validated, $request, $model))->save();
+            $statusOnly = in_array($key, ['account-charges', 'payments', 'expenses'], true)
+                && array_keys($validated) === ['status'];
+            $model->fill($statusOnly ? $validated : $this->prepare($key, $validated, $request, $model))->save();
             $this->afterSave($key, $model, $validated, $request);
             $this->auditLogger->record($request, "{$key}.updated", $model, $before, $this->auditData($model->fresh()));
 
@@ -191,8 +426,7 @@ class PhaseOneResourceRegistry
                 $model->forceFill(['status' => 'void'])->save();
                 $event = 'voided';
             } elseif ($key === 'payments') {
-                $model->forceFill(['status' => 'reversed'])->save();
-                $event = 'reversed';
+                abort(422, 'Payments cannot be deleted. Submit an approved payment for reversal from its detail page.');
             } elseif (in_array($key, ['cash-sessions', 'bank-deposits', 'reconciliation-runs'], true)) {
                 $model->forceFill(['status' => 'void'])->save();
                 $event = 'voided';
@@ -241,7 +475,14 @@ class PhaseOneResourceRegistry
                 ->with('development:id,name');
         } elseif ($key === 'stands') {
             $query->whereHas('phase.development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
-                ->with(['phase.development:id,name', 'standType:id,name']);
+                ->with([
+                    'phase.development:id,name', 'standType:id,name',
+                    'activeLegalCases:id,stand_id,case_number,priority,status',
+                    'allocations' => fn ($allocations) => $allocations->where('status', 'allocated')
+                        ->when(app(BranchAccessService::class)->branchIds($request->user()) !== null,
+                            fn ($builder) => $builder->whereIn('branch_id', app(BranchAccessService::class)->branchIds($request->user())))
+                        ->with('clientFile.client:id,client_no,first_name,middle_names,last_name')->latest('allocated_at')->latest('id'),
+                ]);
         } elseif ($key === 'stand-allocations') {
             $query->whereHas('clientFile.client', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
                 ->with([
@@ -252,13 +493,25 @@ class PhaseOneResourceRegistry
                     'installments.paymentAllocations.payment:id,status',
                 ]);
         } elseif ($key === 'clients') {
-            $query->where('organization_id', $organizationId)->with('owningBranch:id,name');
+            $visibleBranches = app(BranchAccessService::class)->branchIds($request->user());
+            $query->where('organization_id', $organizationId)->with([
+                'owningBranch:id,name',
+                'files' => fn ($files) => $files->when($visibleBranches !== null, fn ($builder) => $builder->whereIn('branch_id', $visibleBranches)),
+                'files.allocations' => fn ($allocations) => $allocations->where('status', '!=', 'cancelled'),
+                'files.allocations.installments' => fn ($installments) => $installments
+                    ->whereNotIn('status', ['paid', 'waived'])->whereColumn('amount_due', '>', 'amount_paid')->orderBy('due_date')->orderBy('id'),
+                'files.accounts.payments' => fn ($payments) => $payments
+                    ->where('status', 'approved')->latest('received_at')->latest('id'),
+                'followUpTasks' => fn ($tasks) => $tasks->whereIn('status', ['open', 'in_progress'])
+                    ->when($visibleBranches !== null, fn ($builder) => $builder->whereIn('branch_id', $visibleBranches))
+                    ->orderBy('due_at')->orderBy('id'),
+            ]);
         } elseif ($key === 'account-charges') {
             $query->whereHas('account.clientFile.client', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
                 ->with(['account.clientFile.client:id,client_no,first_name,last_name']);
         } elseif ($key === 'payments') {
             $query->whereHas('account.clientFile.client', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
-                ->with(['account.clientFile.client:id,client_no,first_name,last_name', 'branch:id,name', 'method:id,name', 'cashSession:id']);
+                ->with(['account.clientFile.client:id,client_no,first_name,last_name', 'branch:id,name', 'method:id,name', 'cashSession:id', 'receipt:id,payment_id,receipt_no']);
         } elseif ($key === 'payment-allocations') {
             $query->whereHas('payment.account.clientFile.client', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
                 ->with(['payment.account.clientFile.client:id,client_no,first_name,last_name', 'charge:id,charge_type,description']);
@@ -332,6 +585,12 @@ class PhaseOneResourceRegistry
         $organizationId = $request->user()->organization_id;
         $id = $model?->getKey();
         $branchRule = Rule::exists('branches', 'id')->where('organization_id', $organizationId);
+        if (! $request->user()->can('phase-one.manage')) {
+            $visibleBranchIds = app(BranchAccessService::class)->branchIds($request->user());
+            if ($visibleBranchIds !== null) {
+                $branchRule->whereIn('id', $visibleBranchIds->all());
+            }
+        }
         $developmentRule = Rule::exists('developments', 'id')->where('organization_id', $organizationId);
         $phaseIds = DevelopmentPhase::query()
             ->whereHas('development', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
@@ -357,6 +616,7 @@ class PhaseOneResourceRegistry
         $bankAccountIds = BankAccount::query()->where('organization_id', $organizationId)->pluck('id');
         $userIds = User::query()->where('organization_id', $organizationId)->pluck('id');
         $expenseCategoryIds = ExpenseCategory::query()->where('organization_id', $organizationId)->pluck('id');
+        $accountingDimensionIds = AccountingDimension::query()->where('organization_id', $organizationId)->where('active', true)->pluck('id');
         $expenseIds = Expense::query()
             ->whereHas('branch', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
             ->pluck('id');
@@ -462,7 +722,7 @@ class PhaseOneResourceRegistry
                 'phase_id' => ['required', Rule::exists('development_phases', 'id')->whereIn('id', $phaseIds)],
                 'stand_type_id' => ['required', Rule::exists('stand_types', 'id')->where('organization_id', $organizationId)],
                 'stand_no' => ['required', 'string', 'max:60', Rule::unique('stands', 'stand_no')->where('phase_id', $request->integer('phase_id'))->ignore($id)],
-                'area_sqm' => ['nullable', 'numeric', 'gt:0'],
+                'area_sqm' => ['required', 'numeric', 'gt:0'],
                 'list_price' => ['required', 'numeric', 'min:0'],
                 'currency_code' => ['required', 'string', 'size:3', 'exists:currencies,code'],
                 'physical_status' => ['required', Rule::in(['planned', 'available', 'reserved', 'allocated', 'withdrawn'])],
@@ -471,12 +731,13 @@ class PhaseOneResourceRegistry
             ],
             'clients' => [
                 'owning_branch_id' => ['required', $branchRule],
-                'client_no' => ['required', 'string', 'max:50', Rule::unique('clients', 'client_no')->where('organization_id', $organizationId)->ignore($id)],
+                'client_no' => ['nullable', 'string', 'max:50'],
                 'first_name' => ['required', 'string', 'max:255'],
                 'middle_names' => ['nullable', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'national_id' => ['nullable', 'string', 'max:120'],
                 'phone_normalized' => ['nullable', 'string', 'max:30'],
+                'sms_consent' => ['nullable', 'boolean'],
                 'status' => ['required', Rule::in(['prospect', 'active', 'inactive', 'blocked'])],
             ],
             'stand-allocations' => [
@@ -546,6 +807,7 @@ class PhaseOneResourceRegistry
             ],
             'expenses' => [
                 'branch_id' => ['required', $branchRule],
+                'accounting_dimension_id' => ['nullable', Rule::exists('accounting_dimensions', 'id')->whereIn('id', $accountingDimensionIds)],
                 'category_id' => ['required', Rule::exists('expense_categories', 'id')->whereIn('id', $expenseCategoryIds)],
                 'expense_no' => ['nullable', 'string', 'max:80', Rule::unique('expenses', 'expense_no')->where('branch_id', $request->integer('branch_id'))->ignore($id)],
                 'payee' => ['required', 'string', 'max:255'],
@@ -646,6 +908,21 @@ class PhaseOneResourceRegistry
         }
 
         if ($key === 'clients') {
+            if ($model) {
+                $validated['client_no'] = $model->client_no;
+            } else {
+                // Serialize numbering within the organization, including across branches.
+                Organization::query()->whereKey($request->user()->organization_id)->lockForUpdate()->firstOrFail();
+                $lastNumber = Client::withTrashed()
+                    ->where('organization_id', $request->user()->organization_id)
+                    ->pluck('client_no')
+                    ->reduce(function (int $highest, string $number): int {
+                        return preg_match('/^CLI-(\d+)$/', $number, $matches)
+                            ? max($highest, (int) $matches[1])
+                            : $highest;
+                    }, 0);
+                $validated['client_no'] = 'CLI-'.str_pad((string) ($lastNumber + 1), 4, '0', STR_PAD_LEFT);
+            }
             $validated['search_name'] = Str::lower(trim(implode(' ', array_filter([
                 $validated['last_name'],
                 $validated['first_name'],
@@ -654,6 +931,15 @@ class PhaseOneResourceRegistry
             $validated['phone_normalized'] = ! empty($validated['phone_normalized'])
                 ? preg_replace('/(?!^\+)[^0-9]/', '', $validated['phone_normalized'])
                 : null;
+            if ($validated['phone_normalized'] && ! preg_match('/^\+[1-9][0-9]{7,14}$/', $validated['phone_normalized'])) {
+                throw ValidationException::withMessages([
+                    'phone_normalized' => 'Use an international E.164 phone number, for example +263771234567.',
+                ]);
+            }
+            $consented = (bool) ($validated['sms_consent'] ?? false);
+            $validated['sms_consent'] = $consented;
+            $validated['sms_consent_at'] = $consented ? ($model?->sms_consent_at ?? now()) : null;
+            $validated['sms_opted_out_at'] = $consented ? null : ($model?->sms_opted_out_at ?? now());
 
             if (! empty($validated['national_id'])) {
                 $normalizedNationalId = Str::upper(preg_replace('/\s+/', '', $validated['national_id']));
@@ -969,7 +1255,10 @@ class PhaseOneResourceRegistry
             return;
         }
 
-        $allocated = PaymentAllocation::query()->where('charge_id', $charge->id)->sum('amount');
+        $allocated = PaymentAllocation::query()
+            ->where('charge_id', $charge->id)
+            ->whereHas('payment', fn (Builder $builder) => $builder->where('status', 'approved'))
+            ->sum('amount');
         $charge->forceFill([
             'status' => match (true) {
                 (float) $allocated >= (float) $charge->amount => 'paid',
@@ -1094,6 +1383,21 @@ class PhaseOneResourceRegistry
                 ? "{$record->phase->development?->name} — {$record->phase->name}"
                 : null;
             $data['stand_type_name'] = $record->standType?->name;
+            $data['allocated_clients'] = $record->physical_status === 'allocated'
+                ? $record->allocations->map(fn ($allocation) => $allocation->clientFile?->client)->filter()->unique('id')->map(fn ($client) => [
+                    'id' => $client->id, 'number' => $client->client_no,
+                    'name' => trim("{$client->first_name} {$client->middle_names} {$client->last_name}"),
+                ])->values()->all() : [];
+            $data['legal_flag'] = [
+                'active' => $record->activeLegalCases->isNotEmpty(),
+                'count' => $record->activeLegalCases->count(),
+                'stand_id' => $record->id,
+                'priority' => $record->activeLegalCases
+                    ->sortBy(fn ($case) => array_search($case->priority, ['critical', 'high', 'medium', 'low'], true))
+                    ->first()?->priority,
+            ];
+            unset($data['allocations'], $data['active_legal_cases']);
+
             $data['geo_json'] = $record->geo_json
                 ? json_encode($record->geo_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
                 : '';
@@ -1102,6 +1406,28 @@ class PhaseOneResourceRegistry
         if ($key === 'clients') {
             $data['client_name'] = trim("{$record->first_name} {$record->middle_names} {$record->last_name}");
             $data['branch_name'] = $record->owningBranch?->name;
+            $lastPayment = $record->files->flatMap->accounts->flatMap->payments
+                ->sortByDesc(fn (Payment $payment) => $payment->received_at?->getTimestamp() ?? 0)
+                ->first();
+            $installment = $record->files->flatMap->allocations->flatMap->installments->sortBy('due_date')->first();
+            $task = $record->followUpTasks->first();
+            $data['last_payment'] = $lastPayment ? [
+                'date' => $lastPayment->received_at?->toIso8601String(),
+                'amount' => (float) $lastPayment->amount,
+                'currency' => $lastPayment->currency_code,
+            ] : null;
+            $data['next_payment'] = $installment ? [
+                'date' => $installment->due_date?->toDateString(),
+                'amount' => max(0, (float) $installment->amount_due - (float) $installment->amount_paid),
+                'currency' => $installment->currency_code,
+                'overdue' => $installment->due_date?->isBefore(today()) ?? false,
+            ] : null;
+            $data['next_follow_up'] = $task ? [
+                'date' => $task->due_at?->toIso8601String(),
+                'type' => Str::headline($task->task_type),
+                'overdue' => $task->due_at?->isPast() ?? false,
+            ] : null;
+            unset($data['files'], $data['follow_up_tasks']);
             $data['national_id'] = '';
             unset($data['national_id_hash'], $data['national_id_encrypted']);
         }
@@ -1141,6 +1467,7 @@ class PhaseOneResourceRegistry
             $data['account_no'] = $record->account?->account_no;
             $data['branch_name'] = $record->branch?->name;
             $data['method_name'] = $record->method?->name;
+            $data['receipt_no'] = $record->receipt?->receipt_no;
         }
 
         if ($key === 'payment-allocations') {
@@ -1295,6 +1622,11 @@ class PhaseOneResourceRegistry
                 ->where('active', true)
                 ->orderBy('name')
                 ->get(['id as value', 'name as label']),
+            'accounting-dimensions' => AccountingDimension::query()
+                ->where('organization_id', $organizationId)
+                ->where('active', true)
+                ->orderBy('kind')->orderBy('code')->get()
+                ->map(fn (AccountingDimension $dimension) => ['value' => $dimension->id, 'label' => Str::headline($dimension->kind)." — {$dimension->code} — {$dimension->name}"]),
             'expenses' => Expense::query()
                 ->whereHas('branch', fn (Builder $builder) => $builder->where('organization_id', $organizationId))
                 ->whereIn('status', ['approved', 'paid'])
@@ -1382,14 +1714,14 @@ class PhaseOneResourceRegistry
                 ['name' => 'development_id', 'label' => 'Development', 'type' => 'select', 'options' => 'developments', 'required' => true], ['name' => 'code', 'label' => 'Phase code', 'required' => true], ['name' => 'name', 'label' => 'Phase name', 'required' => true], ['name' => 'survey_status', 'label' => 'Survey status', 'type' => 'select', 'choices' => [['value' => 'pending', 'label' => 'Pending'], ['value' => 'in_progress', 'label' => 'In progress'], ['value' => 'approved', 'label' => 'Approved'], ['value' => 'archived', 'label' => 'Archived']], 'default' => 'pending', 'required' => true], ['name' => 'planned_completion_date', 'label' => 'Planned completion', 'type' => 'date'],
             ], ['code', 'name']),
             'stands' => $this->makeDefinition(Stand::class, 'Stands', 'Individual stands, pricing and survey details.', 'phase', [
-                ['key' => 'stand_no', 'label' => 'Stand'], ['key' => 'phase_name', 'label' => 'Development phase'], ['key' => 'stand_type_name', 'label' => 'Type'], ['key' => 'list_price', 'label' => 'List price'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'physical_status', 'label' => 'Status', 'badge' => true],
+                ['key' => 'stand_no', 'label' => 'Stand'], ['key' => 'legal_flag', 'label' => 'Legal'], ['key' => 'phase_name', 'label' => 'Development phase'], ['key' => 'stand_type_name', 'label' => 'Type'], ['key' => 'list_price', 'label' => 'List price'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'physical_status', 'label' => 'Status', 'badge' => true], ['key' => 'allocated_clients', 'label' => 'Allocated to'],
             ], [
-                ['name' => 'phase_id', 'label' => 'Development phase', 'type' => 'select', 'options' => 'development-phases', 'required' => true], ['name' => 'stand_type_id', 'label' => 'Stand type', 'type' => 'select', 'options' => 'stand-types', 'required' => true], ['name' => 'stand_no', 'label' => 'Stand number', 'required' => true], ['name' => 'area_sqm', 'label' => 'Area (m²)', 'type' => 'number', 'step' => '0.01'], ['name' => 'list_price', 'label' => 'List price', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'physical_status', 'label' => 'Physical status', 'type' => 'select', 'choices' => [['value' => 'planned', 'label' => 'Planned'], ['value' => 'available', 'label' => 'Available'], ['value' => 'reserved', 'label' => 'Reserved'], ['value' => 'allocated', 'label' => 'Allocated'], ['value' => 'withdrawn', 'label' => 'Withdrawn']], 'default' => 'planned', 'required' => true], ['name' => 'survey_reference', 'label' => 'Survey reference'], ['name' => 'geo_json', 'label' => 'GeoJSON', 'type' => 'textarea', 'help' => 'Optional GeoJSON geometry or feature data for this stand.'],
+                ['name' => 'phase_id', 'label' => 'Development phase', 'type' => 'select', 'options' => 'development-phases', 'required' => true], ['name' => 'stand_type_id', 'label' => 'Stand type', 'type' => 'select', 'options' => 'stand-types', 'required' => true], ['name' => 'stand_no', 'label' => 'Stand number', 'required' => true], ['name' => 'area_sqm', 'label' => 'Area (m²)', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'list_price', 'label' => 'List price', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'physical_status', 'label' => 'Physical status', 'type' => 'select', 'choices' => [['value' => 'planned', 'label' => 'Planned'], ['value' => 'available', 'label' => 'Available'], ['value' => 'reserved', 'label' => 'Reserved'], ['value' => 'allocated', 'label' => 'Allocated'], ['value' => 'withdrawn', 'label' => 'Withdrawn']], 'default' => 'planned', 'required' => true], ['name' => 'survey_reference', 'label' => 'Survey reference'], ['name' => 'geo_json', 'label' => 'GeoJSON', 'type' => 'textarea', 'help' => 'Optional GeoJSON geometry or feature data for this stand.'],
             ], ['stand_no', 'survey_reference']),
             'clients' => $this->makeDefinition(Client::class, 'Clients', 'Client identity, contact information and owning branch.', 'organization', [
-                ['key' => 'client_no', 'label' => 'Client number'], ['key' => 'client_name', 'label' => 'Client'], ['key' => 'branch_name', 'label' => 'Owning branch'], ['key' => 'phone_normalized', 'label' => 'Phone'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
+                ['key' => 'client_no', 'label' => 'Client number'], ['key' => 'client_name', 'label' => 'Client'], ['key' => 'branch_name', 'label' => 'Owning branch'], ['key' => 'phone_normalized', 'label' => 'Phone'], ['key' => 'last_payment', 'label' => 'Last payment'], ['key' => 'next_payment', 'label' => 'Next payment due'], ['key' => 'next_follow_up', 'label' => 'Next follow-up'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
             ], [
-                ['name' => 'owning_branch_id', 'label' => 'Owning branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'client_no', 'label' => 'Client number', 'required' => true], ['name' => 'first_name', 'label' => 'First name', 'required' => true], ['name' => 'middle_names', 'label' => 'Middle names'], ['name' => 'last_name', 'label' => 'Last name', 'required' => true], ['name' => 'national_id', 'label' => 'National ID', 'type' => 'password', 'help' => 'Encrypted before storage. Leave blank when editing to keep the current value.'], ['name' => 'phone_normalized', 'label' => 'Phone'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'prospect', 'label' => 'Prospect'], ['value' => 'active', 'label' => 'Active'], ['value' => 'inactive', 'label' => 'Inactive'], ['value' => 'blocked', 'label' => 'Blocked']], 'default' => 'active', 'required' => true],
+                ['name' => 'owning_branch_id', 'label' => 'Owning branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'client_no', 'label' => 'Client number', 'readOnly' => true, 'help' => 'Generated automatically when the client is saved.'], ['name' => 'first_name', 'label' => 'First name', 'required' => true], ['name' => 'middle_names', 'label' => 'Middle names'], ['name' => 'last_name', 'label' => 'Last name', 'required' => true], ['name' => 'national_id', 'label' => 'National ID', 'type' => 'password', 'help' => 'Encrypted before storage. Leave blank when editing to keep the current value.'], ['name' => 'phone_normalized', 'label' => 'Phone (E.164)', 'help' => 'Include the country code, for example +263771234567.'], ['name' => 'sms_consent', 'label' => 'SMS consent recorded', 'type' => 'checkbox', 'default' => false, 'help' => 'Only clients with recorded consent can receive bulk SMS.'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'prospect', 'label' => 'Prospect'], ['value' => 'active', 'label' => 'Active'], ['value' => 'inactive', 'label' => 'Inactive'], ['value' => 'blocked', 'label' => 'Blocked']], 'default' => 'active', 'required' => true],
             ], ['client_no', 'first_name', 'middle_names', 'last_name', 'phone_normalized']),
             'stand-allocations' => $this->makeDefinition(StandAllocation::class, 'Stand allocations', 'Connect client files to stands, pricing and approval status.', 'client', [
                 ['key' => 'client_name', 'label' => 'Client'], ['key' => 'stand_name', 'label' => 'Stand'], ['key' => 'branch_name', 'label' => 'Branch'], ['key' => 'effective_price', 'label' => 'Price'], ['key' => 'balance', 'label' => 'Balance'], ['key' => 'next_due_date', 'label' => 'Next due'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
@@ -1402,15 +1734,15 @@ class PhaseOneResourceRegistry
                 ['name' => 'account_id', 'label' => 'Client account', 'type' => 'select', 'options' => 'client-accounts', 'required' => true], ['name' => 'charge_type', 'label' => 'Charge type', 'type' => 'select', 'choices' => [['value' => 'stand_price', 'label' => 'Stand price'], ['value' => 'administration', 'label' => 'Administration'], ['value' => 'penalty', 'label' => 'Penalty'], ['value' => 'service', 'label' => 'Service'], ['value' => 'adjustment', 'label' => 'Adjustment']], 'default' => 'stand_price', 'required' => true], ['name' => 'description', 'label' => 'Description', 'type' => 'textarea'], ['name' => 'amount', 'label' => 'Amount', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'due_date', 'label' => 'Due date', 'type' => 'date'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'draft', 'label' => 'Draft'], ['value' => 'posted', 'label' => 'Posted'], ['value' => 'partially_paid', 'label' => 'Partially paid'], ['value' => 'paid', 'label' => 'Paid'], ['value' => 'void', 'label' => 'Void']], 'default' => 'draft', 'required' => true],
             ], ['charge_type', 'description', 'status']),
             'payments' => $this->makeDefinition(Payment::class, 'Payments', 'Capture client payments with controlled approval and receipt issuance.', 'account', [
-                ['key' => 'client_name', 'label' => 'Client'], ['key' => 'external_reference', 'label' => 'Reference'], ['key' => 'method_name', 'label' => 'Method'], ['key' => 'amount', 'label' => 'Amount'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'received_at', 'label' => 'Received'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
+                ['key' => 'client_name', 'label' => 'Client'], ['key' => 'external_reference', 'label' => 'Reference'], ['key' => 'method_name', 'label' => 'Method'], ['key' => 'amount', 'label' => 'Amount'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'received_at', 'label' => 'Received'], ['key' => 'receipt_no', 'label' => 'Receipt'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
             ], [
                 ['name' => 'account_id', 'label' => 'Client account', 'type' => 'select', 'options' => 'client-accounts', 'required' => true], ['name' => 'branch_id', 'label' => 'Branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'cash_session_id', 'label' => 'Cash session', 'type' => 'select', 'options' => 'cash-sessions', 'help' => 'Required for cash-equivalent payment methods.'], ['name' => 'amount', 'label' => 'Amount received', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'method_id', 'label' => 'Payment method', 'type' => 'select', 'options' => 'payment-methods', 'required' => true], ['name' => 'external_reference', 'label' => 'External reference'], ['name' => 'received_at', 'label' => 'Received at', 'type' => 'datetime-local'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'draft', 'label' => 'Draft'], ['value' => 'pending', 'label' => 'Pending approval'], ['value' => 'approved', 'label' => 'Approved'], ['value' => 'reversed', 'label' => 'Reversed']], 'default' => 'pending', 'required' => true],
-            ], ['external_reference', 'status']),
-            'payment-allocations' => $this->makeDefinition(PaymentAllocation::class, 'Payment allocations', 'Apply received payments to outstanding client charges.', 'account', [
+            ], ['external_reference', 'status'], true),
+            'payment-allocations' => $this->makeDefinition(PaymentAllocation::class, 'Payment allocations', 'Read-only audit register of payment applications created during controlled payment capture.', 'account', [
                 ['key' => 'client_name', 'label' => 'Client'], ['key' => 'payment_reference', 'label' => 'Payment'], ['key' => 'charge_name', 'label' => 'Charge'], ['key' => 'amount', 'label' => 'Allocated amount'],
             ], [
                 ['name' => 'payment_id', 'label' => 'Payment', 'type' => 'select', 'options' => 'payments', 'required' => true], ['name' => 'charge_id', 'label' => 'Outstanding charge', 'type' => 'select', 'options' => 'account-charges', 'required' => true], ['name' => 'amount', 'label' => 'Amount to allocate', 'type' => 'number', 'step' => '0.01', 'required' => true],
-            ], []),
+            ], [], true),
             'receipts' => $this->makeDefinition(Receipt::class, 'Receipts', 'Immutable receipt snapshots generated for approved payments.', 'organization', [
                 ['key' => 'receipt_no', 'label' => 'Receipt'], ['key' => 'client_name', 'label' => 'Client'], ['key' => 'amount', 'label' => 'Amount'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'issued_at', 'label' => 'Issued'], ['key' => 'issuer_name', 'label' => 'Issued by'], ['key' => 'content_hash', 'label' => 'Integrity hash'],
             ], [], ['receipt_no', 'content_hash'], true),
@@ -1432,7 +1764,7 @@ class PhaseOneResourceRegistry
             'expenses' => $this->makeDefinition(Expense::class, 'Expenses', 'Capture branch expenditure and submit it through the approval queue.', 'branch', [
                 ['key' => 'expense_no', 'label' => 'Expense no.'], ['key' => 'incurred_at', 'label' => 'Incurred'], ['key' => 'branch_name', 'label' => 'Branch'], ['key' => 'category_name', 'label' => 'Category'], ['key' => 'payee', 'label' => 'Payee'], ['key' => 'purpose', 'label' => 'Purpose'], ['key' => 'total_amount', 'label' => 'Amount'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'status', 'label' => 'Status', 'badge' => true],
             ], [
-                ['name' => 'branch_id', 'label' => 'Branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'category_id', 'label' => 'Expense category', 'type' => 'select', 'options' => 'expense-categories', 'required' => true], ['name' => 'expense_no', 'label' => 'Expense number', 'help' => 'Leave blank to generate the next controlled number.'], ['name' => 'payee', 'label' => 'Payee', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'total_amount', 'label' => 'Total amount', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'purpose', 'label' => 'Business purpose', 'type' => 'textarea', 'required' => true], ['name' => 'incurred_at', 'label' => 'Incurred at', 'type' => 'datetime-local'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'draft', 'label' => 'Draft'], ['value' => 'submitted', 'label' => 'Submit for approval'], ['value' => 'approved', 'label' => 'Approved'], ['value' => 'rejected', 'label' => 'Rejected'], ['value' => 'paid', 'label' => 'Paid'], ['value' => 'cancelled', 'label' => 'Cancelled']], 'default' => 'draft', 'required' => true],
+                ['name' => 'branch_id', 'label' => 'Branch', 'type' => 'select', 'options' => 'branches', 'required' => true], ['name' => 'category_id', 'label' => 'Expense category', 'type' => 'select', 'options' => 'expense-categories', 'required' => true], ['name' => 'accounting_dimension_id', 'label' => 'Department / cost centre / project', 'type' => 'select', 'options' => 'accounting-dimensions'], ['name' => 'expense_no', 'label' => 'Expense number', 'help' => 'Leave blank to generate the next controlled number.'], ['name' => 'payee', 'label' => 'Payee', 'required' => true], ['name' => 'currency_code', 'label' => 'Currency', 'type' => 'select', 'options' => 'currencies', 'required' => true], ['name' => 'total_amount', 'label' => 'Total amount', 'type' => 'number', 'step' => '0.01', 'required' => true], ['name' => 'purpose', 'label' => 'Business purpose', 'type' => 'textarea', 'required' => true], ['name' => 'incurred_at', 'label' => 'Incurred at', 'type' => 'datetime-local'], ['name' => 'status', 'label' => 'Status', 'type' => 'select', 'choices' => [['value' => 'draft', 'label' => 'Draft'], ['value' => 'submitted', 'label' => 'Submit for approval'], ['value' => 'approved', 'label' => 'Approved'], ['value' => 'rejected', 'label' => 'Rejected'], ['value' => 'paid', 'label' => 'Paid'], ['value' => 'cancelled', 'label' => 'Cancelled']], 'default' => 'draft', 'required' => true],
             ], ['expense_no', 'payee', 'purpose', 'status']),
             'petty-cash-entries' => $this->makeDefinition(PettyCashEntry::class, 'Petty cash', 'Record approved disbursements, replenishments, refunds and controlled adjustments.', 'branch', [
                 ['key' => 'posted_at', 'label' => 'Posted'], ['key' => 'branch_name', 'label' => 'Branch'], ['key' => 'entry_type', 'label' => 'Entry type', 'badge' => true], ['key' => 'expense_name', 'label' => 'Expense'], ['key' => 'cash_session_name', 'label' => 'Cash session'], ['key' => 'amount', 'label' => 'Amount'], ['key' => 'currency_code', 'label' => 'Currency'], ['key' => 'poster_name', 'label' => 'Posted by'],

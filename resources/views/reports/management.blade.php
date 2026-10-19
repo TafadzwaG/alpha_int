@@ -6,43 +6,44 @@
     <style>
         @page { margin: 22px 28px 26px; }
         * { box-sizing: border-box; }
-        body { margin: 0; color: #13233f; font-family: DejaVu Sans, sans-serif; font-size: 8px; line-height: 1.35; }
+        body { margin: 0; color: #171717; font-family: DejaVu Sans, sans-serif; font-size: 8px; line-height: 1.35; }
         h1, h2, h3, p { margin: 0; }
-        .header { border-bottom: 2px solid #087e5b; margin-bottom: 14px; padding-bottom: 10px; }
+        .header { border-bottom: 2px solid #171717; margin-bottom: 14px; padding-bottom: 10px; }
         .header-table, .metric-table, .two-column { border-collapse: collapse; width: 100%; }
         .brand-cell { width: 54%; }
-        .meta-cell { color: #52617a; text-align: right; vertical-align: bottom; }
+        .meta-cell { color: #525252; text-align: right; vertical-align: bottom; }
         .logo { height: 42px; margin-right: 10px; vertical-align: middle; }
         .brand { display: inline-block; vertical-align: middle; }
-        .eyebrow { color: #087e5b; font-size: 7px; font-weight: bold; letter-spacing: 1.4px; text-transform: uppercase; }
-        h1 { color: #123d6a; font-size: 19px; margin-top: 2px; }
-        .subtitle { color: #52617a; font-size: 8px; margin-top: 2px; }
+        .eyebrow { color: #171717; font-size: 7px; font-weight: bold; letter-spacing: 1.4px; text-transform: uppercase; }
+        h1 { color: #171717; font-size: 19px; margin-top: 2px; }
+        .subtitle { color: #525252; font-size: 8px; margin-top: 2px; }
         .section { margin-top: 12px; }
-        .section-title { border-left: 3px solid #087e5b; color: #123d6a; font-size: 11px; margin-bottom: 7px; padding-left: 7px; }
+        .section-title { border-left: 3px solid #171717; color: #171717; font-size: 11px; margin-bottom: 7px; padding-left: 7px; }
         .metric-table { table-layout: fixed; }
         .metric-cell { padding-right: 7px; vertical-align: top; }
         .metric-cell:last-child { padding-right: 0; }
-        .metric { background: #f3f8f6; border: 1px solid #dbe8e2; border-radius: 4px; padding: 8px; }
-        .metric-label { color: #627168; font-size: 6.5px; letter-spacing: .5px; text-transform: uppercase; }
-        .metric-value { color: #123d6a; font-size: 13px; font-weight: bold; margin-top: 3px; }
-        .metric-detail { color: #6e7e77; font-size: 6.5px; margin-top: 2px; }
+        .metric { background: #f1f1f1; border: 1px solid #dedede; border-radius: 4px; padding: 8px; }
+        .metric-label { color: #525252; font-size: 6.5px; letter-spacing: .5px; text-transform: uppercase; }
+        .metric-value { color: #171717; font-size: 13px; font-weight: bold; margin-top: 3px; }
+        .metric-detail { color: #525252; font-size: 6.5px; margin-top: 2px; }
         table.data { border-collapse: collapse; width: 100%; }
-        table.data th { background: #123d6a; color: #fff; font-size: 6.5px; font-weight: bold; padding: 5px 6px; text-align: left; text-transform: uppercase; }
-        table.data td { border-bottom: 1px solid #dde5e2; padding: 4px 6px; vertical-align: top; }
-        table.data tbody tr:nth-child(even) td { background: #f7faf9; }
+        table.data th { background: #f1f1f1; color: #171717; font-size: 6.5px; font-weight: bold; padding: 5px 6px; text-align: left; text-transform: uppercase; }
+        table.data td { border-bottom: 1px solid #dedede; padding: 4px 6px; vertical-align: top; }
+        table.data tbody tr:nth-child(even) td { background: #f1f1f1; }
         table.data .number { text-align: right; white-space: nowrap; }
         table.data .center { text-align: center; }
         .two-column { table-layout: fixed; }
         .two-column > tbody > tr > td { vertical-align: top; width: 50%; }
         .two-column .left { padding-right: 7px; }
         .two-column .right { padding-left: 7px; }
-        .status { background: #e7f4ee; border-radius: 8px; color: #087e5b; display: inline-block; font-size: 6px; font-weight: bold; padding: 2px 6px; }
+        .status { background: #f1f1f1; border-radius: 8px; color: #171717; display: inline-block; font-size: 6px; font-weight: bold; padding: 2px 6px; }
         .page-break { page-break-before: always; }
         .avoid-break { page-break-inside: avoid; }
-        .footer { bottom: -18px; color: #809088; font-size: 6.5px; left: 0; position: fixed; right: 0; text-align: center; }
-        .muted { color: #6b7b74; }
-        .empty { color: #75837d; font-style: italic; padding: 12px !important; text-align: center; }
+        .footer { bottom: -18px; color: #525252; font-size: 6.5px; left: 0; position: fixed; right: 0; text-align: center; }
+        .muted { color: #525252; }
+        .empty { color: #525252; font-style: italic; padding: 12px !important; text-align: center; }
     </style>
+@include('reports.partials.document-style')
 </head>
 <body>
 @php
@@ -56,7 +57,7 @@
     <table class="header-table">
         <tr>
             <td class="brand-cell">
-                <img class="logo" src="{{ public_path('images/alpha-land-logo.png') }}" alt="Alpha Land">
+                <img class="logo" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/alpha-land-logo.png'))) }}" alt="Alpha Land">
                 <div class="brand">
                     <div class="eyebrow">{{ $organization['code'] }} operations</div>
                     <h1>Management Report</h1>

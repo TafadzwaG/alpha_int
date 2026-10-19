@@ -1,9 +1,9 @@
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { type User } from '@/types';
-import { Link } from '@inertiajs/react';
-import { LogOut, Settings } from 'lucide-react';
+import { type SharedData, type User } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { LogOut, RotateCcw, Settings } from 'lucide-react';
 
 interface UserMenuContentProps {
     user: User;
@@ -11,6 +11,7 @@ interface UserMenuContentProps {
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
+    const { impersonation } = usePage<SharedData>().props;
 
     return (
         <>
@@ -21,6 +22,14 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+                {impersonation.active && (
+                    <DropdownMenuItem asChild className="bg-emerald-700 text-white focus:bg-emerald-800 focus:text-white [&_svg]:text-white">
+                        <Link className="block w-full" method="post" href={route('impersonation.leave')} as="button" onClick={cleanup}>
+                            <RotateCcw />
+                            Return to {impersonation.impersonator?.name ?? 'administrator'}
+                        </Link>
+                    </DropdownMenuItem>
+                )}
                 <DropdownMenuItem asChild>
                     <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />

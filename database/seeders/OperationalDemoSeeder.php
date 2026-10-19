@@ -30,11 +30,15 @@ use App\Models\ReportRefreshLog;
 use App\Models\Role;
 use App\Models\Stand;
 use App\Models\StandAllocation;
+use App\Models\StandLegalCase;
+use App\Models\StandLegalCaseFile;
+use App\Models\StandLegalCaseNote;
 use App\Models\StandType;
 use App\Models\User;
 use App\Models\UserBranchAccess;
 use App\Models\WorkflowAction;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class OperationalDemoSeeder extends Seeder
@@ -114,10 +118,45 @@ class OperationalDemoSeeder extends Seeder
                         'currency_code' => 'USD',
                         'physical_status' => $status,
                         'survey_reference' => "{$bundle['development']->code}-P1-{$index}",
+                        'geo_json' => $this->demoParcelGeometry($developmentIndex, $index),
                     ],
                 ));
             }
         }
+
+        $flaggedStand = $stands->first();
+        $legalCase = StandLegalCase::updateOrCreate(
+            ['organization_id' => $organization->id, 'case_number' => 'LC-DEMO-001'],
+            [
+                'stand_id' => $flaggedStand->id,
+                'title' => 'Boundary and ownership dispute',
+                'case_type' => 'boundary_dispute',
+                'status' => 'in_court',
+                'priority' => 'high',
+                'court_name' => 'High Court of Zimbabwe',
+                'opposing_party' => 'Mupfumi Family Trust',
+                'opened_on' => now()->subMonths(2)->toDateString(),
+                'next_hearing_on' => now()->addDays(21)->toDateString(),
+                'summary' => 'Test legal hold: a neighbouring title holder disputes the surveyed eastern boundary. Do not transfer or amend this stand until Legal clears the hold.',
+                'created_by' => $admin->id,
+                'assigned_to' => $admin->id,
+            ],
+        );
+        foreach ([
+            'Legal hold opened after receipt of the claimant’s letter. Sales and transfer teams notified.',
+            'External counsel requested the approved survey diagram and title history for review.',
+        ] as $body) {
+            StandLegalCaseNote::updateOrCreate(
+                ['stand_legal_case_id' => $legalCase->id, 'body' => $body],
+                ['created_by' => $admin->id],
+            );
+        }
+        $seedDocumentPath = "legal-cases/{$organization->id}/{$flaggedStand->id}/{$legalCase->id}/demo-legal-notice.txt";
+        Storage::disk('local')->put($seedDocumentPath, "DEMO LEGAL NOTICE\n\nStand {$flaggedStand->stand_no} is subject to a test boundary dispute.\n");
+        StandLegalCaseFile::updateOrCreate(
+            ['stand_legal_case_id' => $legalCase->id, 'original_name' => 'demo-legal-notice.txt'],
+            ['disk' => 'local', 'path' => $seedDocumentPath, 'mime_type' => 'text/plain', 'size_bytes' => Storage::disk('local')->size($seedDocumentPath), 'uploaded_by' => $admin->id],
+        );
 
         $clientBlueprints = [
             ['CLI-1001', 'Tariro', 'Dube', 'HQ'], ['CLI-1002', 'Nyasha', 'Mlambo', 'NORTH'],
@@ -190,8 +229,8 @@ class OperationalDemoSeeder extends Seeder
                 ['installment_id' => $firstInstallment->id, 'amount' => $paymentAmount],
             );
             Receipt::updateOrCreate(
-                ['payment_id' => $payment->id],
-                ['organization_id' => $organization->id, 'receipt_no' => 'DEMO-RCT-'.str_pad((string) ($index + 1), 5, '0', STR_PAD_LEFT), 'issued_at' => $paymentDate, 'content_hash' => hash('sha256', "receipt-{$payment->id}"), 'qr_token_hash' => hash('sha256', "qr-{$payment->id}"), 'snapshot_json' => ['client' => "{$firstName} {$lastName}", 'amount' => $paymentAmount], 'issued_by' => $admin->id],
+                ['organization_id' => $organization->id, 'receipt_no' => 'DEMO-RCT-'.str_pad((string) ($index + 1), 5, '0', STR_PAD_LEFT)],
+                ['payment_id' => $payment->id, 'issued_at' => $paymentDate, 'content_hash' => hash('sha256', "receipt-{$payment->id}"), 'qr_token_hash' => hash('sha256', "qr-{$payment->id}"), 'snapshot_json' => ['client' => "{$firstName} {$lastName}", 'amount' => $paymentAmount], 'issued_by' => $admin->id],
             );
         }
 
@@ -273,5 +312,48 @@ class OperationalDemoSeeder extends Seeder
                 ['started_at' => now()->subMinutes(12), 'completed_at' => now()->subMinutes(10), 'watermark_from' => now()->subDay()->startOfDay(), 'row_count' => $rowCount, 'status' => 'completed'],
             );
         }
+    }
+
+    /**
+     * Create a small cadastral-style demo subdivision with a central road reserve.
+     * Coordinates use WGS84 longitude/latitude and deliberately vary each boundary
+     * so the map demonstrates real polygon shading rather than schematic tiles.
+     */
+    private function demoParcelGeometry(int $developmentIndex, int $standIndex): array
+    {
+        [$originLongitude, $originLatitude] = $developmentIndex === 0
+            ? [31.0872, -17.7168]
+            : [28.6418, -20.1184];
+
+        $column = ($standIndex - 1) % 4;
+        $row = intdiv($standIndex - 1, 4);
+        $parcelWidth = $developmentIndex === 0 ? 0.00108 : 0.00116;
+        $parcelDepth = $developmentIndex === 0 ? 0.00078 : 0.00084;
+        $roadReserve = 0.00034;
+        $longitude = $originLongitude + ($column * ($parcelWidth + 0.00005));
+        $north = $originLatitude - ($row * ($parcelDepth + $roadReserve));
+        $south = $north - $parcelDepth;
+        $edgeInset = [0.00002, -0.00003, 0.00004, -0.00001][$column];
+        $lowerInset = [-0.00003, 0.00002, -0.00001, 0.00003][$column];
+
+        $ring = [
+            [$longitude + $edgeInset, $north],
+            [$longitude + $parcelWidth + $edgeInset, $north - (0.00003 * ($column % 2))],
+            [$longitude + $parcelWidth + $lowerInset, $south],
+            [$longitude + $lowerInset, $south + (0.00002 * (($column + $row) % 2))],
+        ];
+        $ring[] = $ring[0];
+
+        return [
+            'type' => 'Polygon',
+            'coordinates' => [array_map(
+                fn (array $coordinate) => [round($coordinate[0], 6), round($coordinate[1], 6)],
+                $ring,
+            )],
+            'properties' => [
+                'source' => 'demo-cadastral-plan',
+                'spatial_reference' => 'EPSG:4326',
+            ],
+        ];
     }
 }

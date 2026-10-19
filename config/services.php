@@ -34,6 +34,20 @@ return [
         'timeout' => (int) env('ZIMRATE_TIMEOUT', 6),
     ],
 
+    'twilio' => [
+        'enabled' => filter_var(env('TWILIO_SMS_ENABLED', false), FILTER_VALIDATE_BOOL),
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'from' => env('TWILIO_FROM'),
+        'timeout' => (int) env('TWILIO_TIMEOUT', 10),
+        'webhook_base_url' => env('TWILIO_WEBHOOK_BASE_URL'),
+    ],
+
+    'audit' => [
+        'anchor_url' => env('AUDIT_ANCHOR_WEBHOOK_URL'),
+        'anchor_secret' => env('AUDIT_ANCHOR_SECRET'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

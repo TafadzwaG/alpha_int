@@ -12,6 +12,7 @@ class BankDeposit extends Model
     protected $fillable = [
         'branch_id',
         'bank_account_id',
+        'journal_entry_id',
         'deposit_date',
         'amount',
         'currency_code',
@@ -60,5 +61,10 @@ class BankDeposit extends Model
     public function items()
     {
         return $this->hasMany(BankDepositItem::class, 'bank_deposit_id');
+    }
+
+    public function journal()
+    {
+        return $this->belongsTo(JournalEntry::class, 'journal_entry_id');
     }
 }

@@ -27,7 +27,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('branch-selection.index', absolute: false));
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()
@@ -40,6 +40,20 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertGuest();
+    }
+
+    public function test_suspended_and_inactive_users_cannot_authenticate(): void
+    {
+        foreach (['suspended', 'inactive'] as $status) {
+            $user = User::factory()->create(['status' => $status]);
+
+            $this->post('/login', [
+                'email' => $user->email,
+                'password' => 'password',
+            ]);
+
+            $this->assertGuest();
+        }
     }
 
     public function test_users_can_logout()
